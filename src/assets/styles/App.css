@@ -1,0 +1,41 @@
+:root {
+  /* Colors */
+  --clr-primary: #588157;
+  --clr-secondary: #FFFFFF;
+  --clr-accent: #EEECE8;
+  --clr-dark: #344E41;
+  --clr-button: #3A5A40;
+
+  /* Fonts */
+  --ff-headings: "Montserrat", sans-serif;
+  --ff-body: "Montserrat", sans-serif;
+
+  /* Font Weights */
+  --fw-bold: 700;
+  --fw-medium: 500;
+  --fw-regular: 400;
+}
+
+/* Typography */
+* {
+  font-family: var(--ff-headings);
+}
+
+.Hero {
+  background-color: var(--clr-primary);
+}
+
+.title {
+  color: var(--clr-accent);
+  font-weight: 700;
+}
+
+.btn {
+  background-color: var(--clr-button);
+  color: var(--clr-accent);
+}
+
+.btn:hover {
+  background-color: var(--clr-accent);
+  color: var(--clr-dark);
+}
