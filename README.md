@@ -1,3 +1,8 @@
+# HomeLibrary
+
+## Project Overview
+HomeLibrary allows users to catalog their book collections and keep track of their reading.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
