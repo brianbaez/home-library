@@ -21,13 +21,13 @@
   font-family: var(--ff-headings);
 }
 
-.Hero {
+.Hero, .Features, .Footer {
   background-color: var(--clr-primary);
+  color: var(--clr-accent);
 }
 
-.title {
-  color: var(--clr-accent);
-  font-weight: 700;
+.Summary, .FAQ {
+  color: var(--clr-dark);
 }
 
 .btn {
@@ -37,5 +37,16 @@
 
 .btn:hover {
   background-color: var(--clr-accent);
+  color: var(--clr-dark);
+}
+
+.Icon {
+  background-color: var(--clr-accent);
+  width: 75px;
+  height: 75px;
+  border-radius: 20%;
+}
+
+.Icon i {
   color: var(--clr-dark);
 }
