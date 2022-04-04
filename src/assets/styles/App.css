@@ -50,3 +50,21 @@
 .Icon i {
   color: var(--clr-dark);
 }
+
+.Hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.Books-background {
+  opacity: 10%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+}
+
+.title {
+  position: relative;
+  min-height: 33vh;
+}
