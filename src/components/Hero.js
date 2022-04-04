@@ -8,6 +8,8 @@ function Hero() {
   return (
     <div className="Hero">
       <div className="container d-flex">
+        <img className="Books-background img-fluid d-sm-block d-lg-none" src={harryPotterBooks} alt="harry-potter-books"></img>
+
         <div className="title flex-fill d-flex flex-column justify-content-center">
           <h2 className="fw-regular">Your</h2>
           <h1 className="fw-bolder">HomeLibrary</h1>
@@ -18,7 +20,7 @@ function Hero() {
           </div>
         </div>
 
-        <div className="Books d-none d-md-block ms-5">
+        <div className="Books d-none d-lg-block ms-5">
           <img className="img-fluid" src={harryPotterBooks} alt="harry-potter-books"></img>
         </div>
       </div>
