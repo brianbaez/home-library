@@ -7,7 +7,7 @@ function Summary() {
   return (
     <div className="Summary">
       <div className="container mt-5">
-        <h3 className="text-center mb-5">It's never been easier to catalog your <strong>HomeLibrary</strong>, no matter the size of your collection.</h3>
+        <h2 className="text-center mb-5">It's never been easier to catalog your <strong>HomeLibrary</strong>, no matter the size of your collection.</h2>
 
         <div className="d-flex flex-column-reverse flex-lg-row">
           <div className="mt-5 mt-lg-0">
