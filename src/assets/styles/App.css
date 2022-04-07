@@ -3,7 +3,7 @@
   --clr-primary: #588157;
   --clr-secondary: #FFFFFF;
   --clr-accent: #EEECE8;
-  --clr-dark: #344E41;
+  --clr-dark: #293D33;
   --clr-button: #3A5A40;
 
   /* Fonts */
@@ -21,7 +21,16 @@
   font-family: var(--ff-headings);
 }
 
-.Hero, .Features, .Footer {
+a {
+  color: var(--clr-dark);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--clr-dark);
+}
+
+.Hero, .Features, .Footer, .SignIn, .SignUp, .ResetPassword {
   background-color: var(--clr-primary);
   color: var(--clr-accent);
 }
@@ -36,8 +45,8 @@
 }
 
 .btn:hover {
-  background-color: var(--clr-accent);
-  color: var(--clr-dark);
+  background-color: var(--clr-dark);
+  color: var(--clr-accent);
 }
 
 .Icon {
@@ -67,4 +76,13 @@
 .title {
   position: relative;
   min-height: 33vh;
+}
+
+.SignIn, .SignUp, .ResetPasswod {
+  height: 100vh;
+}
+
+form {
+  color: var(--clr-dark);
+  background-color: var(--clr-accent);
 }
