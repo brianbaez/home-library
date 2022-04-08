@@ -12,7 +12,7 @@ function SignInPage() {
         <div className="mt-4">
           <h2 className="text-center">Sign In</h2>
 
-          <form className="p-4">
+          <form className="sign-in-form p-4">
             <div className="form-floating mb-3">
               <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com"></input>
               <label for="floatingEmail">Email address</label>
