@@ -6,13 +6,16 @@ import SignUpPage from "../pages/SignUpPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage";
 import HomePage from "../pages/HomePage";
 import MyBooksPage from "../pages/MyBooksPage";
+import BookPage from "../pages/BookPage";
+import StatsPage from "../pages/StatsPage";
+import ReadingChallengesPage from "../pages/ReadingChallengesPage";
 
 import "../assets/styles/App.css";
 
 function App() {
   return (
     <div className="App">
-      <MainPage />
+      <HomePage />
     </div>
   );
 }
