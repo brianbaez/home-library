@@ -30,7 +30,7 @@ a:hover {
   color: var(--clr-dark);
 }
 
-.Hero, .Features, .Footer, .SignIn, .SignUp, .ResetPassword {
+.Hero, .Features, .Footer, .SignIn, .SignUp, .ResetPassword, .Navbar {
   background-color: var(--clr-primary);
   color: var(--clr-accent);
 }
@@ -82,7 +82,15 @@ a:hover {
   height: 100vh;
 }
 
-form {
+nav a {
+  color: var(--clr-accent) !important;
+}
+
+.dropdown-menu a {
+  color: var(--clr-dark) !important;
+}
+
+.sign-in-form, .sign-up-form {
   color: var(--clr-dark);
   background-color: var(--clr-accent);
 }
