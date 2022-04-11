@@ -94,3 +94,7 @@ nav a {
   color: var(--clr-dark);
   background-color: var(--clr-accent);
 }
+
+.home-content, .mybooks-content {
+  color: var(--clr-dark);
+}
