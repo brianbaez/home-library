@@ -1,4 +1,5 @@
 import React from "react";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 import MainPage from "../pages/MainPage";
 import SignInPage from "../pages/SignInPage";
@@ -14,9 +15,16 @@ import "../assets/styles/App.css";
 
 function App() {
   return (
-    <div className="App">
-      <HomePage />
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/my-books" element={<MyBooksPage />} />
+          <Route path="/my-stats" element={<StatsPage />} />
+          <Route path="/my-reading-challenges" element={<ReadingChallengesPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
