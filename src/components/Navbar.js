@@ -1,4 +1,5 @@
 import React from "react";
+import {NavLink} from "react-router-dom";
 
 import {navItems} from "./NavbarItems";
 
@@ -6,7 +7,7 @@ function Navbar() {
   return (
     <div className="Navbar">
       <nav className="container navbar navbar-expand-lg navbar-light">
-        <a className="navbar-brand fs-4" href="#">HomeLibrary</a>
+        <NavLink className="navbar-brand fs-3" to="/">HomeLibrary</NavLink>
 
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -17,7 +18,7 @@ function Navbar() {
             {navItems.map((item) => {
               return (
                 <li key={item.id} className="nav-item ms-lg-1 me-lg-1">
-                  <a className="nav-link" href="#">{item.name}</a>
+                  <NavLink className="nav-link" to={item.path}>{item.name}</NavLink>
                 </li>
               );
             })}
