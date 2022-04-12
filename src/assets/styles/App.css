@@ -78,7 +78,7 @@ a:hover {
   min-height: 33vh;
 }
 
-.SignIn, .SignUp, .ResetPasswod {
+.SignIn, .SignUp, .ResetPassword {
   height: 100vh;
 }
 
@@ -90,9 +90,13 @@ nav a {
   color: var(--clr-dark) !important;
 }
 
-.sign-in-form, .sign-up-form {
+.sign-in-form, .sign-up-form, .reset-password-form {
   color: var(--clr-dark);
   background-color: var(--clr-accent);
+}
+
+.home-library-icon * {
+  color: var(--clr-accent) !important;
 }
 
 .home-content, .mybooks-content {
