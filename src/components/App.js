@@ -18,7 +18,14 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<MainPage />} />
+          <Route path="/signin" element={<SignInPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/resetpassword" element={<ResetPasswordPage />} />
+        </Routes>
+
+        <Routes>
+          <Route path="/home" element={<HomePage />} />
           <Route path="/my-books" element={<MyBooksPage />} />
           <Route path="/my-stats" element={<StatsPage />} />
           <Route path="/my-reading-challenges" element={<ReadingChallengesPage />} />
