@@ -7,7 +7,7 @@ function Navbar() {
   return (
     <div className="Navbar">
       <nav className="container navbar navbar-expand-lg navbar-light">
-        <NavLink className="navbar-brand fs-3" to="/">HomeLibrary</NavLink>
+        <NavLink className="navbar-brand fs-3" to="/home">HomeLibrary</NavLink>
 
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
