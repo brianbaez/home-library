@@ -26,7 +26,7 @@ function Navbar() {
 
           <form className="d-flex">
             <input className="form-control me-2" type="search" placeholder="Search books" aria-label="Search books"></input>
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <button className="btn btn-outline-success" type="submit">Search</button>
           </form>
 
           <div className="Profile mt-3 ms-lg-5 mt-lg-0">
@@ -34,12 +34,12 @@ function Navbar() {
               <ul className="navbar-nav">
                 <li className="dropdown">
                   <a className="dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <i class="fa-solid fa-user fa-2x"></i>
+                    <i className="fa-solid fa-user fa-2x"></i>
                   </a>
                   <div className="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                     <a className="dropdown-item" href="#">Profile</a>
                     <a className="dropdown-item" href="#">Manage Account</a>
-                    <div class="dropdown-divider"></div>
+                    <div className="dropdown-divider"></div>
                     <a className="dropdown-item" href="#">Sign Out</a>
                   </div>
                 </li>

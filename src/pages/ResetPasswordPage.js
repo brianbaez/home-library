@@ -18,7 +18,7 @@ function ResetPasswordPage() {
           <form className="reset-password-form p-4">
             <div className="form-floating mb-3">
               <input type="email" className="form-control" id="floatingEmail" placeholder="name@example.com"></input>
-              <label for="floatingEmail">Email address</label>
+              <label htmlFor="floatingEmail">Email address</label>
             </div>
 
             <button className="w-100 btn btn-lg" type="submit">Send Instructions</button>

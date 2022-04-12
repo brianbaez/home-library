@@ -19,7 +19,7 @@ function MyBooksPage() {
               </div>
               <form className="d-flex">
                 <input className="form-control me-2" type="search" placeholder="Search my books" aria-label="Search my books"></input>
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <button className="btn btn-outline-success" type="submit">Search</button>
               </form>
             </div>
           </div>
@@ -28,7 +28,7 @@ function MyBooksPage() {
         <hr className="mt-2"></hr>
 
         <div className="row">
-          <div class="col col-3 d-none-sm d-block-lg">
+          <div className="col col-3 d-none-sm d-block-lg">
             <div>
               <div className="bookshelves">
                 <h5>Bookshelves</h5>
@@ -43,7 +43,7 @@ function MyBooksPage() {
             </div>
           </div>
 
-          <div class="col col-9">
+          <div className="col col-9">
             <div className="col-content">
             </div>
           </div>

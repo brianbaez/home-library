@@ -17,26 +17,26 @@ function SignInPage() {
 
           <form className="sign-in-form p-4">
             <div className="form-floating mb-3">
-              <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com"></input>
-              <label for="floatingEmail">Email address</label>
+              <input type="email" className="form-control" id="floatingEmail" placeholder="name@example.com"></input>
+              <label htmlFor="floatingEmail">Email address</label>
             </div>
 
             <div className="form-floating mb-3">
-              <input type="password" class="form-control" id="floatingPassword" placeholder="Password"></input>
-              <label for="floatingPassword">Password</label>
+              <input type="password" className="form-control" id="floatingPassword" placeholder="Password"></input>
+              <label htmlFor="floatingPassword">Password</label>
               <div className="mt-1">
                 <Link to="/resetpassword">Forgot your password?</Link>
               </div>
             </div>
 
-            <div class="checkbox mb-3">
+            <div className="checkbox mb-3">
               <label className="d-flex justify-content-center align-items-center">
                 <input type="checkbox" value="remember-me"></input>
                 <p className="mb-0 ms-1">Remember Me</p>
               </label>
             </div>
 
-            <button class="w-100 btn btn-lg" type="submit">Sign In</button>
+            <button className="w-100 btn btn-lg" type="submit">Sign In</button>
 
             <div className="text-center mt-3">
               <Link to="/signup">Don't have an account yet? Sign up</Link>

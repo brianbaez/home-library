@@ -17,26 +17,26 @@ function SignUpPage() {
 
           <form className="sign-up-form p-4">
             <div className="form-floating mb-3">
-              <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com"></input>
-              <label for="floatingEmail">Email address</label>
+              <input type="email" className="form-control" id="floatingEmail" placeholder="name@example.com"></input>
+              <label htmlFor="floatingEmail">Email address</label>
             </div>
 
             <div className="form-floating mb-3">
-              <input type="text" class="form-control" id="floatingUsername" placeholder="Username"></input>
-              <label for="floatingUsername">Username</label>
+              <input type="text" className="form-control" id="floatingUsername" placeholder="Username"></input>
+              <label htmlFor="floatingUsername">Username</label>
             </div>
 
             <div className="form-floating mb-3">
-              <input type="password" class="form-control" id="floatingPassword" placeholder="Password"></input>
-              <label for="floatingPassword">Password</label>
+              <input type="password" className="form-control" id="floatingPassword" placeholder="Password"></input>
+              <label htmlFor="floatingPassword">Password</label>
             </div>
 
             <div className="form-floating mb-3">
-              <input type="password" class="form-control" id="floatingPasswordConfirmation" placeholder="Confirm Password"></input>
-              <label for="floatingPassword">Confirm password</label>
+              <input type="password" className="form-control" id="floatingPasswordConfirmation" placeholder="Confirm Password"></input>
+              <label htmlFor="floatingPassword">Confirm password</label>
             </div>
 
-            <button class="w-100 btn btn-lg" type="submit">Sign Up</button>
+            <button className="w-100 btn btn-lg" type="submit">Sign Up</button>
 
             <div className="text-center mt-3">
               <Link to="/signin">Already have an account? Sign in</Link>
