@@ -1,12 +1,15 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 function SignInPage() {
   return (
     <div className="SignIn d-flex justify-content-center align-items-center">
       <div className="p-5">
         <div className="home-library-icon text-center">
-          <i class="fa-solid fa-book-open fa-5x mb-2"></i>
-          <h1>HomeLibrary</h1>
+          <Link to="/">
+            <i className="fa-solid fa-book-open fa-5x mb-2"></i>
+            <h1>HomeLibrary</h1>
+          </Link>
         </div>
 
         <div className="mt-4">
@@ -22,7 +25,7 @@ function SignInPage() {
               <input type="password" class="form-control" id="floatingPassword" placeholder="Password"></input>
               <label for="floatingPassword">Password</label>
               <div className="mt-1">
-                <a className="text-start" href="/">Forgot your password?</a>
+                <Link to="/resetpassword">Forgot your password?</Link>
               </div>
             </div>
 
@@ -36,7 +39,7 @@ function SignInPage() {
             <button class="w-100 btn btn-lg" type="submit">Sign In</button>
 
             <div className="text-center mt-3">
-              <a href="#">Don't have an account yet? Sign up</a>
+              <Link to="/signup">Don't have an account yet? Sign up</Link>
             </div>
           </form>
         </div>

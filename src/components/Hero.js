@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 import Button from "./Button";
 
@@ -15,8 +16,12 @@ function Hero() {
           <h1 className="fw-bolder">HomeLibrary</h1>
 
           <div className="buttons d-flex">
-            <Button name="Sign In"/>
-            <Button name="Sign Up"/>
+            <Link to="/signin">
+              <Button name="Sign In"/>
+            </Link>
+            <Link to="/signup">
+              <Button name="Sign Up"/>
+            </Link>
           </div>
         </div>
 

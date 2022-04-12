@@ -1,12 +1,15 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 function SignUpPage() {
   return (
     <div className="SignUp d-flex justify-content-center align-items-center">
       <div className="p-5">
         <div className="home-library-icon text-center">
-          <i class="fa-solid fa-book-open fa-5x mb-2"></i>
-          <h1>HomeLibrary</h1>
+          <Link to="/">
+            <i className="fa-solid fa-book-open fa-5x mb-2"></i>
+            <h1>HomeLibrary</h1>
+          </Link>
         </div>
 
         <div className="mt-4">
@@ -36,7 +39,7 @@ function SignUpPage() {
             <button class="w-100 btn btn-lg" type="submit">Sign Up</button>
 
             <div className="text-center mt-3">
-              <a href="#">Already have an account? Sign in</a>
+              <Link to="/signin">Already have an account? Sign in</Link>
             </div>
           </form>
         </div>
