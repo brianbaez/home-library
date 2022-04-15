@@ -1,9 +1,16 @@
 import React from "react";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 
 import {navItems} from "./NavbarItems";
 
 function Navbar() {
+  let navigate = useNavigate();
+
+  const logOutHandler = () => {
+    localStorage.removeItem("authToken");
+    navigate("/");
+  };
+
   return (
     <div className="Navbar">
       <nav className="container navbar navbar-expand-lg navbar-light">
@@ -40,7 +47,7 @@ function Navbar() {
                     <a className="dropdown-item" href="#">Profile</a>
                     <a className="dropdown-item" href="#">Manage Account</a>
                     <div className="dropdown-divider"></div>
-                    <a className="dropdown-item" href="#">Sign Out</a>
+                    <a className="dropdown-item" href="/" onClick={logOutHandler}>Sign Out</a>
                   </div>
                 </li>
               </ul>
