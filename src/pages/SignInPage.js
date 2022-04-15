@@ -1,7 +1,45 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import axios from "axios";
 
 function SignInPage() {
+  let navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if(localStorage.getItem("authToken")) {
+      navigate("/home");
+    }
+  });
+
+  const signInHandler = async (e) => {
+    e.preventDefault();
+
+    const config = {
+      header: {
+        "Content-Type": "application/json"
+      }
+    }
+
+    try {
+      const {data} = await axios.post("/api/auth/signin", {email, password}, config);
+
+      localStorage.setItem("authToken", data.token);
+
+      navigate("/home");
+    }
+    catch(error) {
+      setError(error.response.data.error);
+
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+    }
+  }
+
   return (
     <div className="SignIn d-flex justify-content-center align-items-center">
       <div className="p-5">
@@ -15,17 +53,19 @@ function SignInPage() {
         <div className="mt-4">
           <h2 className="text-center">Sign In</h2>
 
-          <form className="sign-in-form p-4">
+          <form className="sign-in-form p-4" onSubmit={signInHandler}>
+            {error && <span className="error-message">{error}</span>}
+
             <div className="form-floating mb-3">
-              <input type="email" className="form-control" id="floatingEmail" placeholder="name@example.com"></input>
+              <input required type="email" className="form-control" id="floatingEmail" placeholder="name@example.com" value={email} onChange={(e) => setEmail(e.target.value)}></input>
               <label htmlFor="floatingEmail">Email address</label>
             </div>
 
             <div className="form-floating mb-3">
-              <input type="password" className="form-control" id="floatingPassword" placeholder="Password"></input>
+              <input required type="password" className="form-control" id="floatingPassword" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
               <label htmlFor="floatingPassword">Password</label>
               <div className="mt-1">
-                <Link to="/resetpassword">Forgot your password?</Link>
+                <Link to="/forgotpassword">Forgot your password?</Link>
               </div>
             </div>
 
