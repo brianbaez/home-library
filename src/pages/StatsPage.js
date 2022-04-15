@@ -1,13 +1,15 @@
 import React from "react";
-
-import Navbar from "../components/Navbar";
+import useAuth from "../components/hooks/useAuth";
 
 function StatsPage() {
-  return (
-    <div>
-      <Navbar />
-    </div>
-  );
+  const isAuth = useAuth({path: "my-stats"});
+
+  if(isAuth) {
+    return (
+      <div>
+      </div>
+    );
+  }
 }
 
 export default StatsPage;

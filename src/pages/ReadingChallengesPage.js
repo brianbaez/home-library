@@ -1,13 +1,15 @@
 import React from "react";
-
-import Navbar from "../components/Navbar";
+import useAuth from "../components/hooks/useAuth";
 
 function ReadingChallengesPage() {
-  return (
-    <div>
-      <Navbar />
-    </div>
-  );
+  const isAuth = useAuth({path: "my-reading-challenges"});
+
+  if(isAuth) {
+    return (
+      <div>
+      </div>
+    );
+  }
 }
 
 export default ReadingChallengesPage;
