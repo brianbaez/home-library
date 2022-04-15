@@ -30,7 +30,7 @@ a:hover {
   color: var(--clr-dark);
 }
 
-.Hero, .Features, .Footer, .SignIn, .SignUp, .ResetPassword, .Navbar {
+.Hero, .Features, .Footer, .SignIn, .SignUp, .ForgotPassword, .ResetPassword, .Navbar {
   background-color: var(--clr-primary);
   color: var(--clr-accent);
 }
@@ -78,7 +78,7 @@ a:hover {
   min-height: 33vh;
 }
 
-.SignIn, .SignUp, .ResetPassword {
+.SignIn, .SignUp, .ForgotPassword, .ResetPassword {
   height: 100vh;
 }
 
@@ -90,7 +90,7 @@ nav a {
   color: var(--clr-dark) !important;
 }
 
-.sign-in-form, .sign-up-form, .reset-password-form {
+.sign-in-form, .sign-up-form, .forgot-password-form, .reset-password-form {
   color: var(--clr-dark);
   background-color: var(--clr-accent);
 }
