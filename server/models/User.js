@@ -40,9 +40,6 @@ UserSchema.pre("save", async function(next) {
 });
 
 UserSchema.methods.matchPasswords = async function(password) {
-  console.log("Entered Password: " + password);
-  console.log("User Password: " + this.password);
-
   return await bcrypt.compare(password, this.password);
 }
 
