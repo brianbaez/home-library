@@ -42,8 +42,6 @@ exports.signup = async (req, res, next) => {
       password
     });
 
-    console.log("User created");
-
     sendToken(user, 201, res);
 
     return;
@@ -68,15 +66,12 @@ exports.forgotpassword = async (req, res, next) => {
     await user.save();
 
     const resetURL = `http://localhost:3000/resetpassword/${resetToken}`;
-    console.log(resetURL);
 
     const message = `
       <h1>You have requested a password reset</h1>
       <p>Please go to this link to reset your password</p>
       <a href=${resetURL} clicktracking=off>${resetURL}</a>
     `;
-
-    console.log(message);
 
     try {
       await sendEmail({
@@ -146,8 +141,6 @@ function sendToken(user, statusCode, res) {
     success: true,
     token
   });
-
-  console.log("Token sent");
 
   return;
 }
