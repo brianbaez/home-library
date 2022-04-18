@@ -23,8 +23,6 @@ exports.protect = async (req, res, next) => {
 
     req.user = user;
 
-    console.log(next);
-
     return next();
   }
   catch(error) {
