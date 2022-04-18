@@ -3,6 +3,27 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
+const bookSchema = mongoose.Schema({
+  title: String,
+  author: String,
+  pages: Number,
+  description: {
+    type: String,
+    default: ""
+  },
+  isbn: Number,
+  bookshelves: {
+    type: [String],
+    default: []
+  }
+});
+
+const librarySchema = mongoose.Schema({
+  books: {
+    type: [bookSchema]
+  }
+});
+
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -25,7 +46,11 @@ const UserSchema = new mongoose.Schema({
     select: false
   },
   resetPasswordToken: String,
-  resetPasswordExpire: Date
+  resetPasswordExpire: Date,
+  library: {
+    type: librarySchema,
+    default: {}
+  }
 });
 
 UserSchema.pre("save", async function(next) {
