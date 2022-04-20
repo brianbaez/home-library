@@ -11,7 +11,9 @@ const app = express();
 app.use(express.json());
 
 app.use("/api/auth", require("./routes/auth"));
-app.use("/api/private", require("./routes/private"));
+app.use("/api/private", require("./routes/private/private"));
+app.use("/api/private", require("./routes/private/books"));
+app.use("/api/private", require("./routes/private/bookshelves"));
 
 app.use(errorHandler);
 
