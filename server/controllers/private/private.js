@@ -1,5 +1,5 @@
-const User = require("../models/User");
-const ErrorResponse = require("../utils/ErrorResponse");
+const User = require("../../models/User");
+const ErrorResponse = require("../../utils/ErrorResponse");
 
 exports.getPrivateHomeData = (req, res, next) => {
   res.status(200).json({
