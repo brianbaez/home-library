@@ -13,8 +13,7 @@ const bookSchema = mongoose.Schema({
   },
   isbn: Number,
   bookshelves: {
-    type: [String],
-    default: []
+    type: [String]
   }
 });
 
