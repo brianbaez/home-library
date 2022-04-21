@@ -1,5 +1,6 @@
 const User = require("../../models/User");
 const ErrorResponse = require("../../utils/ErrorResponse");
+const {checkUser, checkBook, checkBookshelf} = require("./helper");
 
 exports.getBookshelf = async (req, res, next) => {
   const userData = req.user;
@@ -10,14 +11,11 @@ exports.getBookshelf = async (req, res, next) => {
   }
 
   try{
-    // Check if user matches
-    const user = await User.findOne({"_id": userData._id});
-
-    if(!user) {
+    if(!(await checkUser(userData._id))) {
       return next(new ErrorResponse("Failed to get bookshelf", 401));
     }
 
-    // Check if any books are in the bookshelf
+    // Get all books in the bookshelf
     const bookshelf = await User.aggregate([
       {$match: {"_id": userData._id}},
       {$unwind: "$library.books"},
@@ -55,40 +53,23 @@ exports.addToBookshelf = async (req, res, next) => {
   }
 
   try {
-    // Check if user matches
-    const user = await User.findOne({"_id": userData._id});
-
-    if(!user) {
+    console.log("user");
+    if(!(await checkUser(userData._id))) {
       return next(new ErrorResponse("Failed to add to bookshelf", 401));
     }
 
-    // Check if book already exists
-    const bookExists = await User.findOne(
-      {$and: [
-        {"_id" : userData._id},
-        {"library.books.isbn": {$eq: isbn}}
-      ]}
-    );
-
-    if(!bookExists) {
+    console.log("book");
+    if(!(await checkBook(userData._id, isbn))) {
       return next(new ErrorResponse("This book is not in your library", 404));
     }
 
-    // Check if book is already in that bookshelf
-    const findBook = await User.aggregate([
-      {$match: {"_id": userData._id}},
-      {$unwind: "$library.books"},
-      {$match: {
-        "library.books.isbn": {$eq: isbn},
-        "library.books.bookshelves": {$eq: bookshelfName}
-      }}
-    ]);
-
-    if(findBook.length !== 0) {
+    console.log("bookshelf");
+    if((await checkBookshelf(userData._id, isbn, bookshelfName)).length !== 0) {
       return next(new ErrorResponse("This book is already in that bookshelf", 409));
     }
 
-    const addBookshelf = await User.updateOne(
+    // Add book to bookshelf
+    await User.updateOne(
       {$and: [
         {"_id": userData._id},
         {"library.books.isbn": {$eq: isbn}}
@@ -100,7 +81,7 @@ exports.addToBookshelf = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      message: "Book has been added to the bookshelf"
+      message: "Book has been added to the bookshelf",
     });
   }
   catch(error) {
@@ -117,55 +98,35 @@ exports.deleteFromBookshelf = async (req, res, next) => {
   }
 
   try{
-    // Check if user matches
-    const user = await User.findOne({"_id": userData._id});
-
-    if(!user) {
-      return next(new ErrorResponse("Failed to remove from bookshelf", 401));
+    if(!(await checkUser(userData._id))) {
+      return next(new ErrorResponse("Failed to delete from bookshelf", 401));
     }
 
-    // Check if book already exists
-    const bookExists = await User.findOne(
-      {$and: [
-        {"_id" : userData._id},
-        {"library.books.isbn": {$eq: isbn}}
-      ]}
-    );
-
-    if(!bookExists) {
+    if(!(await checkBook(userData._id, isbn))) {
       return next(new ErrorResponse("This book is not in your library", 404));
     }
 
-    // Check if book is in the bookshelf
-    const findBook = await User.aggregate([
-      {$match: {"_id": userData._id}},
-      {$unwind: "$library.books"},
-      {$match: {
-        "library.books.isbn": {$eq: isbn},
-        "library.books.bookshelves": {$eq: bookshelfName}
-      }}
-    ]);
-
-    if(findBook.length === 0) {
-      return next(new ErrorResponse("This book is not in that bookshelf", 409));
+    if((await checkBookshelf(userData._id, isbn, bookshelfName)).length === 0) {
+      return next(new ErrorResponse("This book is not in that bookshelf", 404));
     }
 
-    const deleteBookshelf = await User.updateOne(
+    // Delete book from bookshelf
+    await User.updateOne(
       {$and: [
         {"_id": userData._id},
         {"library.books.isbn": {$eq: isbn}}
       ]},
       {$pull: {
-        "library.books.$.bookshelves": bookshelfName
+        "library.books.$.bookshelves": {$eq: bookshelfName}
       }}
     );
 
     res.status(200).json({
       success: true,
-      message: "Book has been removed from bookshelf"
+      message: "Book has been deleted from bookshelf"
     });
   }
   catch(error) {
-    return next(new ErrorResponse("Failed to remove from bookshelf", 401));
+    return next(new ErrorResponse("Failed to delete from bookshelf", 401));
   }
 }

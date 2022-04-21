@@ -1,15 +1,13 @@
 const User = require("../../models/User");
 const ErrorResponse = require("../../utils/ErrorResponse");
+const {checkUser, checkBook} = require("./helper");
 
 exports.getBook = async (req, res, next) => {
   const userData = req.user;
   const {isbn} = req.params;
 
   try {
-    // Check if user matches
-    const user = await User.findOne({"_id": userData._id});
-
-    if(!user) {
+    if(!(await checkUser(userData._id))) {
       return next(new ErrorResponse("Failed to get book", 401));
     }
 
@@ -23,7 +21,7 @@ exports.getBook = async (req, res, next) => {
 
       books = library.books;
     }
-    // Only get the book that matches the isbn
+    // Only get the book that matches the ISBN
     else {
       const {library} = await User.findOne(
         {$and: [
@@ -43,7 +41,7 @@ exports.getBook = async (req, res, next) => {
     });
   }
   catch(error) {
-    return next(new ErrorResponse("Failed to get book", 401));
+    return next(new ErrorResponse("Failed to get books", 401));
   }
 }
 
@@ -56,27 +54,16 @@ exports.addBook = async (req, res, next) => {
   }
 
   try {
-    // Check if user matches
-    const user = await User.findOne({"_id" : userData._id});
-
-    if(!user) {
+    if(!(await checkUser(userData._id))) {
       return next(new ErrorResponse("Failed to add book", 401));
     }
 
-    // Check if book already exists
-    const book = await User.findOne(
-      {$and: [
-        {"_id" : userData._id},
-        {"library.books.isbn": {$eq: isbn}}
-      ]}
-    );
-
-    if(book) {
+    if(await checkBook(userData._id, isbn)) {
       return next(new ErrorResponse("This book is already in your library", 409));
     }
 
-    // Update/add to books array
-    const add = await User.updateOne(
+    // Add book to books array
+    await User.updateOne(
       {"_id": userData._id},
       {$push: {
         "library.books": {
@@ -92,8 +79,7 @@ exports.addBook = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      message: "Book has been added",
-      title: title
+      message: "Book has been added"
     });
   }
   catch(error) {
@@ -110,29 +96,19 @@ exports.deleteBook = async (req, res, next) => {
   }
 
   try {
-    // Check if user matches
-    const user = await User.findOne({"_id" : userData._id});
-
-    if(!user) {
-      return next(new ErrorResponse("Failed to remove book", 401));
+    if(!(await checkUser(userData._id))) {
+      return next(new ErrorResponse("Failed to delete book", 401));
     }
 
-    // Check if book exists
-    const book = await User.findOne(
-      {$and: [
-        {"_id" : userData._id},
-        {"library.books.isbn": {$eq: isbn}}
-      ]}
-    );
-
-    if(!book) {
+    if(!(await checkBook(userData._id, isbn))) {
       return next(new ErrorResponse("This book is not in your library", 404));
     }
 
-    const deleteBook = await User.updateOne(
+    // Delete book from books array
+    await User.updateOne(
       {"_id": userData._id},
       {$pull: {
-        "library.books": {"isbn": isbn}
+        "library.books": {"isbn": {$eq: isbn}}
       }}
     );
 
@@ -142,6 +118,6 @@ exports.deleteBook = async (req, res, next) => {
     });
   }
   catch(error) {
-    return next(new ErrorResponse("Failed to remove book", 401));
+    return next(new ErrorResponse("Failed to delete book", 401));
   }
 }
