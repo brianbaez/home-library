@@ -53,17 +53,14 @@ exports.addToBookshelf = async (req, res, next) => {
   }
 
   try {
-    console.log("user");
     if(!(await checkUser(userData._id))) {
       return next(new ErrorResponse("Failed to add to bookshelf", 401));
     }
 
-    console.log("book");
     if(!(await checkBook(userData._id, isbn))) {
       return next(new ErrorResponse("This book is not in your library", 404));
     }
 
-    console.log("bookshelf");
     if((await checkBookshelf(userData._id, isbn, bookshelfName)).length !== 0) {
       return next(new ErrorResponse("This book is already in that bookshelf", 409));
     }
