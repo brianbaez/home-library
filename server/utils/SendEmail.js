@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer");
 const sgMail = require("@sendgrid/mail");
 
 const sendEmail = (options) => {
-  sgMail.setApiKey(process.env.SENGGRID_API_KEY);
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
   const message = {
     from: process.env.EMAIL_FROM,
