@@ -53,8 +53,6 @@ exports.editChallenge = async (req, res, next) => {
 
     // Check if the given year exists in the challenges array
     if((await checkChallenge(userData._id, year)).length === 0) {
-      console.log("No challenges are set for " + year);
-
       // Create an array element for that year
       await User.updateOne(
         {"_id": userData._id},
