@@ -26,3 +26,12 @@ exports.checkBookshelf = async (id, isbn, bookshelfName) => {
     }}
   ]);
 }
+
+// Check if challenge for a year exists
+exports.checkChallenge = async (id, year) => {
+  return await User.aggregate([
+    {$match: {"_id": id}},
+    {$unwind: "$challenges"},
+    {$match: {"challenges.year": {$eq: year}}}
+  ]);
+}
