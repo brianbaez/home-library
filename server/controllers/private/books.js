@@ -47,7 +47,7 @@ exports.getBook = async (req, res, next) => {
 
 exports.addBook = async (req, res, next) => {
   const userData = req.user;
-  const {title, author, pages, description, isbn, bookshelves} = req.body;
+  const {title, author, pages, description, isbn, bookshelves, journal} = req.body;
 
   if(!title || !author || !pages || !isbn) {
     return next(new ErrorResponse("All required fields were not provided", 400));
@@ -72,7 +72,8 @@ exports.addBook = async (req, res, next) => {
           "pages": pages,
           "description": description,
           "isbn": isbn,
-          "bookshelves": bookshelves
+          "bookshelves": bookshelves,
+          "journal": journal
         }
       }}
     );
