@@ -23,6 +23,12 @@ const librarySchema = mongoose.Schema({
   }
 });
 
+const goalSchema = mongoose.Schema({
+  year: Number,
+  bookGoal: Number,
+  pageGoal: Number
+});
+
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -49,6 +55,9 @@ const UserSchema = new mongoose.Schema({
   library: {
     type: librarySchema,
     default: {}
+  },
+  challenges: {
+    type: [goalSchema]
   }
 });
 
