@@ -15,6 +15,8 @@ app.use("/api/private", require("./routes/private/private"));
 app.use("/api/private", require("./routes/private/books"));
 app.use("/api/private", require("./routes/private/bookshelves"));
 app.use("/api/private", require("./routes/private/challenges"));
+app.use("/api/private", require("./routes/private/journal"));
+app.use("/api/private", require("./routes/private/reviews"));
 
 app.use(errorHandler);
 
