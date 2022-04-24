@@ -1,15 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const {protect} = require("../../middleware/auth");
-const {getChallenge, editChallenge, deleteChallenge} = require("../../controllers/private/challenges");
+const {getChallenge, addChallenge, editChallenge, deleteChallenge} = require("../../controllers/private/challenges");
 
-// Get challenge
-router.route("/challenges").get(protect, getChallenge);
+// Get challenge(s)
+router.route("/challenges/:year?").get(protect, getChallenge);
 
-// Add/edit challenge
-router.route("/challenges").put(protect, editChallenge);
+// Add challenge
+router.route("/challenges").post(protect, addChallenge);
+
+// Edit challenge
+router.route("/challenges/:year").put(protect, editChallenge);
 
 // Delete challenge
-router.route("/challenges").delete(protect, deleteChallenge);
+router.route("/challenges/:year").delete(protect, deleteChallenge);
 
 module.exports = router;
