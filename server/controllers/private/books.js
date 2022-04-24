@@ -92,6 +92,43 @@ exports.addBook = async (req, res, next) => {
   }
 }
 
+exports.editBook = async (req, res, next) => {
+  const userData = req.user;
+  const {isbn} = req.params;
+  const {status} = req.body;
+
+  if(!isbn || !status) {
+    return next(new ErrorResponse("Please provide an ISBN and book status", 400));
+  }
+
+  try {
+    if(!(await checkUser(userData._id))) {
+      return next(new ErrorResponse("Failed to edit book", 401));
+    }
+
+    if(!(await checkBook(userData._id, isbn))) {
+      return next(new ErrorResponse("This book is not in your library", 404));
+    }
+
+    // Edit book status
+    await User.updateOne(
+      {$and: [
+        {"_id": userData._id},
+        {"library.books.isbn": {$eq: parseInt(isbn)}}
+      ]},
+      {$set: {"library.books.$.status": status}}
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Book status has been edited"
+    });
+  }
+  catch(error) {
+    return next(new ErrorResponse("Failed to edit book", 401));
+  }
+}
+
 exports.deleteBook = async (req, res, next) => {
   const userData = req.user;
   const {isbn} = req.params;
