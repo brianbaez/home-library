@@ -3,6 +3,37 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
+const entrySchema = mongoose.Schema({
+  date: {
+    month: Number,
+    day: Number,
+    year: Number
+  },
+  pagesReadSession: Number,
+  pagesReadTotal: Number,
+  note: {
+    type: String,
+    default: ""
+  }
+});
+
+const reviewSchema = mongoose.Schema({
+  rating: {
+    wholeNumber: {
+      type: Number,
+      default: -1
+    },
+    decimalNumber: {
+      type: Number,
+      default: -1
+    },
+  },
+  text: {
+    type: String,
+    default: ""
+  }
+});
+
 const bookSchema = mongoose.Schema({
   title: String,
   author: String,
@@ -12,8 +43,15 @@ const bookSchema = mongoose.Schema({
     default: ""
   },
   isbn: Number,
+  review: {
+    type: reviewSchema,
+    default: {}
+  },
   bookshelves: {
     type: [String]
+  },
+  journal: {
+    type: [entrySchema]
   }
 });
 
