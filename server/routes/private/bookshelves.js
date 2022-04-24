@@ -7,9 +7,9 @@ const {getBookshelf, addToBookshelf, deleteFromBookshelf} = require("../../contr
 router.route("/bookshelves/:name").get(protect, getBookshelf);
 
 // Add to bookshelf
-router.route("/bookshelves").put(protect, addToBookshelf);
+router.route("/bookshelves/:name/:isbn").post(protect, addToBookshelf);
 
 // Delete from bookshelf
-router.route("/bookshelves").delete(protect, deleteFromBookshelf);
+router.route("/bookshelves/:name/:isbn").delete(protect, deleteFromBookshelf);
 
 module.exports = router;
