@@ -43,6 +43,10 @@ const bookSchema = mongoose.Schema({
     default: ""
   },
   isbn: Number,
+  status: {
+    type: String,
+    default: ""
+  },
   cover: {
     type: String,
     default: "https://fr-lib.ru/tpl/images/noimage.jpg"
