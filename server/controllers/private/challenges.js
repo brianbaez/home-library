@@ -4,33 +4,44 @@ const {checkUser, checkChallenge} = require("./helper");
 
 exports.getChallenge = async (req, res, next) => {
   const userData = req.user;
-  const {year} = req.body;
-
-  if(!year) {
-    return next(new ErrorResponse("Please provide a year", 400));
-  }
+  const {year} = req.params;
 
   try {
     if(!(await checkUser(userData._id))) {
-      return next(new ErrorResponse("Failed to delete challenge", 401));
+      return next(new ErrorResponse("Failed to get challenge", 401));
     }
 
-    if((await checkChallenge(userData._id, year)).length === 0) {
-      return next(new ErrorResponse("There is no challenge for this year", 404));
-    }
+    var challenges;
 
-    // Get challenge
-    const challenge = await User.aggregate([
-      {$match: {"_id": userData._id}},
-      {$unwind: "$challenges"},
-      {$match: {"challenges.year": {$eq: year}}},
-      {$project: {"challenges": 1, "_id": 0}}
-    ]);
+    if(!year) {
+      challenges = await User.aggregate([
+        {$match: {"_id": userData._id}},
+        {$unwind: "$challenges"},
+        {$sort: {"challenges.year": 1}},
+        {$group: {
+          "_id": "$_id",
+          "challenges": {$push: "$challenges"}
+        }}
+      ])
+    }
+    else {
+      // Get challenge for that year
+      challenges = await User.aggregate([
+        {$match: {"_id": userData._id}},
+        {$unwind: "$challenges"},
+        {$match: {"challenges.year": {$eq: parseInt(year)}}},
+        {$project: {"challenges": 1, "_id": 0}}
+      ]);
+
+      if(challenges.length === 0) {
+        return next(new ErrorResponse("There is no challenge for this year", 404));
+      }
+    }
 
     res.status(200).json({
       success: true,
       message: "Challenge goals have been sent",
-      data: challenge
+      data: challenges
     });
   }
   catch(error) {
@@ -38,9 +49,49 @@ exports.getChallenge = async (req, res, next) => {
   }
 }
 
-exports.editChallenge = async (req, res, next) => {
+exports.addChallenge = async (req, res, next) => {
   const userData = req.user;
   const {year, bookGoal, pageGoal} = req.body;
+
+  if(!year || !bookGoal || !pageGoal) {
+    return next(new ErrorResponse("Please provide a year and a book/page goal", 400));
+  }
+
+  try {
+    if(!(await checkUser(userData._id))) {
+      return next(new ErrorResponse("Failed to edit challenge", 401));
+    }
+
+    if((await checkChallenge(userData._id, year)).length !== 0) {
+      return next(new ErrorResponse("There is already a challenge for this year", 409));
+    }
+
+    // Add challenge
+    await User.updateOne(
+      {"_id": userData._id},
+      {$push: {
+        "challenges": {
+          "year": year,
+          "bookGoal": bookGoal,
+          "pageGoal": pageGoal
+        }
+      }}
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Challenge has been added"
+    });
+  }
+  catch(error) {
+    return next(new ErrorResponse("Failed to add challenge", 401));
+  }
+}
+
+exports.editChallenge = async (req, res, next) => {
+  const userData = req.user;
+  const {year} = req.params;
+  const {bookGoal, pageGoal} = req.body;
 
   if(!year || (!bookGoal && !pageGoal)) {
     return next(new ErrorResponse("Please provide a year and a book/page goal", 400));
@@ -52,18 +103,8 @@ exports.editChallenge = async (req, res, next) => {
     }
 
     // Check if the given year exists in the challenges array
-    if((await checkChallenge(userData._id, year)).length === 0) {
-      // Create an array element for that year
-      await User.updateOne(
-        {"_id": userData._id},
-        {$push: {
-          "challenges": {
-            "year": year,
-            "bookGoal": 0,
-            "pageGoal": 0
-          }
-        }}
-      );
+    if((await checkChallenge(userData._id, parseInt(year))).length === 0) {
+      return next(new ErrorResponse("There is no challenge for this year", 404));
     }
 
     // Update book goal
@@ -71,11 +112,9 @@ exports.editChallenge = async (req, res, next) => {
       await User.updateOne(
         {$and: [
           {"_id": userData._id},
-          {"challenges.year": {$eq: year}}
+          {"challenges.year": {$eq: parseInt(year)}}
         ]},
-        {$set:
-          {"challenges.$.bookGoal": bookGoal}
-        }
+        {$set: {"challenges.$.bookGoal": bookGoal}}
       );
     }
 
@@ -84,7 +123,7 @@ exports.editChallenge = async (req, res, next) => {
       await User.updateOne(
         {$and: [
           {"_id": userData._id},
-          {"challenges.year": {$eq: year}}
+          {"challenges.year": {$eq: parseInt(year)}}
         ]},
         {$set:
           {"challenges.$.pageGoal": pageGoal}
@@ -104,7 +143,7 @@ exports.editChallenge = async (req, res, next) => {
 
 exports.deleteChallenge = async (req, res, next) => {
   const userData = req.user;
-  const {year} = req.body;
+  const {year} = req.params;
 
   if(!year) {
     return next(new ErrorResponse("Please provide a year", 400));
@@ -115,7 +154,7 @@ exports.deleteChallenge = async (req, res, next) => {
       return next(new ErrorResponse("Failed to delete challenge", 401));
     }
 
-    if((await checkChallenge(userData._id, year)).length === 0) {
+    if((await checkChallenge(userData._id, parseInt(year))).length === 0) {
       return next(new ErrorResponse("There is no challenge for this year", 404));
     }
 
@@ -123,7 +162,7 @@ exports.deleteChallenge = async (req, res, next) => {
     await User.updateOne(
       {"_id": userData._id},
       {$pull: {
-        "challenges": {"year": {$eq: year}}
+        "challenges": {"year": {$eq: parseInt(year)}}
       }}
     );
 
