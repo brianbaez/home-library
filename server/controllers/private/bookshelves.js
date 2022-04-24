@@ -46,10 +46,10 @@ exports.getBookshelf = async (req, res, next) => {
 
 exports.addToBookshelf = async (req, res, next) => {
   const userData = req.user;
-  const {isbn, bookshelfName} = req.body;
+  const {name, isbn} = req.params;
 
-  if(!isbn || !bookshelfName) {
-    return next(new ErrorResponse("Please provide an ISBN and bookshelf name", 400));
+  if(!name || !isbn) {
+    return next(new ErrorResponse("Please provide a bookshelf name and an ISBN", 400));
   }
 
   try {
@@ -61,7 +61,7 @@ exports.addToBookshelf = async (req, res, next) => {
       return next(new ErrorResponse("This book is not in your library", 404));
     }
 
-    if((await checkBookshelf(userData._id, isbn, bookshelfName)).length !== 0) {
+    if((await checkBookshelf(userData._id, parseInt(isbn), name)).length !== 0) {
       return next(new ErrorResponse("This book is already in that bookshelf", 409));
     }
 
@@ -72,7 +72,7 @@ exports.addToBookshelf = async (req, res, next) => {
         {"library.books.isbn": {$eq: isbn}}
       ]},
       {$push: {
-        "library.books.$.bookshelves": bookshelfName
+        "library.books.$.bookshelves": name
       }}
     );
 
@@ -88,10 +88,10 @@ exports.addToBookshelf = async (req, res, next) => {
 
 exports.deleteFromBookshelf = async (req, res, next) => {
   const userData = req.user;
-  const {isbn, bookshelfName} = req.body;
+  const {name, isbn} = req.params;
 
-  if(!isbn || !bookshelfName) {
-    return next(new ErrorResponse("Please provide an ISBN and bookshelf name", 400));
+  if(!name || !isbn) {
+    return next(new ErrorResponse("Please provide a bookshelf name and an ISBN", 400));
   }
 
   try{
@@ -103,7 +103,7 @@ exports.deleteFromBookshelf = async (req, res, next) => {
       return next(new ErrorResponse("This book is not in your library", 404));
     }
 
-    if((await checkBookshelf(userData._id, isbn, bookshelfName)).length === 0) {
+    if((await checkBookshelf(userData._id, parseInt(isbn), name)).length === 0) {
       return next(new ErrorResponse("This book is not in that bookshelf", 404));
     }
 
@@ -114,7 +114,7 @@ exports.deleteFromBookshelf = async (req, res, next) => {
         {"library.books.isbn": {$eq: isbn}}
       ]},
       {$pull: {
-        "library.books.$.bookshelves": {$eq: bookshelfName}
+        "library.books.$.bookshelves": {$eq: name}
       }}
     );
 
