@@ -13,7 +13,7 @@ exports.getBook = async (req, res, next) => {
 
     let books = undefined;
 
-    // Get all books if no isbn is provided
+    // Get all books if no ISBN is provided
     if(!isbn) {
       const {library} = await User.findOne(
         {"_id": userData._id}
@@ -23,6 +23,10 @@ exports.getBook = async (req, res, next) => {
     }
     // Only get the book that matches the ISBN
     else {
+      if(!(await checkBook(userData._id, isbn))) {
+        return next(new ErrorResponse("This book is not in your library", 404));
+      }
+
       const {library} = await User.findOne(
         {$and: [
           {"_id": userData._id},
