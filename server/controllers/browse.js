@@ -2,7 +2,7 @@ const axios = require("axios");
 const ErrorResponse = require("../utils/ErrorResponse");
 
 const getSelfLinks = async (search, next) => {
-  const selfLinks = []
+  const selfLinks = [];
 
   const options = {
     header: {
@@ -15,9 +15,7 @@ const getSelfLinks = async (search, next) => {
   await axios(options)
   .then((res) => {
     res.data.items.forEach(item => {
-      selfLinks.push({
-        selfLink: item.selfLink
-      });
+      selfLinks.push(item.selfLink);
     });
   })
   .catch((error) => {
@@ -27,52 +25,66 @@ const getSelfLinks = async (search, next) => {
   return selfLinks;
 }
 
-const getBookResults = async () => {
+const getBookResults = async (selfLinks, next) => {
+  const results = [];
 
+  // Get all book results from GoogleBooks API
+  await Promise.all(selfLinks.map((url) => axios.get(url)))
+  .then((res) => {
+    res.forEach((item) => {
+      results.push({
+        title: item.data.volumeInfo.title,
+        authors: item.data.volumeInfo.authors,
+        description: item.data.volumeInfo.description,
+        isbn: item.data.volumeInfo.industryIdentifiers,
+        pages: item.data.volumeInfo.pageCount,
+        cover: item.data.volumeInfo.imageLinks
+      });
+    });
+  })
+  .catch((error) => {
+    return next(new ErrorResponse("Failed to get book results", 500));
+  });
+
+  return results;
+}
+
+const getBookCovers = async (results, next) => {
+  // Set endpoints
+  let endpoints = [];
+
+  results.forEach(item => {
+    endpoints.push("https://bookcoverapi.herokuapp.com/getBookCover?bookTitle=" + item.title + "&authorName=" + item.authors[0]);
+  });
+
+  // Get all book covers
+  // Using: https://github.com/w3slley/bookcover-api
+  await Promise.all(endpoints.map((url) => axios.get(url)))
+  .then((res) => {
+    res.forEach((item, index) => {
+      if(item.data.bookCoverUrl !== undefined) {
+        if(item.data.bookCoverUrl.startsWith("https://i.gr-assets.com/images/")) {
+          results[index].cover = item.data.bookCoverUrl;
+        }
+      }
+    });
+  })
+  .catch((error) => {
+    return next(new ErrorResponse("Failed to get book covers", 500));
+  });
+
+  return results;
 }
 
 exports.browseBooks = async (req, res, next) => {
   const {search} = req.query;
-  const results = [];
   const selfLinks = await getSelfLinks(search, next);
-
-  // await axios(item.selfLink)
-  // .then((res) => {
-  //   console.log(res.data.volumeInfo.title);
-  // })
-  // .catch((error) => {
-  //   return next(new ErrorResponse("Failed to get book results", 500));
-  // })
-
-  // try {
-  //   selfLinks.forEach(item => {
-  //
-  //   });
-  // }
-  // catch(error) {
-  //   return next(new ErrorResponse("Failed to get book results", 500));
-  // }
-
-  // await axios(options)
-  // .then((res) => {
-  //   res.data.items.forEach(item => {
-  //     results.push({
-  //       title: item.volumeInfo.title,
-  //       author: item.volumeInfo.authors,
-  //       pages: item.volumeInfo.printedPageCount,
-  //       description: item.volumeInfo.description,
-  //       isbn: item.volumeInfo.industryIdentifiers,
-  //       cover: ""
-  //     });
-  //   });
-  // })
-  // .catch((error) => {
-  //   return next(new ErrorResponse("Failed to get book results", 500));
-  // });
+  var results = await getBookResults(selfLinks, next);
+  results = await getBookCovers(results, next);
 
   res.status(200).json({
     success: true,
     message: "Here are the results from the Google Books API",
-    selfLinks: selfLinks
+    results: results
   });
 }
