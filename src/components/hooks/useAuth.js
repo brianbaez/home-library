@@ -3,7 +3,6 @@ import axios from "axios";
 
 const useAuth = (props) => {
   const [isAuth, setIsAuth] = useState(false);
-  const [data, setData] = useState([]);
 
   useEffect(() => {
     const authHandler = async (e) => {
@@ -19,20 +18,18 @@ const useAuth = (props) => {
         const {data} = await axios.get(`/api/private/${props.path}`, config);
 
         setIsAuth(true);
-        setData(data);
       }
       catch(error) {
         localStorage.removeItem("authToken");
 
         setIsAuth(false);
-        setData([]);
       }
     };
 
     authHandler();
   }, []);
 
-  return {isAuth, data};
+  return isAuth;
 }
 
 export default useAuth;
