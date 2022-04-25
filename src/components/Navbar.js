@@ -1,7 +1,7 @@
 import React from "react";
 import {NavLink, useNavigate} from "react-router-dom";
-
 import {navItems} from "./NavbarItems";
+import SearchBar from "./SearchBar";
 
 function Navbar() {
   let navigate = useNavigate();
@@ -31,10 +31,7 @@ function Navbar() {
             })}
           </ul>
 
-          <form className="d-flex">
-            <input className="form-control me-2" type="search" placeholder="Search books" aria-label="Search books"></input>
-            <button className="btn btn-outline-success" type="submit">Search</button>
-          </form>
+          <SearchBar />
 
           <div className="Profile mt-3 ms-lg-5 mt-lg-0">
             <div className="ProfileMenu">
