@@ -12,6 +12,8 @@ import MyBooksPage from "../pages/MyBooksPage";
 import BookPage from "../pages/BookPage";
 import StatsPage from "../pages/StatsPage";
 import ReadingChallengesPage from "../pages/ReadingChallengesPage";
+import Browse from "../pages/Browse";
+import NotFound from "../pages/NotFound";
 
 // Components
 import Navbar from "../components/Navbar";
@@ -42,6 +44,8 @@ function App() {
               <Route exact path="/my-books" element={<MyBooksPage />} />
               <Route exact path="/my-stats" element={<StatsPage />} />
               <Route exact path="/my-reading-challenges" element={<ReadingChallengesPage />} />
+              <Route exact path="/browse" element={<Browse />} />
+              <Route exact path="*" element={<NotFound />} />
             </Route>
           </Routes>
         </div>
