@@ -55,7 +55,6 @@ exports.browseBooks = async (req, res, next) => {
   const {search} = req.query;
   const selfLinks = await getSelfLinks(search, next);
   var results = await getBookResults(selfLinks, next);
-  results = await getBookCovers(results, next);
 
   res.status(200).json({
     success: true,
