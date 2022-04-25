@@ -36,7 +36,7 @@ const reviewSchema = mongoose.Schema({
 
 const bookSchema = mongoose.Schema({
   title: String,
-  author: String,
+  author: [String],
   pages: Number,
   description: {
     type: String,
