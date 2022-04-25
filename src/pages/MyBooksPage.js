@@ -1,8 +1,39 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+import axios from "axios";
 import useAuth from "../components/hooks/useAuth";
 
 function MyBooksPage() {
   const isAuth = useAuth({path: "my-books"});
+
+  const [books, setBooks] = useState();
+  const [numBooks, setNumBooks] = useState();
+  const [bookshelf, setBookshelf] = useState();
+  const [error, setError] = useState();
+
+  useEffect(() => {
+    console.log("Rendering Books...");
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("authToken")}`
+      }
+    };
+
+    const fetchBooks = async () => {
+      await axios.get(`/api/private/books/`, config)
+      .then((res) => {
+        setBooks(res.data.data);
+        setNumBooks(res.data.data.length);
+      })
+      .catch((error) => {
+        setError(error.response.data.error);
+      });
+    }
+
+    fetchBooks();
+  }, []);
+
 
   if(isAuth) {
     return (
@@ -15,7 +46,7 @@ function MyBooksPage() {
             <div className="col col-9">
               <div className="d-flex justify-content-between">
                 <div>
-                  <h4 className="">0 books</h4>
+                  <h4 className="">{numBooks} books</h4>
                 </div>
                 <form className="d-flex">
                   <input className="form-control me-2" type="search" placeholder="Search my books" aria-label="Search my books"></input>
@@ -45,6 +76,7 @@ function MyBooksPage() {
 
             <div className="col col-9">
               <div className="col-content">
+                <pre>{JSON.stringify(books, null, 2)}</pre>
               </div>
             </div>
           </div>
