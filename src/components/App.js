@@ -15,9 +15,6 @@ import ReadingChallengesPage from "../pages/ReadingChallengesPage";
 import Browse from "../pages/Browse";
 import NotFound from "../pages/NotFound";
 
-// Components
-import Navbar from "../components/Navbar";
-
 // Routing
 import PrivateRoute from "./routing/PrivateRoute";
 
@@ -34,21 +31,16 @@ function App() {
           <Route exact path="/signup" element={<SignUpPage />} />
           <Route exact path="/forgotpassword" element={<ForgotPasswordPage />} />
           <Route exact path="/resetpassword/:resetToken" element={<ResetPasswordPage />} />
-        </Routes>
 
-        <div className="Private">
-          <Navbar />
-          <Routes>
-            <Route element={<PrivateRoute />}>
-              <Route exact path="/home" element={<HomePage />} />
-              <Route exact path="/my-books" element={<MyBooksPage />} />
-              <Route exact path="/my-stats" element={<StatsPage />} />
-              <Route exact path="/my-reading-challenges" element={<ReadingChallengesPage />} />
-              <Route exact path="/browse" element={<Browse />} />
-              <Route exact path="*" element={<NotFound />} />
-            </Route>
-          </Routes>
-        </div>
+          <Route element={<PrivateRoute />}>
+            <Route exact path="/home" element={<HomePage />} />
+            <Route exact path="/my-books" element={<MyBooksPage />} />
+            <Route exact path="/my-stats" element={<StatsPage />} />
+            <Route exact path="/my-reading-challenges" element={<ReadingChallengesPage />} />
+            <Route exact path="/browse" element={<Browse />} />
+            <Route exact path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
       </div>
     </Router>
   );
