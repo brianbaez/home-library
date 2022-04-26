@@ -2,8 +2,8 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 
 function CurrentlyReading({config}) {
-  const [currentlyReading, setCurrentlyReading] = useState("");
-  const [error, setError] = useState("")
+  const [currentlyReading, setCurrentlyReading] = useState();
+  const [error, setError] = useState()
 
   useEffect(() => {
     console.log("Rendering CurrentlyReading...");
@@ -24,8 +24,8 @@ function CurrentlyReading({config}) {
   return (
     <div className="col mb-3">
       <h4>Curently Reading</h4>
-      <pre>{JSON.stringify(currentlyReading, null, 2)}</pre>
       {error && <span className="error-message">{error}</span>}
+      <pre>{JSON.stringify(currentlyReading, null, 2)}</pre>
     </div>
   );
 }

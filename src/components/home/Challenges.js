@@ -2,8 +2,8 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 
 function Challenges({config}) {
-  const [challenges, setChallenges] = useState("");
-  const [error, setError] = useState("");
+  const [challenges, setChallenges] = useState();
+  const [error, setError] = useState();
 
   useEffect(() => {
     console.log("Rendering Challenges...");

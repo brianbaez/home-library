@@ -2,8 +2,8 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 
 function ReadRecently({config}) {
-  const [readRecently, setReadRecently] = useState("");
-  const [error, setError] = useState("");
+  const [readRecently, setReadRecently] = useState();
+  const [error, setError] = useState();
 
   useEffect(() => {
     console.log("Rendering ReadRecently...");
@@ -24,8 +24,8 @@ function ReadRecently({config}) {
   return (
     <div className="col mb-3">
       <h4>Read Recently</h4>
-      <pre>{JSON.stringify(readRecently, null, 2)}</pre>
       {error && <span className="error-message">{error}</span>}
+      <pre>{JSON.stringify(readRecently, null, 2)}</pre>
     </div>
   );
 }
