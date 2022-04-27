@@ -72,7 +72,15 @@ const librarySchema = mongoose.Schema({
 const goalSchema = mongoose.Schema({
   year: Number,
   bookGoal: Number,
-  pageGoal: Number
+  pageGoal: Number,
+  booksCompleted: {
+    type: Number,
+    default: 0
+  },
+  pagesCompleted: {
+    type: Number,
+    default: 0
+  }
 });
 
 const UserSchema = new mongoose.Schema({
