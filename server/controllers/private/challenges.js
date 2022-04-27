@@ -51,7 +51,8 @@ exports.getChallenge = async (req, res, next) => {
 
 exports.addChallenge = async (req, res, next) => {
   const userData = req.user;
-  const {year, bookGoal, pageGoal} = req.body;
+  const {year} = req.params;
+  const {bookGoal, pageGoal} = req.body;
 
   if(!year || !bookGoal || !pageGoal) {
     return next(new ErrorResponse("Please provide a year and a book/page goal", 400));
@@ -62,7 +63,7 @@ exports.addChallenge = async (req, res, next) => {
       return next(new ErrorResponse("Failed to edit challenge", 401));
     }
 
-    if((await checkChallenge(userData._id, year)).length !== 0) {
+    if((await checkChallenge(userData._id, parseInt(year))).length !== 0) {
       return next(new ErrorResponse("There is already a challenge for this year", 409));
     }
 
@@ -71,7 +72,7 @@ exports.addChallenge = async (req, res, next) => {
       {"_id": userData._id},
       {$push: {
         "challenges": {
-          "year": year,
+          "year": parseInt(year),
           "bookGoal": bookGoal,
           "pageGoal": pageGoal
         }
@@ -91,9 +92,9 @@ exports.addChallenge = async (req, res, next) => {
 exports.editChallenge = async (req, res, next) => {
   const userData = req.user;
   const {year} = req.params;
-  const {bookGoal, pageGoal} = req.body;
+  const {bookGoal, pageGoal, booksCompleted, pagesCompleted} = req.body;
 
-  if(!year || (!bookGoal && !pageGoal)) {
+  if(!year || (!bookGoal && !pageGoal && !booksCompleted && !pagesCompleted)) {
     return next(new ErrorResponse("Please provide a year and a book/page goal", 400));
   }
 
@@ -130,6 +131,33 @@ exports.editChallenge = async (req, res, next) => {
         }
       );
     }
+
+    // Update books completed
+    if(booksCompleted) {
+      await User.updateOne(
+        {$and: [
+          {"_id": userData._id},
+          {"challenges.year": {$eq: parseInt(year)}}
+        ]},
+        {$inc:
+          {"challenges.$.booksCompleted": booksCompleted}
+        }
+      );
+    }
+
+    // Update pages completed
+    if(pagesCompleted) {
+      await User.updateOne(
+        {$and: [
+          {"_id": userData._id},
+          {"challenges.year": {$eq: parseInt(year)}}
+        ]},
+        {$inc:
+          {"challenges.$.pagesCompleted": pagesCompleted}
+        }
+      );
+    }
+
 
     res.status(200).json({
       success: true,

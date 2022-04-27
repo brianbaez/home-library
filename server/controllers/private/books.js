@@ -11,15 +11,19 @@ exports.getBook = async (req, res, next) => {
       return next(new ErrorResponse("Failed to get book", 401));
     }
 
-    let books = undefined;
+    var books;
 
     // Get all books if no ISBN is provided
     if(!isbn) {
-      const {library} = await User.findOne(
-        {"_id": userData._id}
-      );
-
-      books = library.books;
+      books = await User.aggregate([
+        {$match: {"_id": userData._id}},
+        {$unwind: "$library.books"},
+        {$group: {
+          "_id": "$_id",
+          "books": {$push: "$library.books"}
+        }},
+        {$project: {"books": 1, "_id": 0}}
+      ]);
     }
     // Only get the book that matches the ISBN
     else {
@@ -27,15 +31,19 @@ exports.getBook = async (req, res, next) => {
         return next(new ErrorResponse("This book is not in your library", 404));
       }
 
-      const {library} = await User.findOne(
-        {$and: [
-          {"_id": userData._id},
-          {"library.books.isbn": {$eq: isbn}}
-        ]},
-        {"library.books.$": 1}
-      );
-
-      books = library.books;
+      books = await User.aggregate([
+        {$match: {"_id": userData._id}},
+        {$unwind: "$library.books"},
+        {$match: {
+          "library.books.isbn": {$eq: parseInt(isbn)}
+        }},
+        {$unwind: "$library"},
+        {$group: {
+          "_id": "$_id",
+          "books": {$push: "$library.books"}
+        }},
+        {$project: {"books": 1, "_id": 0}}
+      ]);
     }
 
     res.status(200).json({
