@@ -7,7 +7,7 @@ const {getChallenge, addChallenge, editChallenge, deleteChallenge} = require("..
 router.route("/challenges/:year?").get(protect, getChallenge);
 
 // Add challenge
-router.route("/challenges").post(protect, addChallenge);
+router.route("/challenges/:year").post(protect, addChallenge);
 
 // Edit challenge
 router.route("/challenges/:year").put(protect, editChallenge);
