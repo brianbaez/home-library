@@ -9,7 +9,7 @@ function CurrentlyReading({config}) {
     console.log("Rendering CurrentlyReading...");
 
     const fetchCurrentlyReading = async () => {
-      await axios.get(`/api/private/bookshelves/currently-reading`, config)
+      await axios.get(`/api/private/bookshelves/books/currently-reading`, config)
       .then((res) => {
         setCurrentlyReading(res.data.data)
       })

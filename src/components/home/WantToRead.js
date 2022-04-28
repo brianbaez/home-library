@@ -9,7 +9,7 @@ function WantToRead({config}) {
     console.log("Rendering WantToRead...");
 
     const fetchWantToRead = async () => {
-      await axios.get(`/api/private/bookshelves/want-to-read`, config)
+      await axios.get(`/api/private/bookshelves/books/want-to-read`, config)
       .then((res) => {
         setWantToRead(res.data.data)
       })

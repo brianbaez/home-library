@@ -9,7 +9,7 @@ function ReadRecently({config}) {
     console.log("Rendering ReadRecently...");
 
     const fetchReadRecently = async () => {
-      await axios.get(`/api/private/bookshelves/read`, config)
+      await axios.get(`/api/private/bookshelves/books/read`, config)
       .then((res) => {
         setReadRecently(res.data.data)
       })
