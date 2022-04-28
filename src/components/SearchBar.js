@@ -12,14 +12,7 @@ function SearchBar() {
     e.preventDefault();
 
     if(query) {
-      await axios.get(`/api/browse?search=${query}`)
-      .then((res) => {
-        navigate(`/browse?search=${query}`, {state: {results: res.data.results}});
-      })
-      .catch((error) => {
-        console.log(error);
-        setError(error.response.data.error);
-      });
+      navigate(`/browse?search=${query}`);
     }
   }
 
