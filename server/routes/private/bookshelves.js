@@ -1,10 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const {protect} = require("../../middleware/auth");
-const {getBookshelf, getBookshelves, addToBookshelf, deleteFromBookshelf} = require("../../controllers/private/bookshelves");
+const {getBookshelf, getBookshelvesOfISBN, getBookshelves, addToBookshelf, deleteFromBookshelf} = require("../../controllers/private/bookshelves");
 
 // Get bookshelf
-router.route("/bookshelves/:name").get(protect, getBookshelf);
+router.route("/bookshelves/books/:name").get(protect, getBookshelf);
+
+// Get all bookshelves for a book
+router.route("/bookshelves/book/:isbn").get(protect, getBookshelvesOfISBN);
 
 // Get all unique bookshelf names
 router.route("/bookshelves").get(protect, getBookshelves);

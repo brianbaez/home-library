@@ -44,6 +44,50 @@ exports.getBookshelf = async (req, res, next) => {
   }
 }
 
+// Get all bookshelves for a book
+exports.getBookshelvesOfISBN = async (req, res, next) => {
+  const userData = req.user;
+  const {isbn} = req.params;
+
+  if(!isbn) {
+    return next(new ErrorResponse("Please provide an ISBN", 400));
+  }
+
+  try{
+    if(!(await checkUser(userData._id))) {
+      return next(new ErrorResponse("Failed to get bookshelves", 401));
+    }
+
+    // Get all bookshelves of the book
+    const bookshelves = await User.aggregate([
+      {$match: {"_id": userData._id}},
+      {$unwind: "$library.books"},
+      {$match: {
+        "library.books.isbn": {$eq: parseInt(isbn)}
+      }},
+      {$unwind: "$library.books.bookshelves"},
+      {$group: {
+        "_id": "$_id",
+        "bookshelves": {$push: "$library.books.bookshelves"}
+      }},
+      {$project: {"bookshelves": 1, "_id": 0}}
+    ]);
+
+    if(bookshelves.length === 0) {
+      return next(new ErrorResponse("This book is in no bookshelves", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Bookshelves of the book have been sent",
+      data: bookshelves
+    });
+  }
+  catch(error) {
+    return next(new ErrorResponse("Failed to get bookshelves", 401));
+  }
+}
+
 // Get all unique bookshelf names
 exports.getBookshelves = async (req, res, next) => {
   const userData = req.user;
