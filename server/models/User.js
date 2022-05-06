@@ -36,15 +36,18 @@ const reviewSchema = mongoose.Schema({
 
 const bookSchema = mongoose.Schema({
   title: String,
-  author: [String],
+  authors: [String],
   description: {
     type: String,
     default: ""
   },
-  isbn: Number,
+  isbn: [{
+    type: {type: String},
+    identifier: {type: String}
+  }],
   pages: Number,
   cover: {
-    type: String,
+    type: Object,
     default: "https://fr-lib.ru/tpl/images/noimage.jpg"
   },
   status: {
@@ -60,6 +63,9 @@ const bookSchema = mongoose.Schema({
   },
   journal: {
     type: [entrySchema]
+  },
+  yearRead: {
+    type: Number
   }
 });
 
