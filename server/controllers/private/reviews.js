@@ -8,7 +8,7 @@ exports.getReview = async (req, res, next) => {
 
   try {
     if(!(await checkUser(userData._id))) {
-      return next(new ErrorResponse("Failed to get review(s)", 401));
+      return next(new ErrorResponse("Failed to get review", 401));
     }
 
     if(!(await checkBook(userData._id, isbn))) {
@@ -20,7 +20,7 @@ exports.getReview = async (req, res, next) => {
       {$match: {"_id": userData._id}},
       {$unwind: "$library.books"},
       {$match: {
-        "library.books.isbn": {$eq: parseInt(isbn)},
+        "library.books.isbn.identifier": {$eq: isbn},
         "library.books.review.rating.wholeNumber": {$ne: -1},
         "library.books.review.rating.decimalNumber": {$ne: -1},
       }},
@@ -36,12 +36,12 @@ exports.getReview = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      message: "Review(s) has been sent",
+      message: "Review has been sent",
       review: review
     });
   }
   catch(error) {
-    return next(new ErrorResponse("Failed to get review(s)", 401));
+    return next(new ErrorResponse("Failed to get review", 401));
   }
 }
 
@@ -50,7 +50,7 @@ exports.addReview = async (req, res, next) => {
   const {isbn} = req.params;
   const {wholeNumber, decimalNumber, text} = req.body;
 
-  if(!isbn || !wholeNumber || !decimalNumber || !text) {
+  if(!isbn || !wholeNumber || !decimalNumber) {
     return next(new ErrorResponse("All required fields were not provided", 400));
   }
 
@@ -63,7 +63,7 @@ exports.addReview = async (req, res, next) => {
       return next(new ErrorResponse("This book is not in your library", 404));
     }
 
-    if((await checkReview(userData._id, parseInt(isbn))).length !== 0) {
+    if((await checkReview(userData._id, isbn)).length !== 0) {
       return next(new ErrorResponse("This book already has a review"));
     }
 
@@ -71,12 +71,12 @@ exports.addReview = async (req, res, next) => {
     await User.updateOne(
       {$and: [
         {"_id": userData._id},
-        {"library.books.isbn": {$eq: parseInt(isbn)}}
+        {"library.books.isbn.identifier": {$eq: isbn}}
       ]},
       {$set: {
         "library.books.$.review": {
           "rating.wholeNumber": parseInt(wholeNumber),
-          "rating.decimalNumber": decimalNumber,
+          "rating.decimalNumber": parseInt(decimalNumber),
           "text": text
         }
       }}
@@ -97,7 +97,7 @@ exports.editReview = async (req, res, next) => {
   const {isbn} = req.params;
   const {wholeNumber, decimalNumber, text} = req.body;
 
-  if(!isbn || !wholeNumber || !decimalNumber || !text) {
+  if(!isbn || !wholeNumber || !decimalNumber) {
     return next(new ErrorResponse("All required fields were not provided", 400));
   }
 
@@ -110,7 +110,7 @@ exports.editReview = async (req, res, next) => {
       return next(new ErrorResponse("This book is not in your library", 404));
     }
 
-    if((await checkReview(userData._id, parseInt(isbn))).length === 0) {
+    if((await checkReview(userData._id, isbn)).length === 0) {
       return next(new ErrorResponse("This book does not have a review"));
     }
 
@@ -118,7 +118,7 @@ exports.editReview = async (req, res, next) => {
     await User.updateOne(
       {$and: [
         {"_id": userData._id},
-        {"library.books.isbn": {$eq: parseInt(isbn)}}
+        {"library.books.isbn.identifier": {$eq: isbn}}
       ]},
       {$set: {
         "library.books.$.review": {
@@ -156,7 +156,7 @@ exports.deleteReview = async (req, res, next) => {
       return next(new ErrorResponse("This book is not in your library", 404));
     }
 
-    if((await checkReview(userData._id, parseInt(isbn))).length === 0) {
+    if((await checkReview(userData._id, isbn)).length === 0) {
       return next(new ErrorResponse("This book does not have a review"));
     }
 
@@ -164,7 +164,7 @@ exports.deleteReview = async (req, res, next) => {
     await User.updateOne(
       {$and: [
         {"_id": userData._id},
-        {"library.books.isbn": {$eq: parseInt(isbn)}}
+        {"library.books.isbn.identifier": {$eq: isbn}}
       ]},
       {$set: {
         "library.books.$.review": {

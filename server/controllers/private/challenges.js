@@ -17,7 +17,7 @@ exports.getChallenge = async (req, res, next) => {
       challenges = await User.aggregate([
         {$match: {"_id": userData._id}},
         {$unwind: "$challenges"},
-        {$sort: {"challenges.year": 1}},
+        {$sort: {"challenges.year": -1}},
         {$group: {
           "_id": "$_id",
           "challenges": {$push: "$challenges"}
@@ -157,7 +157,6 @@ exports.editChallenge = async (req, res, next) => {
         }
       );
     }
-
 
     res.status(200).json({
       success: true,

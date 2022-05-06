@@ -8,7 +8,7 @@ exports.getBook = async (req, res, next) => {
 
   try {
     if(!(await checkUser(userData._id))) {
-      return next(new ErrorResponse("Failed to get book", 401));
+      return next(new ErrorResponse("Failed to get books", 401));
     }
 
     var books;
@@ -34,10 +34,10 @@ exports.getBook = async (req, res, next) => {
       books = await User.aggregate([
         {$match: {"_id": userData._id}},
         {$unwind: "$library.books"},
+        {$unwind: "$library.books.isbn"},
         {$match: {
-          "library.books.isbn": {$eq: parseInt(isbn)}
+          "library.books.isbn.identifier": {$eq: isbn}
         }},
-        {$unwind: "$library"},
         {$group: {
           "_id": "$_id",
           "books": {$push: "$library.books"}
@@ -59,9 +59,11 @@ exports.getBook = async (req, res, next) => {
 
 exports.addBook = async (req, res, next) => {
   const userData = req.user;
-  const {title, author, pages, description, isbn, bookshelves, journal} = req.body;
+  const {isbnToAdd} = req.params;
+  const {title, authors, description, isbn, pages, cover, status} = req.body;
 
-  if(!title || !author || !pages || !isbn) {
+
+  if(!title || !authors || !isbn || !pages) {
     return next(new ErrorResponse("All required fields were not provided", 400));
   }
 
@@ -70,7 +72,7 @@ exports.addBook = async (req, res, next) => {
       return next(new ErrorResponse("Failed to add book", 401));
     }
 
-    if(await checkBook(userData._id, isbn)) {
+    if(await checkBook(userData._id, isbnToAdd)) {
       return next(new ErrorResponse("This book is already in your library", 409));
     }
 
@@ -80,12 +82,12 @@ exports.addBook = async (req, res, next) => {
       {$push: {
         "library.books": {
           "title": title,
-          "author": author,
-          "pages": pages,
+          "authors": authors,
           "description": description,
           "isbn": isbn,
-          "bookshelves": bookshelves,
-          "journal": journal
+          "pages": pages,
+          "cover": cover,
+          "status": status
         }
       }}
     );
@@ -103,10 +105,10 @@ exports.addBook = async (req, res, next) => {
 exports.editBook = async (req, res, next) => {
   const userData = req.user;
   const {isbn} = req.params;
-  const {status} = req.body;
+  const {status, yearRead} = req.body;
 
-  if(!isbn || !status) {
-    return next(new ErrorResponse("Please provide an ISBN and book status", 400));
+  if(!isbn || (!status && !yearRead)) {
+    return next(new ErrorResponse("All required fields were not provided", 400));
   }
 
   try {
@@ -118,18 +120,31 @@ exports.editBook = async (req, res, next) => {
       return next(new ErrorResponse("This book is not in your library", 404));
     }
 
-    // Edit book status
-    await User.updateOne(
-      {$and: [
-        {"_id": userData._id},
-        {"library.books.isbn": {$eq: parseInt(isbn)}}
-      ]},
-      {$set: {"library.books.$.status": status}}
-    );
+    if(status) {
+      // Edit book status
+      await User.updateOne(
+        {$and: [
+          {"_id": userData._id},
+          {"library.books.isbn.identifier": {$eq: isbn}}
+        ]},
+        {$set: {"library.books.$.status": status}}
+      );
+    }
+
+    if(yearRead) {
+      // Edit year read
+      await User.updateOne(
+        {$and: [
+          {"_id": userData._id},
+          {"library.books.isbn.identifier": {$eq: isbn}}
+        ]},
+        {$set: {"library.books.$.yearRead": yearRead}}
+      );
+    }
 
     res.status(200).json({
       success: true,
-      message: "Book status has been edited"
+      message: "Book has been edited"
     });
   }
   catch(error) {
@@ -158,7 +173,7 @@ exports.deleteBook = async (req, res, next) => {
     await User.updateOne(
       {"_id": userData._id},
       {$pull: {
-        "library.books": {"isbn": {$eq: isbn}}
+        "library.books": {"isbn.identifier": {$eq: isbn}}
       }}
     );
 

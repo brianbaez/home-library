@@ -20,7 +20,7 @@ exports.getJournalEntry = async (req, res, next) => {
       return next(new ErrorResponse("This book is not in your library", 404));
     }
 
-    const journal = await getJournal(userData._id, parseInt(isbn));
+    const journal = await getJournal(userData._id, isbn);
 
     res.status(200).json({
       success: true,
@@ -36,7 +36,11 @@ exports.getJournalEntry = async (req, res, next) => {
 exports.addJournalEntry = async (req, res, next) => {
   const userData = req.user;
   const {isbn} = req.params;
-  const {month, day, year, pagesReadSession, note} = req.body;
+  const {month, day, year, pagesReadSession, pagesReadTotal, note} = req.body;
+
+  if(pagesReadSession === 0) {
+    return next(new ErrorResponse("Please provide a different number for pages read", 400));
+  }
 
   if(!isbn || !month || !day || !year || !pagesReadSession) {
     return next(new ErrorResponse("All required fields were not provided", 400));
@@ -44,7 +48,7 @@ exports.addJournalEntry = async (req, res, next) => {
 
   try {
     if(!(await checkUser(userData._id))) {
-      return next(new ErrorResponse("Failed to get journal entries", 401));
+      return next(new ErrorResponse("Failed to add journal entry", 401));
     }
 
     if(!(await checkBook(userData._id, isbn))) {
@@ -52,23 +56,29 @@ exports.addJournalEntry = async (req, res, next) => {
     }
 
     // Get last entry's total pages
-    const lastEntry = await getLastEntry(userData._id, parseInt(isbn));
+    const lastEntry = await getLastEntry(userData._id, isbn);
 
     var pagesTotal;
 
     // Set/update book's total pages read
-    if(!lastEntry[0].pagesTotal) {
-      pagesTotal = pagesReadSession;
+    if(pagesReadTotal) {
+      pagesTotal = pagesReadTotal;
+
     }
     else {
-      pagesTotal = lastEntry[0].pagesTotal + pagesReadSession;
+      if(lastEntry.length === 0) {
+        pagesTotal = pagesReadSession;
+      }
+      else {
+        pagesTotal = lastEntry[0].pagesTotal + pagesReadSession;
+      }
     }
 
     // Add journal entry
     await User.updateOne(
       {$and: [
         {"_id": userData._id},
-        {"library.books.isbn": {$eq: isbn}}
+        {"library.books.isbn.identifier": {$eq: isbn}}
       ]},
       {$push: {
         "library.books.$.journal": {
@@ -110,15 +120,15 @@ exports.editJournalEntry = async (req, res, next) => {
       return next(new ErrorResponse("This book is not in your library", 404));
     }
 
-    if((await checkJournal(userData._id, parseInt(isbn), mongoose.Types.ObjectId(entryID))).length === 0) {
-      return next(new ErrorResponse("There is no entry with this ID in this book", 404));
+    if((await checkJournal(userData._id, isbn, mongoose.Types.ObjectId(entryID))).length === 0) {
+      return next(new ErrorResponse("There is no journal entry with this ID for this book", 404));
     }
 
     // Edit journal entry
     await User.updateOne(
       {$and: [
         {"_id": userData._id},
-        {"library.books.isbn": {$eq: isbn}},
+        {"library.books.isbn.identifier": {$eq: isbn}},
         {"library.books.journal._id": {$eq: entryID}}
       ]},
       {$set: {
@@ -156,22 +166,22 @@ exports.deleteJournalEntry = async (req, res, next) => {
 
   try {
     if(!(await checkUser(userData._id))) {
-      return next(new ErrorResponse("Failed to edit journal entry", 401));
+      return next(new ErrorResponse("Failed to delete journal entry", 401));
     }
 
     if(!(await checkBook(userData._id, isbn))) {
       return next(new ErrorResponse("This book is not in your library", 404));
     }
 
-    if((await checkJournal(userData._id, parseInt(isbn), mongoose.Types.ObjectId(entryID))).length === 0) {
-      return next(new ErrorResponse("There is no entry with this ID in this book", 404));
+    if((await checkJournal(userData._id, isbn, mongoose.Types.ObjectId(entryID))).length === 0) {
+      return next(new ErrorResponse("There is no journal entry with this ID for this book", 404));
     }
 
-    // // Delete journal entry
+    // Delete journal entry
     await User.updateOne(
       {$and: [
         {"_id": userData._id},
-        {"library.books.isbn": {$eq: isbn}}
+        {"library.books.isbn.identifier": {$eq: isbn}}
       ]},
       {$pull: {
         "library.books.$.journal": {"_id": {$eq: entryID}}

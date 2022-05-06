@@ -3,7 +3,18 @@ const User = require("../models/User");
 const ErrorResponse = require("../utils/ErrorResponse");
 const sendEmail = require("../utils/SendEmail");
 
-exports.signin = async (req, res, next) => {
+function sendToken(user, statusCode, res) {
+  const token = user.getSignedToken();
+
+  res.status(statusCode).json({
+    success: true,
+    token
+  });
+
+  return;
+}
+
+exports.signIn = async (req, res, next) => {
   const {email, password} = req.body;
 
   if(!email || !password) {
@@ -32,7 +43,7 @@ exports.signin = async (req, res, next) => {
   }
 };
 
-exports.signup = async (req, res, next) => {
+exports.signUp = async (req, res, next) => {
   const {username, email, password} = req.body;
 
   try {
@@ -51,7 +62,7 @@ exports.signup = async (req, res, next) => {
   }
 };
 
-exports.forgotpassword = async (req, res, next) => {
+exports.forgotPassword = async (req, res, next) => {
   const {email} = req.body;
 
   try {
@@ -101,7 +112,7 @@ exports.forgotpassword = async (req, res, next) => {
   }
 };
 
-exports.resetpassword = async (req, res, next) => {
+exports.resetPassword = async (req, res, next) => {
   const resetPasswordToken = crypto.createHash("sha256").update(req.params.resetToken).digest("hex");
 
   try {
@@ -133,14 +144,3 @@ exports.resetpassword = async (req, res, next) => {
     next(error);
   }
 };
-
-function sendToken(user, statusCode, res) {
-  const token = user.getSignedToken();
-
-  res.status(statusCode).json({
-    success: true,
-    token
-  });
-
-  return;
-}

@@ -62,8 +62,9 @@ exports.getBookshelvesOfISBN = async (req, res, next) => {
     const bookshelves = await User.aggregate([
       {$match: {"_id": userData._id}},
       {$unwind: "$library.books"},
+      {$unwind: "$library.books.isbn"},
       {$match: {
-        "library.books.isbn": {$eq: parseInt(isbn)}
+        "library.books.isbn.identifier": {$eq: isbn}
       }},
       {$unwind: "$library.books.bookshelves"},
       {$group: {
@@ -141,7 +142,7 @@ exports.addToBookshelf = async (req, res, next) => {
       return next(new ErrorResponse("This book is not in your library", 404));
     }
 
-    if((await checkBookshelf(userData._id, parseInt(isbn), name)).length !== 0) {
+    if((await checkBookshelf(userData._id, isbn, name)).length !== 0) {
       return next(new ErrorResponse("This book is already in that bookshelf", 409));
     }
 
@@ -149,7 +150,7 @@ exports.addToBookshelf = async (req, res, next) => {
     await User.updateOne(
       {$and: [
         {"_id": userData._id},
-        {"library.books.isbn": {$eq: isbn}}
+        {"library.books.isbn.identifier": {$eq: isbn}}
       ]},
       {$push: {
         "library.books.$.bookshelves": name
@@ -183,7 +184,7 @@ exports.deleteFromBookshelf = async (req, res, next) => {
       return next(new ErrorResponse("This book is not in your library", 404));
     }
 
-    if((await checkBookshelf(userData._id, parseInt(isbn), name)).length === 0) {
+    if((await checkBookshelf(userData._id, isbn, name)).length === 0) {
       return next(new ErrorResponse("This book is not in that bookshelf", 404));
     }
 
@@ -191,7 +192,7 @@ exports.deleteFromBookshelf = async (req, res, next) => {
     await User.updateOne(
       {$and: [
         {"_id": userData._id},
-        {"library.books.isbn": {$eq: isbn}}
+        {"library.books.isbn.identifier": {$eq: isbn}}
       ]},
       {$pull: {
         "library.books.$.bookshelves": {$eq: name}
