@@ -7,7 +7,7 @@ const {addBook, getBook, editBook, deleteBook} = require("../../controllers/priv
 router.route("/books/:isbn?").get(protect, getBook);
 
 // Add book
-router.route("/books").post(protect, addBook);
+router.route("/books/:isbnToAdd").post(protect, addBook);
 
 // Edit book
 router.route("/books/:isbn").put(protect, editBook);
