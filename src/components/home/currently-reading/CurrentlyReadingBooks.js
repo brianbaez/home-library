@@ -11,7 +11,7 @@ function CurrentlyReadingBooks(currentlyReadingBooksProps) {
   const bookCardProps = {config, success, setSuccess, error, setError};
 
   return (
-    <div className="CurrentlyReadingBooks">
+    <div className="CurrentlyReadingBooks d-flex flex-column">
       {currentlyReading.map((book, index) => {
         if(index < 2) {
           return (

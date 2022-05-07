@@ -6,7 +6,7 @@ import ViewAllButton from "../ViewAllButton";
 
 function ReadRecentlyBooks({readRecently}) {
   return (
-    <div className="ReadRecentlyBooks row row-cols-auto">
+    <div className="ReadRecentlyBooks d-flex flex-column">
       <div className="BookCovers row row-cols-auto">
         {readRecently.slice(0).reverse().map((book, index) => {
           if(index < 8) {

@@ -6,8 +6,8 @@ import ViewAllButton from "../ViewAllButton";
 
 function WantToReadBooks({wantToRead}) {
   return (
-    <div className="WantToReadBooks">
-      <div className="row row-cols-auto">
+    <div className="WantToReadBooks d-flex flex-column">
+      <div className="BookCovers row row-cols-auto">
         {wantToRead.map((book, index) => {
           console.log(book);
           if(index < 8) {
