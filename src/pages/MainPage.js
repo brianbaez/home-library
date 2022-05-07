@@ -1,5 +1,6 @@
 import React from "react";
 
+// Components
 import Hero from "../components/Hero";
 import Summary from "../components/Summary";
 import Features from "../components/Features";
@@ -8,7 +9,7 @@ import Footer from "../components/Footer";
 
 function MainPage() {
   return (
-    <div className="Main">
+    <div className="MainPage">
       <Hero />
       <Summary />
       <Features />
