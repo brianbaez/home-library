@@ -2,10 +2,10 @@ import React from "react";
 import {useOutletContext} from "react-router-dom";
 
 // Components
-import CurrentlyReading from "../components/home/CurrentlyReading";
-import Challenges from "../components/home/Challenges";
-import ReadRecently from "../components/home/ReadRecently";
-import WantToRead from "../components/home/WantToRead";
+import CurrentlyReading from "../components/home/currently-reading/CurrentlyReading";
+import Challenges from "../components/home/challenges/Challenges";
+import ReadRecently from "../components/home/read-recently/ReadRecently";
+import WantToRead from "../components/home/want-to-read/WantToRead";
 
 // Hooks
 import useAuth from "../components/hooks/useAuth";
