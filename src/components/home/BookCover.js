@@ -6,7 +6,7 @@ function BookCover(bookCoverProps) {
   const {book, isbn} = bookCoverProps;
 
   return (
-    <div className="BookCover col pb-3">
+    <div className="BookCover col mb-3">
       {book &&
         <Link to={`/book/${isbn}`}>
           <img src={book.cover.thumbnail} alt="book-cover"></img>
