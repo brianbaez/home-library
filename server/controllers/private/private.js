@@ -32,3 +32,11 @@ exports.getPrivateChallengesData = (req, res, next) => {
     data: req.user
   });
 }
+
+exports.getPrivateUserData = (req, res, next) => {
+  res.status(200).json({
+    success: true,
+    message: "You have access to the user data",
+    data: req.user
+  });
+}
