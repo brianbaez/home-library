@@ -1,5 +1,7 @@
 import React from "react";
 import {NavLink, useNavigate} from "react-router-dom";
+
+// Components
 import {navItems} from "./NavbarItems";
 import SearchBar from "./SearchBar";
 
@@ -41,8 +43,7 @@ function Navbar() {
                     <i className="fa-solid fa-user fa-2x"></i>
                   </a>
                   <div className="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                    <a className="dropdown-item" href="#">Profile</a>
-                    <a className="dropdown-item" href="#">Manage Account</a>
+                    <NavLink className="dropdown-item" to={`/account`}>Manage Account</NavLink>
                     <div className="dropdown-divider"></div>
                     <a className="dropdown-item" href="/" onClick={logOutHandler}>Sign Out</a>
                   </div>
