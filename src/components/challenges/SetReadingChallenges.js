@@ -2,8 +2,8 @@ import React, {useState} from "react";
 import axios from "axios";
 
 // Components
-import SetBookGoal from "./SetBookGoal";
-import SetPagesGoal from "./SetPagesGoal";
+import SetBookGoal from "./book/SetBookGoal";
+import SetPagesGoal from "./pages/SetPagesGoal";
 
 function SetReadingChallenges(setReadingChallengesProps) {
   // Props
