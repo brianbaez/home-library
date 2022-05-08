@@ -2,7 +2,7 @@ import React from "react";
 import {useOutletContext, useParams} from "react-router-dom";
 
 // Components
-import Entry from "../components/journal/Entry";
+import Entry from "../components/journal/entry/Entry";
 
 // Hooks
 import useAuth from "../components/hooks/useAuth";
