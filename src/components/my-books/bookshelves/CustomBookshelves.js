@@ -1,10 +1,16 @@
 import React, {useState, useEffect} from "react";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
 // Components
 import {defaultBookshelvesItems} from "./DefaultBookshelvesItems";
 
-function CustomBookshelves({setBookshelf, config}) {
+function CustomBookshelves(customBookshelvesProps) {
+  // Props
+  const {setBookshelf, config, deletedBookshelf} = customBookshelvesProps;
+
+  let navigate = useNavigate();
+
   const [customBookshelves, setCustomBookshelves] = useState([]);
 
   useEffect(() => {
@@ -38,11 +44,13 @@ function CustomBookshelves({setBookshelf, config}) {
     }
 
     fetchCustomBookshelves();
-  }, []);
+  }, [deletedBookshelf]);
 
   const clickHandler = (e) => {
     e.preventDefault();
     setBookshelf(e.target.rel);
+
+    navigate(`/my-books/${e.target.rel}`);
   }
 
   if(customBookshelves.length !== 0) {
@@ -52,7 +60,7 @@ function CustomBookshelves({setBookshelf, config}) {
         {customBookshelves.map((item) => {
           return(
             <div key={item.id} className="Bookshelf">
-              <a className="mb-0" href="#" rel={item.tag} onClick={(e) => clickHandler(e)}>{item.name}</a>
+              <a className="mb-0" href={`/my-books/${item.tag}`} rel={item.tag} onClick={(e) => clickHandler(e)}>{item.name}</a>
             </div>
           )
         })}
