@@ -14,7 +14,7 @@ function MyBooks(myBooksProps) {
   const [error, setError] = useState();
 
   const bookshelvesProps = {config, setBooks, deletedBook, setDeletedBook, setError, deletedBookshelf};
-  const bookResultsProps = {results: books, setDeletedBook, setDeletedBookshelf};
+  const bookResultsProps = {config, results: books, setDeletedBook, setDeletedBookshelf};
 
   return (
     <div className="container mybooks-content mt-3 mb-3">
