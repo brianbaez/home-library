@@ -4,7 +4,7 @@ const ErrorResponse = require("../utils/ErrorResponse");
 const getSelfLinks = async (search, next) => {
   const selfLinks = [];
 
-  if(search.length == 13 || search.length == 10) {
+  if((search.length == 13 || search.length == 10) && !isNaN(search)) {
     search = "isbn:" + search;
   }
 
