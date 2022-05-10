@@ -24,15 +24,25 @@ function BookProgress(bookProgressProps) {
     const pagesRead = currentPage - progressPages;
     setPagesRead(pagesRead);
 
+    const date = new Date();
+
     const data = {
-      "month": new Date().getMonth() + 1,
-      "day": new Date().getDate(),
-      "year": new Date().getFullYear(),
+      "month": date.getMonth() + 1,
+      "day": date.getDate(),
+      "year": date.getFullYear(),
       "pagesReadSession": pagesRead,
       "note": note
     }
 
-    await axios.post(`/api/private/journal/${isbn}`, data, config)
+    const addEntry = async () => {
+      return await axios.post(`/api/private/journal/${isbn}`, data, config);
+    }
+
+    const updateChallenge = async () => {
+      return await axios.put(`/api/private/challenges/${date.getFullYear()}`, {pagesCompleted: pagesRead}, config);
+    }
+
+    await addEntry()
     .then((res) => {
       setNote("");
       setSuccess(res.data.message);
@@ -47,7 +57,11 @@ function BookProgress(bookProgressProps) {
       setTimeout(() => {
         setError();
       }, 5000);
-    })
+    });
+
+    await updateChallenge()
+    .then((res) => {})
+    .catch((error) => {});
   }
 
   return (
