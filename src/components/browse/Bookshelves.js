@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 
 // Components
-import Button from "../Button";
+import SaveButton from "../SaveButton";
 
 function Bookshelves(bookshelvesProps) {
   // Props
@@ -10,7 +10,7 @@ function Bookshelves(bookshelvesProps) {
 
   const [bookshelves, setBookshelves] = useState();
   const [bookshelfToAdd, setBookshelfToAdd] = useState();
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState();
   const [error, setError] = useState();
 
   useEffect(() => {
@@ -37,8 +37,12 @@ function Bookshelves(bookshelvesProps) {
     e.preventDefault();
 
     await axios.post(`/api/private/bookshelves/${bookshelfToAdd}/${isbn}`, {}, config)
-    .then((res) => {})
-    .catch((error) => {});
+    .then((res) => {
+      setBookshelfToAdd("");
+    })
+    .catch((error) => {
+      setBookshelfToAdd("");
+    });
   }
 
   const deleteBookshelfHandler = async (bookshelfToDelete) => {
@@ -69,9 +73,11 @@ function Bookshelves(bookshelvesProps) {
           <div className="AddBookshelf mt-2">
             <button type="button" className="btn" data-bs-toggle="collapse" data-bs-target={`#addBookshelf-${isbn}`} aria-expanded="false" aria-controls={`addBookshelf-${isbn}`}>Add Bookshelf</button>
             <form className="AddBookshelfFields collapse mt-2" id={`addBookshelf-${isbn}`} onSubmit={addBookshelfHandler}>
-              <div className="form-group">
+              <div className="form-group d-flex">
                 <input required type="text" placeholder="Enter a bookshelf name" maxLength="100" value={bookshelfToAdd} onChange={(e) => setBookshelfToAdd(e.target.value)}></input>
-                <button className="btn ms-2" type="submit">Save</button>
+                <div className="SaveButton ms-2">
+                  <SaveButton success={success} error={error} />
+                </div>
               </div>
             </form>
           </div>

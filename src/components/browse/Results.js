@@ -30,9 +30,13 @@ function Results(browseProps) {
         ? <h1>No results</h1>
         :
         <div>
-          <h1 className="mb-5">Search results for {query}</h1>
-          {error && <span>{error}</span>}
-          <BookResults config={config} results={results}/>
+          {results &&
+            <div className="ResultsContent">
+              <h1 className="mb-5">Found {results.length} results for {query}</h1>
+              {error && <span>{error}</span>}
+              <BookResults config={config} results={results}/>
+            </div>
+          }
         </div>
       }
     </div>

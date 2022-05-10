@@ -38,7 +38,6 @@ function BookCard(bookCardProps) {
         });
       };
 
-
       getISBN13();
 
       if(isbn === undefined) {
@@ -48,12 +47,12 @@ function BookCard(bookCardProps) {
   }, [results]);
 
   return (
-    <div className="BookCard d-flex flex-row mb-5">
-      <div className="left d-inline-flex flex-column me-lg-5 align-items-center">
+    <div className="BookCard row mb-5">
+      <div className="left col-3 d-flex flex-column align-items-center">
         <BookCover book={book} isbn={isbn}/>
         <StatusDropdown {...statusDropdownProps}/>
       </div>
-      <div className="right d-flex flex-column flex-fill shadow-sm border p-3">
+      <div className="right col-9 d-flex flex-column shadow-sm border p-3">
         <Link to={`/book/${isbn}`}>
           <h4 className="mb-0">{book.title}</h4>
         </Link>

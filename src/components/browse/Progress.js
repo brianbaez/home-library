@@ -65,7 +65,7 @@ function Progress(progressProps) {
 
     await addEntry()
     .then((res) => {
-      setNote();
+      setNote("");
       setSuccess(res.data.message);
 
       setTimeout(() => {
