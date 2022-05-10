@@ -4,11 +4,15 @@ const ErrorResponse = require("../utils/ErrorResponse");
 const getSelfLinks = async (search, next) => {
   const selfLinks = [];
 
+  if(search.length == 13 || search.length == 10) {
+    search = "isbn:" + search;
+  }
+
   const options = {
     header: {
       "Content-Type": "application/json"
     },
-    url: `https://www.googleapis.com/books/v1/volumes?q=${search}&key=${process.env.GOOGLE_BOOKS_API}`
+    url: `https://www.googleapis.com/books/v1/volumes?q=${search}&maxResults=40&key=${process.env.GOOGLE_BOOKS_API}`
   };
 
   // Get all self links from GoogleBooks API
@@ -29,14 +33,13 @@ const getBookResults = async (selfLinks, next) => {
   const results = [];
   let promises = selfLinks.map((url) => axios.get(url));
 
-
   await Promise.allSettled(promises)
   .then((res) => {
     res.forEach((result) => {
-      if(result.value.status == 200) {
+      if(result?.value?.status == 200) {
         const book = result.value.data.volumeInfo;
 
-        if(book.title !== undefined && book.description !== undefined) {
+        if(book.title !== undefined && book.industryIdentifiers !== undefined) {
           results.push({
             title: book.title,
             authors: book.authors,
