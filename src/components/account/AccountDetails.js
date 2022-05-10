@@ -7,27 +7,46 @@ import Username from "./Username";
 
 function AccountDetails(accountDetailsProps) {
   const {config, email, setEmail, username, setUsername} = accountDetailsProps;
+
+  const [newEmail, setNewEmail] = useState();
+  const [newUsername, setNewUsername] = useState();
+
   const [success, setSuccess] = useState();
   const [error, setError] = useState();
+
+  useEffect(() => {
+    setNewEmail(email);
+    setNewUsername(username);
+  }, [email, username]);
 
   const updateAccountDetailsHandler = async (e) => {
     e.preventDefault();
 
     const updateEmail = async () => {
-      return await axios.put(`/api/private/account/edit/email`, {newEmail: email}, config);
+      if(newEmail !== email) {
+        setEmail(newEmail);
+        return await axios.put(`/api/private/account/edit/email`, {newEmail: newEmail}, config);
+      }
     }
 
     const updateUsername = async () => {
-      return await axios.put(`/api/private/account/edit/username`, {newUsername: username}, config);
+      if(newUsername !== username) {
+        setUsername(newUsername);
+        return await axios.put(`/api/private/account/edit/username`, {newUsername: newUsername}, config);
+      }
     }
 
     await Promise.all([updateEmail(), updateUsername()])
     .then((res) => {
-      setSuccess("Account details updated successfully");
+      res.map((result) => {
+        if(result !== undefined) {
+          setSuccess("Account details updated successfully");
 
-      setTimeout(() => {
-        setSuccess();
-      }, 5000);
+          setTimeout(() => {
+            setSuccess();
+          }, 5000);
+        }
+      })
     })
     .catch((error) => {
       setError("Failed to update account details");
@@ -42,9 +61,8 @@ function AccountDetails(accountDetailsProps) {
     <form className="AccountDetails" onSubmit={updateAccountDetailsHandler}>
       <h4>Account Details</h4>
       <hr className="my-3"></hr>
-
-      <Email email={email} setEmail={setEmail}/>
-      <Username username={username} setUsername={setUsername}/>
+      <Email newEmail={newEmail} setNewEmail={setNewEmail}/>
+      <Username newUsername={newUsername} setNewUsername={setNewUsername}/>
 
       <div className="UpdateButton">
         <button className="btn" type="submit">Update</button>

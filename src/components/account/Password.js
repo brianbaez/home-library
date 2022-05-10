@@ -14,29 +14,27 @@ function Password({config}) {
     e.preventDefault();
 
     if(password !== confirmPassword) {
-      setError("Passwords do not match")
-      setPassword("");
-      setConfirmPassword("");
+      setError("Passwords do not match");
 
       setTimeout(() => {
         setError();
       }, 5000);
     }
+    else {
+      await axios.put(`/api/private/account/edit/password`, {newPassword: password}, config)
+      .then((res) => {
+        setSuccess(res.data.message);
 
-    await axios.put(`/api/private/account/edit/password`, {newPassword: password}, config)
-    .then((res) => {
-      setSuccess(res.data.message);
-
-      setTimeout(() => {
-        setSuccess();
-        setPassword("");
-        setConfirmPassword("");
-      }, 5000);
-
-    })
-    .catch((error) => {
-      console.log(error.response.data.error);
-    });
+        setTimeout(() => {
+          setSuccess();
+          setPassword("");
+          setConfirmPassword("");
+        }, 5000);
+      })
+      .catch((error) => {
+        setError(error.resposne.data.error);
+      });
+    }
   }
 
   return (
