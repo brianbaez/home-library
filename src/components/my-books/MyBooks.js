@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 
 // Components
+import SearchBar from "./SearchBar";
 import Bookshelves from "./bookshelves/Bookshelves";
 import BookResults from "../browse/BookResults";
 
@@ -27,10 +28,7 @@ function MyBooks(myBooksProps) {
             <div>
               {books && <h4 className="">{books.length} {books.length === 1 ? <span>book</span> : <span>books</span>} {bookshelfParam ? <span>in {bookshelfParam}</span> : null}</h4>}
             </div>
-            <form className="d-flex">
-              <input className="form-control me-2" type="search" placeholder="Search my books" aria-label="Search my books"></input>
-              <button className="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <SearchBar booksCopy={books} books={books} setBooks={setBooks}/>
           </div>
         </div>
       </div>
