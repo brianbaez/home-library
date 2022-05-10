@@ -95,10 +95,27 @@ nav a {
   background-color: var(--clr-accent);
 }
 
-.home-library-icon * {
+.HomeLibraryIcon * {
   color: var(--clr-accent) !important;
 }
 
 .home-content, .mybooks-content {
   color: var(--clr-dark);
+}
+
+.status-item:active {
+  background-color: var(--clr-dark);
+}
+
+.status-item:hover {
+  background-color: var(--clr-button);
+  color: var(--clr-accent) !important;
+}
+
+.progress {
+  background-color: var(--clr-accent);
+}
+
+.progress-bar {
+  background-color: var(--clr-dark);
 }
