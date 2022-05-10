@@ -34,8 +34,7 @@ function BookProgress(bookProgressProps) {
 
     await axios.post(`/api/private/journal/${isbn}`, data, config)
     .then((res) => {
-      console.log(res);
-      setNote();
+      setNote("");
       setSuccess(res.data.message);
 
       setTimeout(() => {

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import {Link} from "react-router-dom";
 import axios from "axios";
 
 // Components
@@ -80,7 +81,13 @@ function Challenges({config}) {
       <h4>{new Date().getFullYear()} Reading Challenge</h4>
       <div className="ChallengesContent shadow-sm border p-3">
         {!challenges
-          ? <span>{error}</span>
+          ?
+          <div>
+            <p className="mb-2">{error}</p>
+            <Link to="/my-reading-challenges">
+              <button className="btn btn-sm">Set Up Reading Challenges</button>
+            </Link>
+          </div>
           : <BookChallenge {...bookChallengeProps}/>
         }
       </div>
