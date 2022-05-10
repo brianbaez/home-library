@@ -11,6 +11,8 @@ function ManageAccount({config}) {
   const [email, setEmail] = useState();
   const [username, setUsername] = useState();
 
+  const [accountLoading, setAccountLoading] = useState(true);
+
   const accountDetailsProps = {config, email, setEmail, username, setUsername};
 
   useEffect(() => {
@@ -20,6 +22,7 @@ function ManageAccount({config}) {
         setID(res.data.data.id);
         setEmail(res.data.data.email);
         setUsername(res.data.data.username);
+        setAccountLoading(false);
       })
       .catch((error) => {
         console.log(error.response.data.error);
@@ -29,17 +32,18 @@ function ManageAccount({config}) {
     getUserData();
   }, []);
 
-  return (
-    <div className="ManageAccount container mt-3">
-      <h4>Manage Account</h4>
-      <div className="shadow-sm border px-3 py-3">
-        <AccountDetails {...accountDetailsProps}/>
-        <Password config={config }/>
-        <DeleteAccount config={config}/>
+  if(!accountLoading) {
+    return (
+      <div className="ManageAccount container mt-3">
+        <h4>Manage Account</h4>
+        <div className="shadow-sm border px-3 py-3">
+          <AccountDetails {...accountDetailsProps}/>
+          <Password config={config }/>
+          <DeleteAccount config={config}/>
+        </div>
       </div>
-    </div>
-
-  );
+    );
+  }
 }
 
 export default ManageAccount;

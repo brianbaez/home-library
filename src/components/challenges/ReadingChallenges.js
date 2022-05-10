@@ -11,6 +11,8 @@ function ReadingChallenges({config}) {
   const [success, setSuccess] = useState();
   const [error, setError] = useState();
 
+  const [challengesLoading, setChallengesLoading] = useState(true);
+
   const setReadingChallengesProps = {config, success, setSuccess, error, setError};
   const readingChallengeCardsProps = {config, challenges, success, setSuccess, error, setError};
 
@@ -23,6 +25,7 @@ function ReadingChallenges({config}) {
 
         if(data.length !== 0) {
           setChallenges(data[0].challenges);
+          setChallengesLoading(false);
         }
         else {
           setChallenges();
@@ -46,12 +49,14 @@ function ReadingChallenges({config}) {
     }
   }, [challenges]);
 
-  return (
-    <div className="ReadingChallenges container my-3">
-      {!currentYearChallenge && <SetReadingChallenges {...setReadingChallengesProps}/>}
-      {challenges && <ReadingChallengeCards {...readingChallengeCardsProps}/>}
-    </div>
-  );
+  if(!challengesLoading) {
+    return (
+      <div className="ReadingChallenges container my-3">
+        {!currentYearChallenge && <SetReadingChallenges {...setReadingChallengesProps}/>}
+        {challenges && <ReadingChallengeCards {...readingChallengeCardsProps}/>}
+      </div>
+    );
+  }
 }
 
 export default ReadingChallenges;

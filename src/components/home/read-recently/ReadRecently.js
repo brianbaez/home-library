@@ -5,6 +5,8 @@ import axios from "axios";
 import ReadRecentlyBooks from "./ReadRecentlyBooks";
 
 function ReadRecently({config}) {
+  const [readRecentlyLoading, setReadRecentlyLoading] = useState(true);
+
   const [readRecently, setReadRecently] = useState();
   const [error, setError] = useState();
 
@@ -12,7 +14,8 @@ function ReadRecently({config}) {
     const fetchReadRecently = async () => {
       await axios.get(`/api/private/bookshelves/books/read`, config)
       .then((res) => {
-        setReadRecently(res.data.data[0].books)
+        setReadRecently(res.data.data[0].books);
+        setReadRecentlyLoading(false);
       })
       .catch((error) => {
         setError(error.response.data.error);
@@ -22,17 +25,19 @@ function ReadRecently({config}) {
     fetchReadRecently();
   }, []);
 
-  return (
-    <div className="ReadRecently col mb-3">
-      <h4>Read Recently</h4>
-      <div className="ReadRecentlyContent shadow-sm border p-3">
-        {!readRecently
-          ? <span>{error}</span>
-          : <ReadRecentlyBooks readRecently={readRecently}/>
-        }
+  if(!readRecentlyLoading) {
+    return (
+      <div className="ReadRecently col mb-3">
+        <h4>Read Recently</h4>
+        <div className="ReadRecentlyContent shadow-sm border p-3">
+          {!readRecently
+            ? <span>{error}</span>
+            : <ReadRecentlyBooks readRecently={readRecently}/>
+          }
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default ReadRecently;

@@ -7,6 +7,8 @@ import ViewAllButton from "../ViewAllButton";
 import BookCard from "./BookCard";
 
 function CurrentlyReading({config}) {
+  const [currentlyReadingLoading, setCurrentlyReadingLoading] = useState(true);
+
   const [currentlyReading, setCurrentlyReading] = useState();
   const [success, setSuccess] = useState();
   const [error, setError] = useState();
@@ -16,7 +18,9 @@ function CurrentlyReading({config}) {
     const fetchCurrentlyReading = async () => {
       await axios.get(`/api/private/bookshelves/books/currently-reading`, config)
       .then((res) => {
-        setCurrentlyReading(res.data.data[0].books)
+        setCurrentlyReading(res.data.data[0].books);
+        setCurrentlyReadingLoading(false);
+
       })
       .catch((error) => {
         setError(error.response.data.error);
@@ -26,17 +30,19 @@ function CurrentlyReading({config}) {
     fetchCurrentlyReading();
   }, [success]);
 
-  return (
-    <div className="CurrentlyReading col mb-3">
-      <h4>Curently Reading</h4>
-      <div className="CurrentlyReadingContent shadow-sm border p-3">
-        {!currentlyReading
-          ? <span>{error}</span>
-          : <CurrentlyReadingBooks {...currentlyReadingBooksProps}/>
-        }
+  if(!currentlyReadingLoading) {
+    return (
+      <div className="CurrentlyReading col mb-3">
+        <h4>Curently Reading</h4>
+        <div className="CurrentlyReadingContent shadow-sm border p-3">
+          {!currentlyReading
+            ? <span>{error}</span>
+            : <CurrentlyReadingBooks {...currentlyReadingBooksProps}/>
+          }
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default CurrentlyReading;

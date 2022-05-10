@@ -10,6 +10,8 @@ function Journal(journalProps) {
   // Props
   const {config, isbn} = journalProps;
 
+  const [journalLoading, setJournalLoading] = useState(true);
+
   const [book, setBook] = useState();
   const [journal, setJournal] = useState();
   const [error, setError] = useState();
@@ -39,8 +41,10 @@ function Journal(journalProps) {
       .then((res) => {
         if(res.data.journal.length !== 0) {
           setJournal(res.data.journal[0].entries);
+          setJournalLoading(false);
         }
         else {
+          setJournalLoading(false);
           setError("There are no journal entries for this book");
         }
       })
@@ -52,20 +56,22 @@ function Journal(journalProps) {
     fetchJournal();
   }, [book]);
 
-  return (
-    <div className="Journal container my-3">
-      <h4>Reading Journal</h4>
-      <div className="JournalContent shadow-sm border p-3">
-        {!book && error && <span>{error}</span>}
-        {book &&
-          <div>
-            <Book {...bookProps}/>
-            <JournalEntries {...journalEntriesProps}/>
-          </div>
-        }
+  if(!journalLoading) {
+    return (
+      <div className="Journal container my-3">
+        <h4>Reading Journal</h4>
+        <div className="JournalContent shadow-sm border p-3">
+          {!book && error && <span>{error}</span>}
+          {book &&
+            <div>
+              <Book {...bookProps}/>
+              <JournalEntries {...journalEntriesProps}/>
+            </div>
+          }
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default Journal;

@@ -10,6 +10,8 @@ function Bookshelves(bookshelvesProps) {
   // Props
   const {config, setBooks, deletedBook, setDeletedBook, setError, deletedBookshelf} = bookshelvesProps;
 
+  const [bookshelvesLoading, setBookshelvesLoading] = useState(true);
+
   const {bookshelfParam} = useParams();
   const [bookshelf, setBookshelf] = useState(bookshelfParam || "");
 
@@ -20,6 +22,7 @@ function Bookshelves(bookshelvesProps) {
         .then((res) => {
           setBooks(res.data.data[0].books);
           setDeletedBook(false);
+          setBookshelvesLoading(false);
           setError();
         })
         .catch((error) => {
@@ -32,6 +35,7 @@ function Bookshelves(bookshelvesProps) {
         .then((res) => {
           setBooks(res.data.data[0].books);
           setDeletedBook(false);
+          setBookshelvesLoading(false);
           setError();
         })
         .catch((error) => {
@@ -46,13 +50,15 @@ function Bookshelves(bookshelvesProps) {
 
   const customBookshelvesProps = {config, setBookshelf, deletedBookshelf};
 
-  return (
-    <div className="Bookshelves col col-3 d-none-sm d-block-lg">
-      <h5>Bookshelves</h5>
-      <DefaultBookshelves setBookshelf={setBookshelf}/>
-      <CustomBookshelves {...customBookshelvesProps}/>
-    </div>
-  );
+  if(!bookshelvesLoading) {
+    return (
+      <div className="Bookshelves col col-3 d-none-sm d-block-lg">
+        <h5>Bookshelves</h5>
+        <DefaultBookshelves setBookshelf={setBookshelf}/>
+        <CustomBookshelves {...customBookshelvesProps}/>
+      </div>
+    );
+  }
 }
 
 export default Bookshelves;

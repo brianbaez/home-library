@@ -6,6 +6,8 @@ import axios from "axios";
 import BookChallenge from "./book-challenge/BookChallenge";
 
 function Challenges({config}) {
+  const [challengesLoading, setChallengesLoading] = useState(true);
+
   const [challenges, setChallenges] = useState();
   const [booksProgress, setBooksProgress] = useState("0");
   const [scheduleStatus, setScheduleStatus] = useState("");
@@ -20,6 +22,7 @@ function Challenges({config}) {
       await axios.get(`/api/private/challenges/${year}`, config)
       .then((res) => {
         setChallenges(res.data.data[0].challenges);
+        setChallengesLoading(false);
       })
       .catch((error) => {
         setError(error.response.data.error);
@@ -76,23 +79,25 @@ function Challenges({config}) {
     }
   }, [challenges])
 
-  return (
-    <div className="Challenges col mb-3">
-      <h4>{new Date().getFullYear()} Reading Challenge</h4>
-      <div className="ChallengesContent shadow-sm border p-3">
-        {!challenges
-          ?
-          <div>
-            <p className="mb-2">{error}</p>
-            <Link to="/my-reading-challenges">
-              <button className="btn btn-sm">Set Up Reading Challenges</button>
-            </Link>
-          </div>
-          : <BookChallenge {...bookChallengeProps}/>
-        }
+  if(!challengesLoading) {
+    return (
+      <div className="Challenges col mb-3">
+        <h4>{new Date().getFullYear()} Reading Challenge</h4>
+        <div className="ChallengesContent shadow-sm border p-3">
+          {!challenges
+            ?
+            <div>
+              <p className="mb-2">{error}</p>
+              <Link to="/my-reading-challenges">
+                <button className="btn btn-sm">Set Up Reading Challenges</button>
+              </Link>
+            </div>
+            : <BookChallenge {...bookChallengeProps}/>
+          }
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default Challenges;

@@ -9,6 +9,8 @@ function CustomBookshelves(customBookshelvesProps) {
   // Props
   const {setBookshelf, config, deletedBookshelf} = customBookshelvesProps;
 
+  const [customBookshelvesLoading, setCustomBookshelvesLoading] = useState(true);
+
   let navigate = useNavigate();
 
   const [customBookshelves, setCustomBookshelves] = useState([]);
@@ -39,7 +41,8 @@ function CustomBookshelves(customBookshelvesProps) {
           });
         });
 
-        setCustomBookshelves(customShelves)
+        setCustomBookshelves(customShelves);
+        setCustomBookshelvesLoading(false);
       });
     }
 
@@ -53,7 +56,7 @@ function CustomBookshelves(customBookshelvesProps) {
     navigate(`/my-books/${e.target.rel}`);
   }
 
-  if(customBookshelves.length !== 0) {
+  if(!customBookshelvesLoading && customBookshelves.length !== 0) {
     return (
       <div className="CustomBookshelves d-flex flex-column">
         <hr className="mt-2 mb-2"></hr>
