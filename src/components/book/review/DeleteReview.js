@@ -3,15 +3,24 @@ import axios from "axios";
 
 function DeleteReview(deleteReviewProps) {
   // Props
-  const {config, isbn, setReview} = deleteReviewProps;
+  const {config, isbn, setReview, setReviewText} = deleteReviewProps;
 
   const deleteReviewHandler = async (e) => {
     e.preventDefault();
 
     if(window.confirm("Are you sure you want to delete this review?")) {
-      await axios.delete(`/api/private/reviews/${isbn}`, config)
+      const deleteReview = async () => {
+        return await axios.delete(`/api/private/reviews/${isbn}`, config);
+      }
+
+      const deleteBookshelf = async () => {
+        return await axios.delete(`/api/private/bookshelves/reviewed/${isbn}`, config);
+      }
+
+      await Promise.all([deleteReview(), deleteBookshelf()])
       .then((res) => {
         setReview();
+        setReviewText();
       })
       .catch((error) => {});
     }

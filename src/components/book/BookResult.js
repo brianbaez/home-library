@@ -28,15 +28,17 @@ function BookResult(bookProps) {
   const reviewProps = {config, isbn, currentStatus};
 
   useEffect(() => {
-    const fetchResults = async () => {
-      await axios.get(`/api/browse?search=${isbn}`)
-      .then((res) => {
-        setResults(res.data.results);
-      })
-      .catch((error) => {});
-    }
+    if(isbn) {
+      const fetchResults = async () => {
+        await axios.get(`/api/browse?search=${isbn}`)
+        .then((res) => {
+          setResults(res.data.results);
+        })
+        .catch((error) => {});
+      }
 
-    fetchResults();
+      fetchResults();
+    }
   }, [isbn]);
 
   useEffect(() => {

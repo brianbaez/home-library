@@ -25,9 +25,17 @@ function AddReview(addReviewProps) {
       text: reviewText
     }
 
-    await axios.post(`/api/private/reviews/${isbn}`, data, config)
+    const addReview = async () => {
+      return await axios.post(`/api/private/reviews/${isbn}`, data, config);
+    }
+
+    const addBookshelf = async () => {
+      return await axios.post(`/api/private/bookshelves/reviewed/${isbn}`, {}, config);
+    }
+
+    await Promise.all([addReview(), addBookshelf()])
     .then((res) => {
-      setSuccess(res.data.message);
+      setSuccess("Review has been added");
 
       setTimeout(() => {
         setSuccess();

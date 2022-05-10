@@ -13,7 +13,7 @@ function EditReview(editReviewProps) {
 
   const ratingProps = {wholeNumber, setWholeNumber, decimalNumber, setDecimalNumber};
   const reviewTextProps = {reviewText, setReviewText};
-  const deleteReviewProps = {config, isbn, setReview};
+  const deleteReviewProps = {config, isbn, setReview, setReviewText};
 
   const editReviewHandler = async (e) => {
     e.preventDefault();
