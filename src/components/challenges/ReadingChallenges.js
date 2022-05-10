@@ -6,9 +6,9 @@ import SetReadingChallenges from "./SetReadingChallenges";
 import ReadingChallengeCards from "./ReadingChallengeCards";
 
 function ReadingChallenges({config}) {
-  const [currentYearChallenge, setCurrentYearChallenge] = useState(false);
+  const [currentYearChallenge, setCurrentYearChallenge] = useState();
   const [challenges, setChallenges] = useState();
-  const [success, setSuccess] = useState("");
+  const [success, setSuccess] = useState();
   const [error, setError] = useState();
 
   const setReadingChallengesProps = {config, success, setSuccess, error, setError};
@@ -19,25 +19,32 @@ function ReadingChallenges({config}) {
     const getChallenges = async () => {
       await axios.get(`/api/private/challenges`, config)
       .then((res) => {
-        setChallenges(res.data.data[0].challenges);
+        const data = res.data.data;
+
+        if(data.length !== 0) {
+          setChallenges(data[0].challenges);
+        }
+        else {
+          setChallenges();
+        }
       })
-      .catch((error) => {
-        setError(error.response.data.error);
-      })
+      .catch((error) => {});
     }
 
     getChallenges();
   }, [success]);
 
   useEffect(() => {
+    setCurrentYearChallenge(false);
+
     if(challenges) {
       challenges.map((challenge) => {
         if(challenge.year === new Date().getFullYear()) {
           setCurrentYearChallenge(true);
         }
-      })
+      });
     }
-  }, [challenges])
+  }, [challenges]);
 
   return (
     <div className="ReadingChallenges container my-3">

@@ -30,7 +30,7 @@ function SetReadingChallenges(setReadingChallengesProps) {
 
       setTimeout(() => {
         setSuccess();
-      }, 5000);
+      }, 1000);
     })
     .catch((error) => {
       setError(error.response.data.error);
@@ -42,17 +42,16 @@ function SetReadingChallenges(setReadingChallengesProps) {
   }
 
   return (
-    <div className="SetReadingChallenges text-center shadow-sm border row mb-5 py-3 px-3">
+    <div className="SetReadingChallenges text-center">
       <h4>Set Up Your {year} Reading Challenges</h4>
-      <SetBookGoal {...setBookGoalProps}/>
-      <SetPagesGoal {...setPagesGoalProps}/>
+      <div className="SetReadingChallengesContent shadow-sm border row mb-5 py-3 px-3">
+        <SetBookGoal {...setBookGoalProps}/>
+        <SetPagesGoal {...setPagesGoalProps}/>
 
-      <form className="mt-3" onSubmit={addChallengeHandler}>
-        <button className="btn btn-sm" type="submit">Add Challenge</button>
-      </form>
-
-      {success && <span className="mt-1">{success}</span>}
-      {error && <span className="mt-1">{error}</span>}
+        <form className="mt-3" onSubmit={addChallengeHandler}>
+          <button className="btn btn-sm" type="submit">Add Challenge</button>
+        </form>
+      </div>
     </div>
   );
 }

@@ -11,7 +11,7 @@ function EditBookGoal(props) {
   useEffect(() => {
     setCurrentBookGoal(bookGoal);
     setBooksToRead(bookGoal);
-  }, [success]);
+  }, []);
 
   const editBookGoalHandler = async (e) => {
     e.preventDefault();

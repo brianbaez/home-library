@@ -11,7 +11,7 @@ function EditPagesGoal(props) {
   useEffect(() => {
     setCurrentPagesGoal(pageGoal);
     setPagesToRead(pageGoal);
-  }, [success]);
+  }, []);
 
   const editPagesGoalHandler = async (e) => {
     e.preventDefault();
