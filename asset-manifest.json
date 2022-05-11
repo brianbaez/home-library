@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/home-library/static/css/main.db43c3d9.css",
-    "main.js": "/home-library/static/js/main.dbf7b968.js",
+    "main.js": "/home-library/static/js/main.edbbee7f.js",
     "static/media/red-rising.jpg": "/home-library/static/media/red-rising.8bc61ea98ad431891bff.jpg",
     "static/media/home-library.jpg": "/home-library/static/media/home-library.e0e31ed1424e2e4b80a7.jpg",
     "static/media/harry-potter-books.jpg": "/home-library/static/media/harry-potter-books.7c3f51d38dc7b7a2707f.jpg",
     "index.html": "/home-library/index.html",
     "main.db43c3d9.css.map": "/home-library/static/css/main.db43c3d9.css.map",
-    "main.dbf7b968.js.map": "/home-library/static/js/main.dbf7b968.js.map"
+    "main.edbbee7f.js.map": "/home-library/static/js/main.edbbee7f.js.map"
   },
   "entrypoints": [
     "static/css/main.db43c3d9.css",
-    "static/js/main.dbf7b968.js"
+    "static/js/main.edbbee7f.js"
   ]
 }
