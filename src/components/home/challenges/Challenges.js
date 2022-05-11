@@ -29,6 +29,7 @@ function Challenges({config}) {
       })
       .catch((error) => {
         setError(error.response.data.error);
+        setChallengesLoading(false);
       });
     }
 

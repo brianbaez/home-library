@@ -3,6 +3,7 @@ import axios from "axios";
 
 // Components
 import BookResults from "./BookResults";
+import Loader from "../Loader";
 
 function Results(browseProps) {
   // Props
@@ -17,7 +18,7 @@ function Results(browseProps) {
   useEffect(() => {
     // Get results by query
     const fetchResults = async () => {
-      await axios.get(`/api/private/browse?search=${query}`, config) 
+      await axios.get(`/api/private/browse?search=${query}`, config)
       .then((res) => {
         setResults(res.data.results);
         setResultsLoading(false);
@@ -30,25 +31,28 @@ function Results(browseProps) {
     fetchResults();
   }, [query]);
 
-  if(!resultsLoading) {
-    return (
-      <div className="Results container home-content my-3">
-        {!query
-          ? <h1>No results</h1>
-          :
-          <div>
-            {results &&
-              <div className="ResultsContent">
-                <h3 className="mb-3">Found {results.length} results for {query}</h3>
-                {error && <span>{error}</span>}
-                <BookResults config={config} results={results}/>
-              </div>
-            }
-          </div>
-        }
-      </div>
-    );
-  }
+  return (
+    <div>
+      {resultsLoading && <Loader />}
+      {!resultsLoading &&
+        <div className="Results container home-content my-3">
+          {!query
+            ? <h1>No results</h1>
+            :
+            <div>
+              {results &&
+                <div className="ResultsContent">
+                  <h3 className="mb-3">Found {results.length} results for {query}</h3>
+                  {error && <span>{error}</span>}
+                  <BookResults config={config} results={results}/>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+  );
 }
 
 export default Results;

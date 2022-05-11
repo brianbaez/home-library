@@ -26,7 +26,10 @@ function Bookshelves(bookshelvesProps) {
         // Get all books
         await axios.get(`/api/private/books`, config)
         .then((res) => {
-          setBooks(res.data.data[0].books);
+          if(res.data.data.length !== 0) {
+            setBooks(res.data.data[0].books);
+          }
+
           setDeletedBook(false);
           setBookshelvesLoading(false);
           setBooksLoading(false);
@@ -34,7 +37,9 @@ function Bookshelves(bookshelvesProps) {
         })
         .catch((error) => {
           setBooks([]);
-          setError(error.response.data.error);
+          console.log(error);
+          setError(error?.response?.data?.error);
+          setBookshelvesLoading(false);
           setBooksLoading(false);
         });
       }
@@ -51,6 +56,7 @@ function Bookshelves(bookshelvesProps) {
         .catch((error) => {
           setBooks([]);
           setError(error.response.data.error);
+          setBookshelvesLoading(false);
           setBooksLoading(false);
         });
       }

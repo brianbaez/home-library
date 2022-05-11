@@ -21,6 +21,7 @@ function ReadRecently({config}) {
       })
       .catch((error) => {
         setError(error.response.data.error);
+        setReadRecentlyLoading(false);
       });
     }
 

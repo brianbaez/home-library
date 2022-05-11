@@ -17,7 +17,7 @@ function CustomBookshelves(customBookshelvesProps) {
     const fetchCustomBookshelves = async () => {
       await axios.get(`/api/private/bookshelves`, config)
       .then((res) => {
-        const shelvesData = res.data.data[0].shelves;
+        const shelvesData = res.data.data[0]?.shelves;
 
         // Get all default tags
         const defaultTags = [];
@@ -27,11 +27,15 @@ function CustomBookshelves(customBookshelvesProps) {
         }
 
         // Get difference between both
-        let difference = shelvesData.filter(x => !defaultTags.includes(x));
+        let difference;
+
+        if(shelvesData !== undefined) {
+          difference = shelvesData.filter(x => !defaultTags.includes(x));
+        }
 
         const customShelves = [];
 
-        difference.forEach((item) => {
+        difference?.forEach((item) => {
           customShelves.push({
             "id": defaultBookshelvesItems.length + customShelves.length,
             "name": item,

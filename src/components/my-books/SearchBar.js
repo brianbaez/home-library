@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 
 function SearchBar({books, booksCopy, setBooks}) {
-  const [query, setQuery] = useState();
+  const [query, setQuery] = useState("");
   const [filtered, setFiltered] = useState();
 
   const searchHandler = (e) => {

@@ -27,6 +27,7 @@ function CurrentlyReading({config}) {
       })
       .catch((error) => {
         setError(error.response.data.error);
+        setCurrentlyReadingLoading(false);
       });
     }
 

@@ -43,9 +43,9 @@ function Navbar() {
                     <i className="fa-solid fa-user fa-2x"></i>
                   </a>
                   <div className="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                    <NavLink className="dropdown-item" to={`/account`}>Manage Account</NavLink>
+                    <NavLink className="dropdown-item profile-dropdown-item" to={`/account`}>Manage Account</NavLink>
                     <div className="dropdown-divider"></div>
-                    <a className="dropdown-item" href="/" onClick={logOutHandler}>Sign Out</a>
+                    <a className="dropdown-item profile-dropdown-item" href="/" onClick={logOutHandler}>Sign Out</a>
                   </div>
                 </li>
               </ul>

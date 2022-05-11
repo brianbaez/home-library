@@ -30,6 +30,7 @@ function ReadingChallenges({config}) {
         }
         else {
           setChallenges();
+          setChallengesLoading(false);
         }
       })
       .catch((error) => {});

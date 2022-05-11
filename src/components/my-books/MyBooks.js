@@ -11,7 +11,7 @@ function MyBooks(myBooksProps) {
   // Props
   const {config, bookshelfParam} = myBooksProps;
 
-  const [books, setBooks] = useState();
+  const [books, setBooks] = useState([]);
   const [deletedBook, setDeletedBook] = useState(false);
   const [deletedBookshelf, setDeletedBookshelf] = useState(false);
   const [error, setError] = useState();

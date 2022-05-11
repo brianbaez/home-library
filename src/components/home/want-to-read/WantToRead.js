@@ -21,6 +21,7 @@ function WantToRead({config}) {
       })
       .catch((error) => {
         setError(error.response.data.error);
+        setWantToReadLoading(false);
       });
     }
 
