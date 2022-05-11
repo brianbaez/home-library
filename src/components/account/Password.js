@@ -41,7 +41,7 @@ function Password({config}) {
     <div className="Password mt-5 mb-3">
       <h4>Password</h4>
       <hr></hr>
-      <button className="btn" type="button" data-bs-toggle="collapse" data-bs-target="#updatePassword" aria-expanded="false" aria-controls="updatePassword">Update Password</button>
+      <button className="btn btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#updatePassword" aria-expanded="false" aria-controls="updatePassword">Update Password</button>
 
       <form className="UpdatePasswordFields collapse mt-3" id="updatePassword" onSubmit={updatePasswordHandler}>
         <div className="form-group">

@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 
+// Components
+import SaveButton from "../../SaveButton";
+
 function BookProgress(bookProgressProps) {
   // Props
   const {config, isbn, pages, journal, success, setSuccess, error, setError} = bookProgressProps;
@@ -91,9 +94,7 @@ function BookProgress(bookProgressProps) {
               <textarea className="form-control" id="note" placeholder="Add a note" value={note} onChange={(e) => setNote(e.target.value)}></textarea>
             </div>
             <div className="SaveButton d-flex align-items-center mt-2">
-              <button className="btn" type="submit">Save</button>
-              {success && <span className="ms-2">{success}</span>}
-              {error && <span className="ms-2">{error}</span>}
+              <SaveButton success={success} error={error}/>
             </div>
           </div>
         </form>

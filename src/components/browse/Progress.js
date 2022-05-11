@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 
+// Components
+import SaveButton from "../SaveButton";
+
 function Progress(progressProps) {
   // Props
   const {config, isbn, pages, currentStatus} = progressProps;
@@ -31,8 +34,6 @@ function Progress(progressProps) {
         })
         .catch((error) => {
           setProgress(false);
-          // setProgressPages()
-          // setProgressPercentage();
         })
       }
     }
@@ -103,7 +104,7 @@ function Progress(progressProps) {
           </div>
 
           <div className="UpdateProgress mt-3">
-            <button type="button" className="btn" data-bs-toggle="collapse" data-bs-target={`#updateProgress-${isbn}`} aria-expanded="false" aria-controls={`updateProgress-${isbn}`}>Update Progress</button>
+            <button type="button" className="btn btn-sm" data-bs-toggle="collapse" data-bs-target={`#updateProgress-${isbn}`} aria-expanded="false" aria-controls={`updateProgress-${isbn}`}>Update Progress</button>
             <form className="UpdateProgressFields collapse mt-3" id={`updateProgress-${isbn}`} onSubmit={updateProgressHandler}>
               <div className="form-group d-flex flex-column justify-content-center justify-content-lg-start">
                 <div>
@@ -115,9 +116,7 @@ function Progress(progressProps) {
                   <textarea className="form-control" id="note" placeholder="Add a note" value={note} onChange={(e) => setNote(e.target.value)}></textarea>
                 </div>
                 <div className="d-flex flex-column flex-lg-row align-items-center mt-2">
-                  <button className="btn" type="submit">Save</button>
-                  {success && <span className="mt-2 mt-lg-0 ms-lg-2">{success}</span>}
-                  {error && <span className="mt-2 mt-lg-0 ms-lg-2">{error}</span>}
+                  <SaveButton success={success} error={error} />
                 </div>
               </div>
             </form>

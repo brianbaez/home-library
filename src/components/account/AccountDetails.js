@@ -65,7 +65,7 @@ function AccountDetails(accountDetailsProps) {
       <Username newUsername={newUsername} setNewUsername={setNewUsername}/>
 
       <div className="UpdateButton">
-        <button className="btn" type="submit">Update</button>
+        <button className="btn btn-sm" type="submit">Update</button>
         {success && <span className="ms-3">{success}</span>}
         {error && <span className="ms-3">{error}</span>}
       </div>

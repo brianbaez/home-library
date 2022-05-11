@@ -73,7 +73,7 @@ function Bookshelves(bookshelvesProps) {
           </div>
 
           <div className="AddBookshelf mt-3">
-            <button type="button" className="btn" data-bs-toggle="collapse" data-bs-target={`#addBookshelf-${isbn}`} aria-expanded="false" aria-controls={`addBookshelf-${isbn}`}>Add Bookshelf</button>
+            <button type="button" className="btn btn-sm" data-bs-toggle="collapse" data-bs-target={`#addBookshelf-${isbn}`} aria-expanded="false" aria-controls={`addBookshelf-${isbn}`}>Add Bookshelf</button>
             <form className="AddBookshelfFields collapse mt-3" id={`addBookshelf-${isbn}`} onSubmit={addBookshelfHandler}>
               <div className="form-group d-flex justify-content-center justify-content-lg-start">
                 <input required type="text" placeholder="Enter a bookshelf name" maxLength="100" value={bookshelfToAdd} onChange={(e) => setBookshelfToAdd(e.target.value)}></input>

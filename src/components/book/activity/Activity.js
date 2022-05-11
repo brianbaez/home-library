@@ -42,7 +42,7 @@ function Activity(activityProps) {
 
           <div className="mt-3">
             <Link to={`/journal/${isbn}`}>
-              <button className="btn">View Journal Entries</button>
+              <button className="btn btn-sm">View Journal Entries</button>
             </Link>
           </div>
         </div>
