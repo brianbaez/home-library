@@ -10,7 +10,7 @@ function Features() {
       <div className="container text-center">
         <h2 className="mb-5">See What Else Your <strong>HomeLibrary</strong> Has to Offer</h2>
 
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-2">
           {featureItems.map((item) => {
             return (
               <div key={item.id} className="col pb-5">

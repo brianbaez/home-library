@@ -2,7 +2,7 @@ import React from "react";
 
 // Components
 import HomeLibraryIcon from "../components/HomeLibraryIcon";
-import ForgotPasswordForm from "../components/ForgotPasswordForm";
+import ForgotPasswordForm from "../components/forgot-password/ForgotPasswordForm";
 
 function ForgotPasswordPage({config}) {
   return (

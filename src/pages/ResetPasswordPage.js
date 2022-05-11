@@ -3,7 +3,7 @@ import {useParams, useNavigate} from "react-router-dom";
 
 // Components
 import HomeLibraryIcon from "../components/HomeLibraryIcon";
-import ResetPasswordForm from "../components/ResetPasswordForm";
+import ResetPasswordForm from "../components/reset-password/ResetPasswordForm";
 
 function ResetPasswordPage({config}) {
   const navigate = useNavigate();

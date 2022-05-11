@@ -3,7 +3,7 @@ export const featureItems = [
     id: "1",
     logo: "fa-solid fa-tags fa-3x",
     name: "Tags & Lists",
-    description: "Organize, search, and filter books by your tags and share them with family, friends, and social media."
+    description: "Organize, search, and filter books by your tags."
   },
   {
     id: "2",
@@ -22,17 +22,5 @@ export const featureItems = [
     logo: "fa-solid fa-star fa-3x",
     name: "Reviews",
     description: "Express how you felt about the books you have read."
-  },
-  {
-    id: "5",
-    logo: "fa-solid fa-chart-line fa-3x",
-    name: "Personalized Statistics",
-    description: "Visualize and evaluate your reading habits over time."
-  },
-  {
-    id: "6",
-    logo: "fa-solid fa-question fa-3x",
-    name: "Suggestions",
-    description: "Not sure what to read next? We'll choose for you from your lists!"
   }
 ]

@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 
 // Components
 import HomeLibraryIcon from "../components/HomeLibraryIcon";
-import SignInForm from "../components/SignInForm";
+import SignInForm from "../components/sign-in/SignInForm";
 
 function SignInPage({config}) {
   const navigate = useNavigate();

@@ -17,8 +17,6 @@ function FAQ() {
             </div>
           );
         })}
-
-        <h3>Didn't find the answer to a question you were looking for? <strong>Contact us!</strong></h3>
       </div>
     </div>
   );
