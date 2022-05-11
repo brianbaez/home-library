@@ -35,24 +35,24 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route exact path="/" element={<MainPage />} />
-          <Route exact path="/signin" element={<SignInPage config={config}/>} />
-          <Route exact path="/signup" element={<SignUpPage config={config}/>} />
-          <Route exact path="/forgotpassword" element={<ForgotPasswordPage config={config}/>} />
-          <Route exact path="/resetpassword/:resetToken" element={<ResetPasswordPage config={config}/>} />
-          <Route exact path="*" element={<NotFound />} />
+          <Route path="/" element={<MainPage />} />
+          <Route path="/signin" element={<SignInPage config={config}/>} />
+          <Route path="/signup" element={<SignUpPage config={config}/>} />
+          <Route path="/forgotpassword" element={<ForgotPasswordPage config={config}/>} />
+          <Route path="/resetpassword/:resetToken" element={<ResetPasswordPage config={config}/>} />
+          <Route path="/*" element={<NotFound />} />
 
           <Route element={<PrivateRoute />}>
-            <Route exact path="/home" element={<HomePage />} />
-            <Route exact path="/my-books/" element={<MyBooksPage />} />
-            <Route exact path="/my-books/:bookshelfParam" element={<MyBooksPage />} />
-            <Route exact path="/my-reading-challenges" element={<ReadingChallengesPage />} />
-            <Route exact path="/browse" element={<BrowsePage />} />
-            <Route exact path="/book/:isbn" element={<BookPage />} />
-            <Route exact path="/journal/:isbn" element={<JournalPage />} />
-            <Route exact path="/journal/:isbn/edit/:entryID" element={<EntryPage />} />
-            <Route exact path="/journal/:isbn/add" element={<EntryPage />} />
-            <Route exact path="/account" element={<ManageAccountPage />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/my-books/" element={<MyBooksPage />} />
+            <Route path="/my-books/:bookshelfParam" element={<MyBooksPage />} />
+            <Route path="/my-reading-challenges" element={<ReadingChallengesPage />} />
+            <Route path="/browse" element={<BrowsePage />} />
+            <Route path="/book/:isbn" element={<BookPage />} />
+            <Route path="/journal/:isbn" element={<JournalPage />} />
+            <Route path="/journal/:isbn/edit/:entryID" element={<EntryPage />} />
+            <Route path="/journal/:isbn/add" element={<EntryPage />} />
+            <Route path="/account" element={<ManageAccountPage />} />
           </Route>
         </Routes>
       </div>
