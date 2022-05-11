@@ -32,7 +32,7 @@ function CurrentlyReading({config}) {
 
   if(!currentlyReadingLoading) {
     return (
-      <div className="CurrentlyReading col mb-3">
+      <div className="CurrentlyReading col mb-5 mb-lg-3">
         <h4>Curently Reading</h4>
         <div className="CurrentlyReadingContent shadow-sm border p-3">
           {!currentlyReading

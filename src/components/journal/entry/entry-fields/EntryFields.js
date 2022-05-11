@@ -25,7 +25,9 @@ function EntryFields(entryFieldsProps) {
       <PagesReadSession {...pagesReadSessionProps}/>
       <PagesReadTotal {...pagesReadTotalProps}/>
       <Note {...noteProps}/>
-      <SaveButton {...saveButtonProps}/>
+      <div className="mt-3">
+        <SaveButton {...saveButtonProps}/>
+      </div>
       {entry
         ? <DeleteEntry deleteHandler={deleteHandler}/>
         : <div className="CancelEntry">

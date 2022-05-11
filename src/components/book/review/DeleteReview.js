@@ -3,7 +3,7 @@ import axios from "axios";
 
 function DeleteReview(deleteReviewProps) {
   // Props
-  const {config, isbn, setReview, setReviewText} = deleteReviewProps;
+  const {config, isbn, setReview, setReviewText, setError} = deleteReviewProps;
 
   const deleteReviewHandler = async (e) => {
     e.preventDefault();
@@ -21,6 +21,7 @@ function DeleteReview(deleteReviewProps) {
       .then((res) => {
         setReview();
         setReviewText();
+        setError("This book does not have a review");
       })
       .catch((error) => {});
     }

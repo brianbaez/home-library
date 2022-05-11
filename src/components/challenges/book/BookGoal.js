@@ -59,7 +59,7 @@ function BookGoal(bookGoalProps) {
   }, [success]);
 
   return (
-    <div className="BookGoal col text-center ">
+    <div className="BookGoal col text-center mb-5 mb-lg-0">
       <h4 className="mb-3">{year} Book Goal</h4>
       <div className="mb-3"><span className="fw-bold">{bookGoal.toLocaleString()}</span> {(bookGoal === 1) ? <span>book</span> : <span>books</span>}</div>
       <div className="progress mb-3">

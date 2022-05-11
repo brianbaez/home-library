@@ -80,7 +80,7 @@ function BookProgress(bookProgressProps) {
       <div className="UpdateProgress mt-2">
         <button type="button" className="btn btn-sm" data-bs-toggle="collapse" data-bs-target={`#updateProgress-${isbn}`} aria-expanded="false" aria-controls={`updateProgress-${isbn}`}>Update Progress</button>
 
-      <form className="UpdateProgressFields collapse mt-2" id={`updateProgress-${isbn}`} onSubmit={updateProgressHandler}>
+      <form className="UpdateProgressFields collapse mt-3" id={`updateProgress-${isbn}`} onSubmit={updateProgressHandler}>
           <div className="form-group">
             <div>
               <span>Currently on </span>

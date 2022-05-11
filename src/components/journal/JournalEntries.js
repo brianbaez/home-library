@@ -11,7 +11,7 @@ function JournalEntries(journalEntriesProps) {
   const entryCardProps = {isbn, pages: book.pages};
 
   return (
-    <div className="JournalEntries">
+    <div className="JournalEntries mt-3">
       {error && <span>{error}</span>}
       {journal && journal.map((entry) => {
         return (

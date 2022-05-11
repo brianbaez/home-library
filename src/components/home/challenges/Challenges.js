@@ -81,7 +81,7 @@ function Challenges({config}) {
 
   if(!challengesLoading) {
     return (
-      <div className="Challenges col mb-3">
+      <div className="Challenges col mb-5 mb-lg-5">
         <h4>{new Date().getFullYear()} Reading Challenge</h4>
         <div className="ChallengesContent shadow-sm border p-3">
           {!challenges

@@ -15,7 +15,7 @@ function Date(dateProps) {
 
   return (
     <div className="Date">
-      <h4>Date</h4>
+      <p className="mb-1">Date</p>
       <div className="SelectFields d-flex">
         <Month {...monthProps}/>
         <Day {...dayProps} />

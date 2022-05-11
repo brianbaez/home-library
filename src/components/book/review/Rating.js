@@ -34,8 +34,8 @@ function Rating(ratingProps) {
 
   return (
     <div className="Rating">
-      <h4>What do you rate this book?</h4>
-      <div className="d-flex">
+      <p>What do you rate this book?</p>
+      <div className="d-flex justify-content-center justify-content-lg-start">
         <select className="WholeNumber form-select text-center w-auto" value={wholeNumber} onChange={(e) => setWholeNumber(e.target.value)}>
           <option hidden selected>{wholeNumber}</option>
           {whole && whole.map((item) => {

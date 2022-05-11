@@ -43,12 +43,14 @@ function ReadRecentlyBooks({readRecently}) {
         {readRecently.slice(0).reverse().map((book, index) => {
           if(index < 8) {
             return (
-              <BookCover book={book} isbn={getISBN(book.isbn)}/>
+              <div className="mb-3">
+                <BookCover book={book} isbn={getISBN(book.isbn)}/>
+              </div>
             );
           }
         })}
       </div>
-      <div className="mt-3">
+      <div>
         <ViewAllButton bookshelf={"read"}/>
       </div>
     </div>

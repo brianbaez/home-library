@@ -53,9 +53,9 @@ function Password({config}) {
             <p className="mb-1">Confirm New Password</p>
             <input required type="password" className="form-control" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}></input>
           </div>
-
-          <SaveButton success={success} error={error}/>
-
+          <div className="mt-3">
+            <SaveButton success={success} error={error}/>
+          </div>
         </div>
       </form>
 

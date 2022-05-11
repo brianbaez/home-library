@@ -7,13 +7,13 @@ import {defaultBookshelvesItems} from "./DefaultBookshelvesItems";
 
 function CustomBookshelves(customBookshelvesProps) {
   // Props
-  const {setBookshelf, config, deletedBookshelf} = customBookshelvesProps;
+  const {setBookshelf, setBooksLoading, config, deletedBookshelf, customBookshelves, setCustomBookshelves} = customBookshelvesProps;
 
   const [customBookshelvesLoading, setCustomBookshelvesLoading] = useState(true);
 
   let navigate = useNavigate();
 
-  const [customBookshelves, setCustomBookshelves] = useState([]);
+
 
   useEffect(() => {
     const fetchCustomBookshelves = async () => {
@@ -52,6 +52,7 @@ function CustomBookshelves(customBookshelvesProps) {
   const clickHandler = (e) => {
     e.preventDefault();
     setBookshelf(e.target.rel);
+    setBooksLoading(true);
 
     navigate(`/my-books/${e.target.rel}`);
   }

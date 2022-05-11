@@ -59,21 +59,23 @@ function Bookshelves(bookshelvesProps) {
         <div>
           <hr className="mt-3 mb-3"></hr>
           <h4>Bookshelves</h4>
-          <div className="BookshelvesList d-flex">
+          <div className="BookshelvesList d-flex row row-cols-2 row-cols-lg-auto">
             {bookshelves && bookshelves.map((item, index) => {
               return (
-                <div key={index} className="d-flex align-items-center py-1 px-2 me-3 mb-0" style={{backgroundColor: "#EEECE8"}}>
-                  <span className="mb-0 me-1">{item}</span>
-                  <button type="button" className="btn-close" style={{fontSize: "0.75rem"}} onClick={() => deleteBookshelfHandler(item)}></button>
+                <div key={index} className="col d-flex justify-content-center mb-2">
+                  <div className="p-2" style={{backgroundColor: "#EEECE8"}}>
+                    <span className="mb-0 me-1">{item}</span>
+                    <button type="button" className="btn-close" style={{fontSize: "0.75rem"}} onClick={() => deleteBookshelfHandler(item)}></button>
+                  </div>
                 </div>
               );
             })}
           </div>
 
-          <div className="AddBookshelf mt-2">
+          <div className="AddBookshelf mt-3">
             <button type="button" className="btn" data-bs-toggle="collapse" data-bs-target={`#addBookshelf-${isbn}`} aria-expanded="false" aria-controls={`addBookshelf-${isbn}`}>Add Bookshelf</button>
-            <form className="AddBookshelfFields collapse mt-2" id={`addBookshelf-${isbn}`} onSubmit={addBookshelfHandler}>
-              <div className="form-group d-flex">
+            <form className="AddBookshelfFields collapse mt-3" id={`addBookshelf-${isbn}`} onSubmit={addBookshelfHandler}>
+              <div className="form-group d-flex justify-content-center justify-content-lg-start">
                 <input required type="text" placeholder="Enter a bookshelf name" maxLength="100" value={bookshelfToAdd} onChange={(e) => setBookshelfToAdd(e.target.value)}></input>
                 <div className="SaveButton ms-2">
                   <SaveButton success={success} error={error} />

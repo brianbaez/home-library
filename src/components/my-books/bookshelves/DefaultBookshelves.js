@@ -4,12 +4,13 @@ import {useNavigate} from "react-router-dom";
 // Components
 import {defaultBookshelvesItems} from "./DefaultBookshelvesItems";
 
-function DefaultBookshelves({setBookshelf}) {
+function DefaultBookshelves({setBookshelf, setBooksLoading}) {
   let navigate = useNavigate();
 
   const clickHandler = (e) => {
     e.preventDefault();
     setBookshelf(e.target.rel);
+    setBooksLoading(true);
 
     navigate(`/my-books/${e.target.rel}`);
   }

@@ -13,7 +13,7 @@ function EditReview(editReviewProps) {
 
   const ratingProps = {wholeNumber, setWholeNumber, decimalNumber, setDecimalNumber};
   const reviewTextProps = {reviewText, setReviewText};
-  const deleteReviewProps = {config, isbn, setReview, setReviewText};
+  const deleteReviewProps = {config, isbn, setReview, setReviewText, setError};
 
   const editReviewHandler = async (e) => {
     e.preventDefault();
@@ -41,7 +41,9 @@ function EditReview(editReviewProps) {
       <form className="EditReviewFields collapse mt-3" id="editReview" onSubmit={editReviewHandler}>
         <Rating {...ratingProps} />
         <ReviewText {...reviewTextProps}/>
-        <SaveButton success={success} error={error}/>
+        <div className="mt-3">
+          <SaveButton success={success} error={error}/>
+        </div>
         <DeleteReview {...deleteReviewProps}/>
       </form>
     </div>

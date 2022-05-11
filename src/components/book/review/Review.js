@@ -48,7 +48,7 @@ function Review(reviewProps) {
   if(currentStatus !== "Want to Read") {
     return (
       <div className="Review">
-        <hr className="mt-3 mb-3"></hr>
+        <hr className="my-3"></hr>
         <h4>Review</h4>
 
         {!review &&

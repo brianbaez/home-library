@@ -36,6 +36,7 @@ function AddReview(addReviewProps) {
     await Promise.all([addReview(), addBookshelf()])
     .then((res) => {
       setSuccess("Review has been added");
+      setError();
 
       setTimeout(() => {
         setSuccess();
@@ -51,9 +52,13 @@ function AddReview(addReviewProps) {
       <button className="btn btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#writeReview" aria-expanded="false" aria-controls="writeReview">Write a Review</button>
 
       <form className="WriteReviewFields collapse mt-3" id="writeReview" onSubmit={addReviewHandler}>
-        <Rating {...ratingProps} />
-        <ReviewText {...reviewTextProps} />
-        <SaveButton success={success} />
+          <div className="form-group d-flex flex-column">
+          <Rating {...ratingProps} />
+          <ReviewText {...reviewTextProps} />
+          <div className="mt-3">
+            <SaveButton success={success} />
+          </div>
+        </div>
       </form>
     </div>
   );

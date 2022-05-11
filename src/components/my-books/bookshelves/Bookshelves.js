@@ -5,15 +5,19 @@ import axios from "axios";
 // Components
 import DefaultBookshelves from "./DefaultBookshelves";
 import CustomBookshelves from "./CustomBookshelves";
+import BookshelvesDropdown from "./BookshelvesDropdown";
 
 function Bookshelves(bookshelvesProps) {
   // Props
-  const {config, setBooks, deletedBook, setDeletedBook, setError, deletedBookshelf} = bookshelvesProps;
+  const {config, setBooksLoading, setBooks, deletedBook, setDeletedBook, setError, deletedBookshelf} = bookshelvesProps;
 
   const [bookshelvesLoading, setBookshelvesLoading] = useState(true);
 
   const {bookshelfParam} = useParams();
   const [bookshelf, setBookshelf] = useState(bookshelfParam || "");
+  const [customBookshelves, setCustomBookshelves] = useState([]);
+
+  const customBookshelvesProps = {config, setBooksLoading, setBookshelf, deletedBookshelf, customBookshelves, setCustomBookshelves};
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -23,11 +27,13 @@ function Bookshelves(bookshelvesProps) {
           setBooks(res.data.data[0].books);
           setDeletedBook(false);
           setBookshelvesLoading(false);
+          setBooksLoading(false);
           setError();
         })
         .catch((error) => {
           setBooks([]);
           setError(error.response.data.error);
+          setBooksLoading(false);
         });
       }
       else {
@@ -36,11 +42,13 @@ function Bookshelves(bookshelvesProps) {
           setBooks(res.data.data[0].books);
           setDeletedBook(false);
           setBookshelvesLoading(false);
+          setBooksLoading(false);
           setError();
         })
         .catch((error) => {
           setBooks([]);
           setError(error.response.data.error);
+          setBooksLoading(false);
         });
       }
     }
@@ -48,14 +56,19 @@ function Bookshelves(bookshelvesProps) {
     fetchResults();
   }, [bookshelf, deletedBook]);
 
-  const customBookshelvesProps = {config, setBookshelf, deletedBookshelf};
-
   if(!bookshelvesLoading) {
     return (
-      <div className="Bookshelves col col-3 d-none-sm d-block-lg">
-        <h5>Bookshelves</h5>
-        <DefaultBookshelves setBookshelf={setBookshelf}/>
-        <CustomBookshelves {...customBookshelvesProps}/>
+      <div className="Bookshelves col col-12 col-lg-3">
+        <div className="d-none d-lg-block">
+          <h5>Bookshelves</h5>
+          <DefaultBookshelves setBookshelf={setBookshelf} setBooksLoading={setBooksLoading}/>
+          <CustomBookshelves {...customBookshelvesProps}/>
+        </div>
+
+        <div className="d-block d-lg-none mb-3">
+          <h5>Bookshelves</h5>
+          <BookshelvesDropdown customBookshelves={customBookshelves} setBookshelf={setBookshelf} setBooksLoading={setBooksLoading}/>
+        </div>
       </div>
     );
   }

@@ -27,7 +27,7 @@ function ReadRecently({config}) {
 
   if(!readRecentlyLoading) {
     return (
-      <div className="ReadRecently col mb-3">
+      <div className="ReadRecently col mb-5 mb-lg-3">
         <h4>Read Recently</h4>
         <div className="ReadRecentlyContent shadow-sm border p-3">
           {!readRecently

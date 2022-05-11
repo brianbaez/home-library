@@ -15,7 +15,7 @@ function ChallengeCard(props) {
   const deleteChallengeProps = {config, year, success, setSuccess};
 
   return (
-    <div className="ReadingChallenges shadow-sm border row mb-5 py-3 px-3">
+    <div className="ReadingChallenges shadow-sm border row row-cols-1 row-cols-lg-2 mb-5 p-3">
       <BookGoal {...bookGoalProps}/>
       <PagesGoal {...pagesGoalProps}/>
       <DeleteChallenge {...deleteChallengeProps}/>

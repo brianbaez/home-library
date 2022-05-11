@@ -21,7 +21,7 @@ function DeleteChallenge(deleteChallengeProps) {
     }
   }
   return (
-    <div className="DeleteChallenge mt-3">
+    <div className="DeleteChallenge flex-fill mt-3">
       <a href="#" onClick={deleteChallengeHandler} style={{color: "red"}}>Delete {year} challenge</a>
     </div>
   );

@@ -27,7 +27,7 @@ function WantToRead({config}) {
 
   if(!wantToReadLoading) {
     return (
-      <div className="WantToRead col mb-3">
+      <div className="WantToRead col mb-5 mb-lg-3">
         <h4>Want to Read</h4>
         <div className="WantToReadContent shadow-sm border p-3">
           {!wantToRead

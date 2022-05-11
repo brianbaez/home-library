@@ -110,7 +110,7 @@ function EditEntry(editEntryProps) {
   return (
     <div className="EditEntry">
       <h4>Edit Journal Entry</h4>
-      <div className="EditEntry shadow-sm border px-3 py-3">
+      <div className="EditEntry shadow-sm border p-3">
         {!entry && <span>Entry not found</span>}
         {entry &&
           <div>

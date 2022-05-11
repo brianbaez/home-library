@@ -36,7 +36,7 @@ function Results(browseProps) {
           <div>
             {results &&
               <div className="ResultsContent">
-                <h1 className="mb-5">Found {results.length} results for {query}</h1>
+                <h3 className="mb-3">Found {results.length} results for {query}</h3>
                 {error && <span>{error}</span>}
                 <BookResults config={config} results={results}/>
               </div>

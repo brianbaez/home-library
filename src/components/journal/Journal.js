@@ -49,6 +49,7 @@ function Journal(journalProps) {
         }
       })
       .catch((error) => {
+        setJournalLoading(false);
         setError(error.response.data.error);
       })
     }

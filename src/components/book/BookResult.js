@@ -60,12 +60,12 @@ function BookResult(bookProps) {
   return (
     <div className="BookResult container my-3">
       {book &&
-        <div className="Book d-flex flex-row">
-          <div className="left d-flex flex-column align-items-center me-lg-5">
+        <div className="Book d-flex flex-column flex-lg-row">
+          <div className="left d-flex flex-column align-items-center mb-5 mb-lg-0 me-lg-5">
             <BookCover book={book} isbn={isbn} />
             <StatusDropdown config={config} book={book} isbn={isbn} currentStatus={currentStatus} setCurrentStatus={setCurrentStatus} removeBookStatus={removeBookStatus} setRemoveBookStatus={setRemoveBookStatus} />
           </div>
-          <div className="right d-flex flex-column flex-fill shadow-sm border p-3">
+          <div className="right text-center text-lg-start d-flex flex-column flex-fill shadow-sm border p-3">
             <h4 className="mb-0">{book.title}</h4>
             <h5 className="">by&nbsp;
               {book?.authors?.length > 1 ? book?.authors?.map((item, index) => {

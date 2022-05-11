@@ -48,23 +48,27 @@ function BookCard(bookCardProps) {
 
   return (
     <div className="BookCard row mb-5">
-      <div className="left col-3 d-flex flex-column align-items-center">
+      <div className="left col-lg-3 d-flex flex-column align-items-center mb-3 mb-lg-0">
         <BookCover book={book} isbn={isbn}/>
         <StatusDropdown {...statusDropdownProps}/>
       </div>
-      <div className="right col-9 d-flex flex-column shadow-sm border p-3">
-        <Link to={`/book/${isbn}`}>
-          <h4 className="mb-0">{book.title}</h4>
-        </Link>
-        <h5>by&nbsp;
-          {book?.authors?.length > 1 ? book?.authors?.map((item, index) => {
-            return (<span key={index}>{(index > 0 ? ", " : "") + item}</span>);
-          }) : <span>{book?.authors?.[0]}</span>}
-        </h5>
-        <p className="mb-0">{book.pages} pages</p>
-        <p>ISBN: {isbn}</p>
-        <Progress {...progressProps}/>
-        <Bookshelves {...bookshelvesProps}/>
+      <div className="right col-lg-9 shadow-sm border p-3">
+        <div className="text-center text-lg-start">
+          <div className="d-flex justify-content-center justify-content-lg-start">
+            <Link to={`/book/${isbn}`}>
+              <h4 className="mb-0">{book.title}</h4>
+            </Link>
+          </div>
+          <h5>by&nbsp;
+            {book?.authors?.length > 1 ? book?.authors?.map((item, index) => {
+              return (<span key={index}>{(index > 0 ? ", " : "") + item}</span>);
+            }) : <span>{book?.authors?.[0]}</span>}
+          </h5>
+          <p className="mb-0">{book.pages} pages</p>
+          <p>ISBN: {isbn}</p>
+          <Progress {...progressProps}/>
+          <Bookshelves {...bookshelvesProps}/>
+        </div>
       </div>
     </div>
   );

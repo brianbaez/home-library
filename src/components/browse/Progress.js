@@ -91,21 +91,21 @@ function Progress(progressProps) {
         <div>
           <hr className="mt-3 mb-3"></hr>
           <h4>Progress</h4>
-          <div className="ProgressBar d-flex align-items-center">
+          <div className="ProgressBar d-flex flex-column flex-lg-row align-items-center justify-content-center justify-content-lg-start">
             <div class="progress w-25 me-2">
               <div class="progress-bar" role="progressbar" style={{width: `${progressPercentage}%`}} aria-valuenow={progressPercentage} aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <div>
+            <div className="mt-1 mt-lg-0">
               <span>{progressPages}</span>
               <span>/{pages} </span>
               <span>({progressPercentage}%)</span>
             </div>
           </div>
 
-          <div className="UpdateProgress mt-2">
+          <div className="UpdateProgress mt-3">
             <button type="button" className="btn" data-bs-toggle="collapse" data-bs-target={`#updateProgress-${isbn}`} aria-expanded="false" aria-controls={`updateProgress-${isbn}`}>Update Progress</button>
             <form className="UpdateProgressFields collapse mt-3" id={`updateProgress-${isbn}`} onSubmit={updateProgressHandler}>
-              <div className="form-group">
+              <div className="form-group d-flex flex-column justify-content-center justify-content-lg-start">
                 <div>
                   <span>Currently on </span>
                   <input required type="number" placeholder={progressPages} min={progressPages} max={pages} value={currentPage} onChange={(e) => setCurrentPage(e.target.value)}></input>
@@ -114,10 +114,10 @@ function Progress(progressProps) {
                 <div className="mt-2">
                   <textarea className="form-control" id="note" placeholder="Add a note" value={note} onChange={(e) => setNote(e.target.value)}></textarea>
                 </div>
-                <div className="d-flex align-items-center mt-2">
+                <div className="d-flex flex-column flex-lg-row align-items-center mt-2">
                   <button className="btn" type="submit">Save</button>
-                  {success && <span className="ms-2">{success}</span>}
-                  {error && <span className="ms-2">{error}</span>}
+                  {success && <span className="mt-2 mt-lg-0 ms-lg-2">{success}</span>}
+                  {error && <span className="mt-2 mt-lg-0 ms-lg-2">{error}</span>}
                 </div>
               </div>
             </form>

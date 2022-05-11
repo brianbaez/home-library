@@ -43,12 +43,16 @@ function WantToReadBooks({wantToRead}) {
         {wantToRead.map((book, index) => {
           if(index < 8) {
             return (
-              <BookCover book={book} isbn={getISBN(book.isbn)}/>
+              <div className="mb-3">
+                <BookCover book={book} isbn={getISBN(book.isbn)}/>
+              </div>
             );
           }
         })}
       </div>
-      <ViewAllButton bookshelf={"want-to-read"}/>
+      <div>
+        <ViewAllButton bookshelf={"want-to-read"}/>
+      </div>
     </div>
   );
 }
