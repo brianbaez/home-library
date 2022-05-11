@@ -3,7 +3,7 @@ import React, {useState} from "react";
 // Components
 import SearchBar from "./SearchBar";
 import Bookshelves from "./bookshelves/Bookshelves";
-import BookResults from "../browse/BookResults";
+import BookResults from "../results/BookResults";
 
 import Loader from "../Loader";
 

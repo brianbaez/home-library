@@ -2,7 +2,7 @@ import React from "react";
 import {useOutletContext, useSearchParams} from "react-router-dom";
 
 // Components
-import Results from "../components/browse/Results";
+import Results from "../components/results/Results";
 
 // Hooks
 import useAuth from "../components/hooks/useAuth";

@@ -4,9 +4,9 @@ import parse from "html-react-parser";
 
 // Components
 import BookCover from "../home/BookCover";
-import StatusDropdown from "../browse/StatusDropdown";
-import Progress from "../browse/Progress";
-import Bookshelves from "../browse/Bookshelves";
+import StatusDropdown from "../results/StatusDropdown";
+import Progress from "../results/Progress";
+import Bookshelves from "../results/Bookshelves";
 
 import Activity from "./activity/Activity";
 import Review from "./review/Review";
