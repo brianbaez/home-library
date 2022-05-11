@@ -14,6 +14,7 @@ function PagesGoal(pagesGoalProps) {
   const [progressPercentage, setProgressPercentage] = useState("0");
 
   useEffect(() => {
+    // Get pages goal's progress and determine how on schedule the user is
     const getPagesProgress = () => {
       const pagesPerMonth = pageGoal / 12;
       const currentMonth = new Date().getMonth();
@@ -45,6 +46,7 @@ function PagesGoal(pagesGoalProps) {
       }
     }
 
+    // Get user's progress for the pages goal
     const getProgressPercentage = () => {
       if(pagesCompleted <= pageGoal) {
         setProgressPercentage(Math.round((pagesCompleted / pageGoal) * 100));

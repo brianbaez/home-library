@@ -17,10 +17,10 @@ function BookResult(bookProps) {
 
   const [results, setResults] = useState();
   const [book, setBook] = useState();
-  const [error, setError] = useState();
-
   const [currentStatus, setCurrentStatus] = useState("Want to Read");
   const [removeBookStatus, setRemoveBookStatus] = useState();
+
+  const [error, setError] = useState();
 
   const progressProps = {config, isbn, pages: book?.pages, currentStatus};
   const bookshelvesProps = {config, isbn, removeBookStatus};
@@ -28,6 +28,7 @@ function BookResult(bookProps) {
   const reviewProps = {config, isbn, currentStatus};
 
   useEffect(() => {
+    // Get book result by ISBN
     if(isbn) {
       const fetchResults = async () => {
         await axios.get(`/api/browse?search=${isbn}`)
@@ -42,6 +43,7 @@ function BookResult(bookProps) {
   }, [isbn]);
 
   useEffect(() => {
+    // Find book from results that matches the ISBN
     if(results) {
       const fetchBook = async () => {
         results.forEach((book) => {

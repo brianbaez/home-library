@@ -51,6 +51,7 @@ function AddEntry(addEntryProps) {
 
   const addEntryHandler = async (e) => {
     e.preventDefault();
+
     const data = {
       month: month,
       day: day,
@@ -60,10 +61,12 @@ function AddEntry(addEntryProps) {
       note: note
     };
 
+    // Add journal entry for the book (ISBN)
     const addEntry = async () => {
       return await axios.post(`/api/private/journal/${isbn}`, data, config);
     }
 
+    // Update pages completed for the year
     const updateChallenge = async () => {
       return await axios.put(`/api/private/challenges/${year}`, {pagesCompleted: pagesReadSession}, config);
     }

@@ -18,6 +18,7 @@ function ReadingChallenges({config}) {
 
 
   useEffect(() => {
+    // Get all reading challenges for the user
     const getChallenges = async () => {
       await axios.get(`/api/private/challenges`, config)
       .then((res) => {
@@ -37,6 +38,7 @@ function ReadingChallenges({config}) {
     getChallenges();
   }, [success]);
 
+  // Check if current year's challenge is set
   useEffect(() => {
     setCurrentYearChallenge(false);
 

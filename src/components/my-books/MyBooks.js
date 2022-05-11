@@ -22,7 +22,7 @@ function MyBooks(myBooksProps) {
   const bookResultsProps = {config, results: books, setDeletedBook, setDeletedBookshelf};
 
   return (
-    <div className="container mybooks-content mt-3 mb-3">
+    <div className="container mybooks-content my-3">
       <div className="row d-flex flex-column flex-lg-row">
         <div className="col col-lg-3">
           <h4>My Books</h4>

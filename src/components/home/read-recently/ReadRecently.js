@@ -5,12 +5,14 @@ import axios from "axios";
 import ReadRecentlyBooks from "./ReadRecentlyBooks";
 
 function ReadRecently({config}) {
+  const [readRecently, setReadRecently] = useState();
+
   const [readRecentlyLoading, setReadRecentlyLoading] = useState(true);
 
-  const [readRecently, setReadRecently] = useState();
   const [error, setError] = useState();
 
   useEffect(() => {
+    // Get books in the read bookshelf
     const fetchReadRecently = async () => {
       await axios.get(`/api/private/bookshelves/books/read`, config)
       .then((res) => {

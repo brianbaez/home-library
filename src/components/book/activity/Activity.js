@@ -10,12 +10,14 @@ function Activity(activityProps) {
   const {config, isbn, yearRead1, currentStatus} = activityProps;
 
   const [yearRead, setYearRead] = useState();
+
   const [success, setSuccess] = useState();
   const [error, setError] = useState();
 
   const yearReadProps = {config, isbn, yearRead, setYearRead, success, setSuccess, error, setError};
 
   useEffect(() => {
+    // Get book by ISBN and get its year read
     const fetchBook = async () => {
       if(isbn) {
         await axios.get(`/api/private/books/${isbn}`, config)
@@ -36,7 +38,7 @@ function Activity(activityProps) {
     <div className="Activity">
       {(currentStatus !== "Want to Read") &&
         <div>
-          <hr className="mt-3 mb-3"></hr>
+          <hr className="my-3"></hr>
           <h4>Activity</h4>
           {(currentStatus === "Read") && <YearRead {...yearReadProps} />}
 

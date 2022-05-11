@@ -9,6 +9,7 @@ function DeleteChallenge(deleteChallengeProps) {
     e.preventDefault();
 
     if(window.confirm("Are you sure you want to delete this challenge? All records will be deleted.")) {
+      // Delete challenge for the year
       await axios.delete(`/api/private/challenges/${year}`, config)
       .then((res) => {
         setSuccess(res.data.message);

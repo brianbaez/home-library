@@ -9,6 +9,7 @@ function DeleteAccount({config}) {
     e.preventDefault();
 
     if(window.confirm("Are you sure you want to delete your account? This action is irreversible.")) {
+      // Delete account
       await axios.delete(`/api/private/account/delete`, config)
       .then((res) => {
         localStorage.removeItem("authToken");

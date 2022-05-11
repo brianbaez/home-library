@@ -30,7 +30,7 @@ function Rating(ratingProps) {
     }
 
     getDecimalNums();
-  }, [wholeNumber])
+  }, [wholeNumber]);
 
   return (
     <div className="Rating">

@@ -11,6 +11,7 @@ function Entry(entryProps) {
 
   const [book, setBook] = useState();
   const [entry, setEntry] = useState();
+  
   const [error, setError] = useState();
 
   const addEntryProps = {config, isbn, book};

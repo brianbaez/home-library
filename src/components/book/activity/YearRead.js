@@ -6,8 +6,8 @@ function YearRead(yearReadProps) {
   const {config, isbn, yearRead, setYearRead, success, setSuccess, error, setError} = yearReadProps;
 
   const [updatedYearRead, setUpdatedYearRead] = useState();
-  const years = [];
 
+  const years = [];
   for(var i = new Date().getFullYear(); i >= 1932; i--) {
     years.push(i);
   }
@@ -23,14 +23,17 @@ function YearRead(yearReadProps) {
       }, 5000);
     }
     else {
+      // Update year read
       const updateYear = async () => {
         return await axios.put(`/api/private/books/${isbn}`, {yearRead: updatedYearRead}, config)
       }
 
+      // Decrement books completed for the year
       const decrementChallenge = async () => {
         return await axios.put(`/api/private/challenges/${yearRead}`, {booksCompleted: -1}, config)
       }
 
+      // Increment books completed for the year
       const incrementChallenge = async () => {
         return await axios.put(`/api/private/challenges/${updatedYearRead}`, {booksCompleted: 1}, config)
       }
@@ -59,6 +62,7 @@ function YearRead(yearReadProps) {
   const deleteYearReadHandler = async (e) => {
     e.preventDefault();
     if(window.confirm("Are you sure you want to delete the year this book was read?")) {
+      // Delete year read
       await axios.put(`/api/private/books/${isbn}`, {yearRead: -1}, config)
       .then((res) => {
         setYearRead();

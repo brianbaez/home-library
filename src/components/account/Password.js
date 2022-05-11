@@ -7,6 +7,7 @@ import SaveButton from "../SaveButton";
 function Password({config}) {
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
+
   const [success, setSuccess] = useState();
   const [error, setError] = useState();
 
@@ -21,6 +22,7 @@ function Password({config}) {
       }, 5000);
     }
     else {
+      // Update password
       await axios.put(`/api/private/account/edit/password`, {newPassword: password}, config)
       .then((res) => {
         setSuccess(res.data.message);
@@ -58,8 +60,6 @@ function Password({config}) {
           </div>
         </div>
       </form>
-
-
     </div>
   );
 }

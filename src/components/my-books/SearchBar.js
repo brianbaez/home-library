@@ -12,12 +12,14 @@ function SearchBar({books, booksCopy, setBooks}) {
       let authorResults = [];
       let isbnResults = [];
 
+      // Get results that includes the query in the title
       const filterTitleResults = () => books.filter((book) => {
         if(book.title.toLowerCase().includes(query.toLowerCase())) {
           titleResults.push(book);
         }
       });
 
+      // Get results that includes the query in the authors array
       const filterAuthorResults = () => books.filter((book) => {
         book.authors.map((author) => {
           if(author.toLowerCase().includes(query.toLowerCase())) {
@@ -26,14 +28,14 @@ function SearchBar({books, booksCopy, setBooks}) {
         })
       });
 
+      // Get results that includes the ISBN in the ISBN array
       const filterISBNResults = () => books.filter((book) => {
         book.isbn.map((isbn) => {
           if(isbn.identifier === query) {
             isbnResults.push(book);
           }
         });
-      })
-
+      });
 
       filterTitleResults();
       filterAuthorResults();

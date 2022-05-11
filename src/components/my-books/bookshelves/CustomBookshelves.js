@@ -9,11 +9,9 @@ function CustomBookshelves(customBookshelvesProps) {
   // Props
   const {setBookshelf, setBooksLoading, config, deletedBookshelf, customBookshelves, setCustomBookshelves} = customBookshelvesProps;
 
-  const [customBookshelvesLoading, setCustomBookshelvesLoading] = useState(true);
-
   let navigate = useNavigate();
 
-
+  const [customBookshelvesLoading, setCustomBookshelvesLoading] = useState(true);
 
   useEffect(() => {
     const fetchCustomBookshelves = async () => {

@@ -6,16 +6,19 @@ import axios from "axios";
 import BookChallenge from "./book-challenge/BookChallenge";
 
 function Challenges({config}) {
-  const [challengesLoading, setChallengesLoading] = useState(true);
-
   const [challenges, setChallenges] = useState();
   const [booksProgress, setBooksProgress] = useState("0");
   const [scheduleStatus, setScheduleStatus] = useState("");
   const [progressPercentage, setProgressPercentage] = useState("0");
+
   const [error, setError] = useState();
+
+  const [challengesLoading, setChallengesLoading] = useState(true);
+
   const bookChallengeProps = {challenges, scheduleStatus, progressPercentage};
 
   useEffect(() => {
+    // Get challenge for the current year
     const fetchChallenges = async () => {
       const year = new Date().getFullYear();
 
@@ -77,7 +80,7 @@ function Challenges({config}) {
 
       setBooksProgressState();
     }
-  }, [challenges])
+  }, [challenges]);
 
   if(!challengesLoading) {
     return (

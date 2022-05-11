@@ -16,6 +16,7 @@ function EditBookGoal(props) {
   const editBookGoalHandler = async (e) => {
     e.preventDefault();
 
+    // Edit book goal for the year
     await axios.put(`api/private/challenges/${year}`, {bookGoal: booksToRead}, config)
     .then((res) => {
       setSuccess(res.data.message);

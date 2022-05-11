@@ -16,7 +16,11 @@ function Review(reviewProps) {
   const [success, setSuccess] = useState();
   const [error, setError] = useState();
 
+  const addReviewProps = {config, isbn, reviewText, setReviewText, success, setSuccess, error, setError};
+  const editReviewProps = {config, isbn, success, setSuccess, error, setError, wholeNumber, setWholeNumber, decimalNumber, setDecimalNumber, reviewText, setReviewText, setReview};
+
   useEffect(() => {
+    // Get review by ISBN
     if(isbn) {
       const fetchReview = async () => {
         await axios.get(`/api/private/reviews/${isbn}`, config)
@@ -41,9 +45,6 @@ function Review(reviewProps) {
       setReviewText(review.text);
     }
   }, [review]);
-
-  const addReviewProps = {config, isbn, reviewText, setReviewText, success, setSuccess, error, setError};
-  const editReviewProps = {config, isbn, success, setSuccess, error, setError, wholeNumber, setWholeNumber, decimalNumber, setDecimalNumber, reviewText, setReviewText, setReview};
 
   if(currentStatus !== "Want to Read") {
     return (

@@ -10,11 +10,12 @@ function Journal(journalProps) {
   // Props
   const {config, isbn} = journalProps;
 
-  const [journalLoading, setJournalLoading] = useState(true);
-
   const [book, setBook] = useState();
   const [journal, setJournal] = useState();
+
   const [error, setError] = useState();
+
+  const [journalLoading, setJournalLoading] = useState(true);
 
   const bookProps = {isbn, book, journal};
   const journalEntriesProps = {isbn, book, journal, error};
@@ -36,6 +37,7 @@ function Journal(journalProps) {
   }, [isbn]);
 
   useEffect(() => {
+    // Get journal for the book
     const fetchJournal = async () => {
       await axios.get(`/api/private/journal/${isbn}`, config)
       .then((res) => {

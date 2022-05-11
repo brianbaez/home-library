@@ -22,6 +22,7 @@ function Day(dayProps) {
   ];
 
   useEffect(() => {
+    // Get number of days depending on month chosen
     const getDays = () => {
       days.map((item) => {
         item.months.map((m) => {

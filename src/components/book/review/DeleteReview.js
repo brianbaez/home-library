@@ -9,14 +9,17 @@ function DeleteReview(deleteReviewProps) {
     e.preventDefault();
 
     if(window.confirm("Are you sure you want to delete this review?")) {
+      // Delete review for the book (ISBN)
       const deleteReview = async () => {
         return await axios.delete(`/api/private/reviews/${isbn}`, config);
       }
 
+      // Delete bookshelf for the book (ISBN)
       const deleteBookshelf = async () => {
         return await axios.delete(`/api/private/bookshelves/reviewed/${isbn}`, config);
       }
 
+      // Execute promises
       await Promise.all([deleteReview(), deleteBookshelf()])
       .then((res) => {
         setReview();

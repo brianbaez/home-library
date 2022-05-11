@@ -7,12 +7,15 @@ import BookResults from "./BookResults";
 function Results(browseProps) {
   // Props
   const {config, query} = browseProps;
+
   const [results, setResults] = useState();
-  const [error, setError] = useState();
 
   const [resultsLoading, setResultsLoading] = useState(true);
 
+  const [error, setError] = useState();
+
   useEffect(() => {
+    // Get results by query
     const fetchResults = async () => {
       await axios.get(`/api/browse?search=${query}`)
       .then((res) => {

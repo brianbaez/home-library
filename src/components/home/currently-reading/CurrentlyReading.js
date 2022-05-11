@@ -7,14 +7,17 @@ import ViewAllButton from "../ViewAllButton";
 import BookCard from "./BookCard";
 
 function CurrentlyReading({config}) {
+  const [currentlyReading, setCurrentlyReading] = useState();
+
   const [currentlyReadingLoading, setCurrentlyReadingLoading] = useState(true);
 
-  const [currentlyReading, setCurrentlyReading] = useState();
   const [success, setSuccess] = useState();
   const [error, setError] = useState();
+
   const currentlyReadingBooksProps = {config, currentlyReading, success, setSuccess, error, setError};
 
   useEffect(() => {
+    // Get books in the currently-reading bookshelf
     const fetchCurrentlyReading = async () => {
       await axios.get(`/api/private/bookshelves/books/currently-reading`, config)
       .then((res) => {

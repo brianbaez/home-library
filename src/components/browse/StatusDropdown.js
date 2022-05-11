@@ -7,23 +7,6 @@ function StatusDropdown(statusDropdownStats) {
 
   const [clickedStatus, setClickedStatus] = useState();
 
-  useEffect(() => {
-    const fetchBook = async () => {
-      if(isbn) {
-        await axios.get(`/api/private/books/${isbn}`, config)
-        .then((res) => {
-          setCurrentStatus(res.data.data[0].books[0].status);
-          setRemoveBookStatus(true);
-        })
-        .catch((error) => {
-          setRemoveBookStatus(false);
-        })
-      }
-    }
-
-    fetchBook();
-  }, [isbn]);
-
   const statusItems = [
     {
       name: "Want to Read",
@@ -42,6 +25,24 @@ function StatusDropdown(statusDropdownStats) {
       tag: "did-not-finish"
     }
   ];
+
+  useEffect(() => {
+    // Get book by ISBN and get its status
+    const fetchBook = async () => {
+      if(isbn) {
+        await axios.get(`/api/private/books/${isbn}`, config)
+        .then((res) => {
+          setCurrentStatus(res.data.data[0].books[0].status);
+          setRemoveBookStatus(true);
+        })
+        .catch((error) => {
+          setRemoveBookStatus(false);
+        })
+      }
+    }
+
+    fetchBook();
+  }, [isbn]);
 
   const updateStatusHandler = async (e) => {
     e.preventDefault();
@@ -68,20 +69,24 @@ function StatusDropdown(statusDropdownStats) {
       }
     });
 
+    // Add book to library
     const addBook = async () => {
       return await axios.post(`/api/private/books/${isbn}`, data, config);
     }
 
+    // Update book's status
     const updateStatus = async () => {
       setCurrentStatus(clickedStatus);
       setRemoveBookStatus(true);
       return await axios.put(`/api/private/books/${isbn}`, {status: clickedStatus}, config);
     }
 
+    // Add bookshelf to book (ISBN)
     const addBookshelf = async (bookshelfToAdd) => {
       return await axios.post(`/api/private/bookshelves/${bookshelfToAdd}/${isbn}`, {}, config);
     }
 
+    // Delete bookshelf from book (ISBN)
     const deleteBookshelf = async (bookshelfToDelete) => {
       return await axios.delete(`/api/private/bookshelves/${bookshelfToDelete}/${isbn}`, config);
     }
@@ -89,6 +94,7 @@ function StatusDropdown(statusDropdownStats) {
     if(clickedStatus !== currentStatus) {
       if(clickedStatus === "Remove Book") {
         if(window.confirm("Are you sure you want to remove this book from your library? All your journal entries and review will be deleted.")) {
+          // Delete book from library
           await axios.delete(`/api/private/books/${isbn}`, config)
           .then((res) => {
             setRemoveBookStatus(false);

@@ -1,5 +1,6 @@
 import React from "react";
 
+//Components
 const homeLibraryImg = require("../assets/images/home-library.jpg");
 const redRisingImg = require("../assets/images/red-rising.jpg");
 

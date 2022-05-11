@@ -11,6 +11,7 @@ function SetReadingChallenges(setReadingChallengesProps) {
 
   const [booksToRead, setBooksToRead] = useState("1");
   const [pagesToRead, setPagesToRead] = useState("1");
+
   const year = new Date().getFullYear();
 
   const setBookGoalProps = {year, booksToRead, setBooksToRead};
@@ -24,6 +25,7 @@ function SetReadingChallenges(setReadingChallengesProps) {
       pageGoal: pagesToRead
     }
 
+    // Add challenge for the year
     await axios.post(`/api/private/challenges/${year}`, data, config)
     .then((res) => {
       setSuccess(res.data.message);
@@ -44,7 +46,7 @@ function SetReadingChallenges(setReadingChallengesProps) {
   return (
     <div className="SetReadingChallenges text-center">
       <h4>Set Up Your {year} Reading Challenges</h4>
-      <div className="SetReadingChallengesContent shadow-sm border row mb-5 py-3 px-3">
+      <div className="SetReadingChallengesContent shadow-sm border row mb-5 p-3">
         <SetBookGoal {...setBookGoalProps}/>
         <SetPagesGoal {...setPagesGoalProps}/>
 

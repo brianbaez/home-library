@@ -5,12 +5,14 @@ import axios from "axios";
 import WantToReadBooks from "./WantToReadBooks";
 
 function WantToRead({config}) {
+  const [wantToRead, setWantToRead] = useState();
+
   const [wantToReadLoading, setWantToReadLoading] = useState(true);
 
-  const [wantToRead, setWantToRead] = useState();
   const [error, setError] = useState();
 
   useEffect(() => {
+    // Get books in the want-to-read bookshelf
     const fetchWantToRead = async () => {
       await axios.get(`/api/private/bookshelves/books/want-to-read`, config)
       .then((res) => {

@@ -15,6 +15,7 @@ function BookProgress(bookProgressProps) {
   const [note, setNote] = useState();
 
   useEffect(() => {
+    // Get progress for the book
     if(journal.length !== 0) {
       setProgressPages(journal[journal.length - 1].pagesReadTotal);
       setProgressPercentage(Math.round((journal[journal.length - 1].pagesReadTotal / pages) * 100));
@@ -37,10 +38,12 @@ function BookProgress(bookProgressProps) {
       "note": note
     }
 
+    // Add journal entry for the book (ISBN)
     const addEntry = async () => {
       return await axios.post(`/api/private/journal/${isbn}`, data, config);
     }
 
+    // Update pages completed for the year
     const updateChallenge = async () => {
       return await axios.put(`/api/private/challenges/${date.getFullYear()}`, {pagesCompleted: pagesRead}, config);
     }

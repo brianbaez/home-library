@@ -3,7 +3,6 @@ import {Link} from "react-router-dom";
 
 // Components
 import BookCover from "../home/BookCover";
-
 import Bookshelves from "./Bookshelves";
 import StatusDropdown from "./StatusDropdown";
 import Progress from "./Progress";
@@ -21,6 +20,7 @@ function BookCard(bookCardProps) {
   const bookshelvesProps = {config, isbn, removeBookStatus, setDeletedBookshelf};
 
   useEffect(() => {
+    // Get ISBN of the book
     if(book) {
       const getISBN13 = () => {
         book.isbn.map((item) => {
@@ -40,6 +40,7 @@ function BookCard(bookCardProps) {
 
       getISBN13();
 
+      // If book did not have an ISBN13
       if(isbn === undefined) {
         getISBN10();
       }

@@ -16,6 +16,7 @@ function EntryFields(entryFieldsProps) {
   const pagesReadSessionProps = {minTotalPages, maxPages: book.pages, pagesReadSession, setPagesReadSession};
   const pagesReadTotalProps = {minTotalPages, maxTotalPages: book.pages, pagesReadTotal, setPagesReadTotal};
   const noteProps = {note, setNote};
+  
   const saveButtonProps = {success, error};
 
   return (

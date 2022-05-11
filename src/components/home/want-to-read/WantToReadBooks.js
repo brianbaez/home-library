@@ -5,6 +5,7 @@ import BookCover from "../BookCover";
 import ViewAllButton from "../ViewAllButton";
 
 function WantToReadBooks({wantToRead}) {
+  // Get ISBN for the book
   const getISBN = (isbnArray) => {
     var isbn;
 

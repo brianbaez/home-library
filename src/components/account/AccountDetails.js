@@ -22,6 +22,7 @@ function AccountDetails(accountDetailsProps) {
   const updateAccountDetailsHandler = async (e) => {
     e.preventDefault();
 
+    // Update user email
     const updateEmail = async () => {
       if(newEmail !== email) {
         setEmail(newEmail);
@@ -29,6 +30,7 @@ function AccountDetails(accountDetailsProps) {
       }
     }
 
+    // Update username
     const updateUsername = async () => {
       if(newUsername !== username) {
         setUsername(newUsername);
@@ -36,6 +38,7 @@ function AccountDetails(accountDetailsProps) {
       }
     }
 
+    // Execute promises
     await Promise.all([updateEmail(), updateUsername()])
     .then((res) => {
       res.map((result) => {
@@ -69,6 +72,7 @@ function AccountDetails(accountDetailsProps) {
         {success && <span className="ms-3">{success}</span>}
         {error && <span className="ms-3">{error}</span>}
       </div>
+
     </form>
   );
 }

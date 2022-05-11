@@ -11,17 +11,19 @@ function Bookshelves(bookshelvesProps) {
   // Props
   const {config, setBooksLoading, setBooks, deletedBook, setDeletedBook, setError, deletedBookshelf} = bookshelvesProps;
 
-  const [bookshelvesLoading, setBookshelvesLoading] = useState(true);
-
   const {bookshelfParam} = useParams();
+
   const [bookshelf, setBookshelf] = useState(bookshelfParam || "");
   const [customBookshelves, setCustomBookshelves] = useState([]);
+
+  const [bookshelvesLoading, setBookshelvesLoading] = useState(true);
 
   const customBookshelvesProps = {config, setBooksLoading, setBookshelf, deletedBookshelf, customBookshelves, setCustomBookshelves};
 
   useEffect(() => {
     const fetchResults = async () => {
       if(bookshelf === "") {
+        // Get all books
         await axios.get(`/api/private/books`, config)
         .then((res) => {
           setBooks(res.data.data[0].books);
@@ -37,6 +39,7 @@ function Bookshelves(bookshelvesProps) {
         });
       }
       else {
+        // Get books in the bookshelf
         await axios.get(`/api/private/bookshelves/books/${bookshelf}`, config)
         .then((res) => {
           setBooks(res.data.data[0].books);

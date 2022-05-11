@@ -14,6 +14,7 @@ function BookGoal(bookGoalProps) {
   const [progressPercentage, setProgressPercentage] = useState("0");
 
   useEffect(() => {
+    // Get book goal's progress and determine how on schedule the user is
     const getBooksProgress = () => {
       const booksPerMonth = bookGoal / 12;
       const currentMonth = new Date().getMonth();
@@ -45,6 +46,7 @@ function BookGoal(bookGoalProps) {
       }
     }
 
+    // Get user's progress for the book goal
     const getProgressPercentage = () => {
       if(booksCompleted <= bookGoal) {
         setProgressPercentage(Math.round(booksCompleted / bookGoal * 100));

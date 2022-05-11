@@ -8,11 +8,10 @@ function BookshelvesDropdown(bookshelvesDropdownProps) {
   // Props
   const {customBookshelves, setBookshelf, setBooksLoading} = bookshelvesDropdownProps;
 
-  const {currentBookshelf, setCurrentBookshelf} = useState();
-
+  let navigate = useNavigate();
   let {bookshelfParam} = useParams();
 
-  let navigate = useNavigate();
+  const {currentBookshelf, setCurrentBookshelf} = useState();
 
   const clickHandler = (e) => {
     e.preventDefault();

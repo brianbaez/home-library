@@ -14,26 +14,30 @@ function BookCard(bookCardProps) {
   const bookProgressProps = {config, isbn, pages: book.pages, journal: book.journal, success, setSuccess, error, setError};
 
   useEffect(() => {
-    const getISBN13 = () => {
-      book.isbn.map((item) => {
-        if(item.type === "ISBN_13") {
-          setISBN(item.identifier);
-        }
-      });
-    };
+    // Get ISBN of the book
+    if(book) {
+      const getISBN13 = () => {
+        book.isbn.map((item) => {
+          if(item.type === "ISBN_13") {
+            setISBN(item.identifier);
+          }
+        });
+      };
 
-    const getISBN10 = () => {
-      book.isbn.map((item) => {
-        if(item.type === "ISBN_10") {
-          setISBN(item.identifier);
-        }
-      });
-    };
+      const getISBN10 = () => {
+        book.isbn.map((item) => {
+          if(item.type === "ISBN_10") {
+            setISBN(item.identifier);
+          }
+        });
+      };
 
-    getISBN13();
+      getISBN13();
 
-    if(isbn === undefined) {
-      getISBN10();
+      // If book did not have an ISBN13
+      if(isbn === undefined) {
+        getISBN10();
+      }
     }
   }, [book]);
 

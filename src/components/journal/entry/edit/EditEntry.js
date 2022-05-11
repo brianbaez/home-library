@@ -36,13 +36,15 @@ function EditEntry(editEntryProps) {
 
   useEffect(() => {
     if(pagesReadSession && pagesReadTotal) {
-      const max = Number(entry.pagesReadTotal-entry.pagesReadSession) + Number(pagesReadSession);
+      // Determine what the max number of pages allowed for the reading session
+      const max = Number(entry.pagesReadTotal - entry.pagesReadSession) + Number(pagesReadSession);
       setMaxTotalPages(max);
     }
   }, [pagesReadSession, pagesReadTotal]);
 
   const editEntryHandler = async (e) => {
     e.preventDefault();
+
     const data = {
       month: month,
       day: day,
@@ -52,10 +54,12 @@ function EditEntry(editEntryProps) {
       note: note
     };
 
+    // Update journal entry for the book
     const editEntry = async () => {
       return await axios.put(`/api/private/journal/${isbn}/${entryID}`, data, config);
     }
 
+    // Update pages completed for the year
     const updateChallenge = async () => {
       const updatedPagesCompleted = Number(pagesReadSession) - Number(entry.pagesReadSession);
       return await axios.put(`/api/private/challenges/${year}`, {pagesCompleted: updatedPagesCompleted}, config);
@@ -83,10 +87,12 @@ function EditEntry(editEntryProps) {
     e.preventDefault();
 
     if(window.confirm("Are you sure you want to delete this journal entry?")) {
+      // Delete journal entry for the book
       const deleteEntry = async () => {
         return await axios.delete(`/api/private/journal/${isbn}/${entryID}`, config);
       }
 
+      // Update pages completed for the book
       const updateChallenge = async () => {
         return await axios.put(`/api/private/challenges/${year}`, {pagesCompleted: -(entry.pagesReadSession)}, config);
       }

@@ -14,10 +14,12 @@ function Progress(progressProps) {
   const [currentPage, setCurrentPage] = useState();
   const [note, setNote] = useState();
   const [pagesRead, setPagesRead] = useState();
+
   const [success, setSuccess] = useState();
   const [error, setError] = useState();
 
   useEffect(() => {
+    // Get book by ISBN and get its reading progress
     const fetchBook = async () => {
       if(isbn) {
         await axios.get(`/api/private/books/${isbn}`, config)
@@ -56,10 +58,12 @@ function Progress(progressProps) {
       "note": note
     }
 
+    // Add journal entry for the book (ISBN)
     const addEntry = async () => {
       return await axios.post(`/api/private/journal/${isbn}`, data, config);
     }
 
+    // Update pages completed for the year
     const updateChallenge = async () => {
       return await axios.put(`/api/private/challenges/${data.year}`, {pagesCompleted: pagesRead}, config);
     }
@@ -90,7 +94,7 @@ function Progress(progressProps) {
     <div className="Progress">
       {(currentStatus === "Currently Reading") &&
         <div>
-          <hr className="mt-3 mb-3"></hr>
+          <hr className="my-3"></hr>
           <h4>Progress</h4>
           <div className="ProgressBar d-flex flex-column flex-lg-row align-items-center justify-content-center justify-content-lg-start">
             <div class="progress w-25 me-2">

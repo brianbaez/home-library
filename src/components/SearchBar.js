@@ -6,6 +6,7 @@ function SearchBar() {
   let navigate = useNavigate();
 
   const [query, setQuery] = useState();
+  
   const [error, setError] = useState();
 
   const searchHandler = async (e) => {

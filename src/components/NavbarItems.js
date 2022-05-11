@@ -9,11 +9,6 @@ export const navItems = [
     name: "My Books",
     path: "/my-books"
   },
-  // {
-  //   id: "3",
-  //   name: "Stats",
-  //   path: "/my-stats"
-  // },
   {
     id: "4",
     name: "Reading Challenges",

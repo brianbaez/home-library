@@ -7,11 +7,12 @@ import SignInPage from "../pages/SignInPage";
 import SignUpPage from "../pages/SignUpPage";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage";
+
 import HomePage from "../pages/HomePage";
 import MyBooksPage from "../pages/MyBooksPage";
-import BookPage from "../pages/BookPage";
 import ReadingChallengesPage from "../pages/ReadingChallengesPage";
 import BrowsePage from "../pages/BrowsePage";
+import BookPage from "../pages/BookPage";
 import JournalPage from "../pages/JournalPage";
 import EntryPage from "../pages/EntryPage";
 import ManageAccountPage from "../pages/ManageAccountPage";
@@ -39,6 +40,7 @@ function App() {
           <Route exact path="/signup" element={<SignUpPage config={config}/>} />
           <Route exact path="/forgotpassword" element={<ForgotPasswordPage config={config}/>} />
           <Route exact path="/resetpassword/:resetToken" element={<ResetPasswordPage config={config}/>} />
+          <Route exact path="*" element={<NotFound />} />
 
           <Route element={<PrivateRoute />}>
             <Route exact path="/home" element={<HomePage />} />
@@ -51,7 +53,6 @@ function App() {
             <Route exact path="/journal/:isbn/edit/:entryID" element={<EntryPage />} />
             <Route exact path="/journal/:isbn/add" element={<EntryPage />} />
             <Route exact path="/account" element={<ManageAccountPage />} />
-            <Route exact path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </div>

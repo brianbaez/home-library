@@ -1,7 +1,7 @@
 import React from "react";
 
+// Components
 import Icon from "./Icon";
-
 import {featureItems} from "./FeatureItems";
 
 function Features() {

@@ -1,8 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
+// Components
 import Button from "./Button";
-
 const harryPotterBooks = require("../assets/images/harry-potter-books.jpg");
 
 function Hero() {

@@ -16,6 +16,7 @@ function EditPagesGoal(props) {
   const editPagesGoalHandler = async (e) => {
     e.preventDefault();
 
+    // Edit pages goal for the year
     await axios.put(`/api/private/challenges/${year}`, {pageGoal: pagesToRead}, config)
     .then((res) => {
       setSuccess(res.data.message);

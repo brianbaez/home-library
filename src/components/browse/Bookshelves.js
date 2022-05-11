@@ -10,10 +10,12 @@ function Bookshelves(bookshelvesProps) {
 
   const [bookshelves, setBookshelves] = useState();
   const [bookshelfToAdd, setBookshelfToAdd] = useState();
+
   const [success, setSuccess] = useState();
   const [error, setError] = useState();
 
   useEffect(() => {
+    // Get all bookshelves for the book (ISBN)
     const fetchBookshelves = async () => {
       if(isbn) {
         await axios.get(`/api/private/bookshelves/book/${isbn}`, config)
@@ -36,6 +38,7 @@ function Bookshelves(bookshelvesProps) {
   const addBookshelfHandler = async (e) => {
     e.preventDefault();
 
+    // Add bookshelf to book (ISBN)
     await axios.post(`/api/private/bookshelves/${bookshelfToAdd}/${isbn}`, {}, config)
     .then((res) => {
       setBookshelfToAdd("");
@@ -46,6 +49,7 @@ function Bookshelves(bookshelvesProps) {
   }
 
   const deleteBookshelfHandler = async (bookshelfToDelete) => {
+    // Delete bookshelf from the book (ISBN)
     await axios.delete(`/api/private/bookshelves/${bookshelfToDelete}/${isbn}`, config)
     .then((res) => {
       setDeletedBookshelf(true);
@@ -57,7 +61,7 @@ function Bookshelves(bookshelvesProps) {
     <div className="Bookshelves">
       {removeBookStatus &&
         <div>
-          <hr className="mt-3 mb-3"></hr>
+          <hr className="my-3"></hr>
           <h4>Bookshelves</h4>
           <div className="BookshelvesList d-flex row row-cols-2 row-cols-lg-auto">
             {bookshelves && bookshelves.map((item, index) => {

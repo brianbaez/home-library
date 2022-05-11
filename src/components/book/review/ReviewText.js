@@ -6,7 +6,7 @@ function ReviewText(reviewTextProps) {
 
   return (
     <div className="ReviewText mt-3">
-      <p>What did you think about this book?</p>
+      <p>What did you think of this book?</p>
       <textarea className="form-control" id="review" placeholder="Write a review (optional)" value={reviewText} onChange={(e) => setReviewText(e.target.value)}></textarea>
     </div>
   );
