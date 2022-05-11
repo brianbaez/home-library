@@ -39,6 +39,12 @@ a:hover {
   color: var(--clr-dark);
 }
 
+.NotFound {
+  background-color: var(--clr-primary);
+  color: var(--clr-accent);
+  height: 100vh;
+}
+
 .btn {
   background-color: var(--clr-button);
   color: var(--clr-accent);
@@ -86,10 +92,6 @@ nav a {
   color: var(--clr-accent) !important;
 }
 
-.dropdown-menu a {
-  color: var(--clr-dark) !important;
-}
-
 .sign-in-form, .sign-up-form, .forgot-password-form, .reset-password-form {
   color: var(--clr-dark);
   background-color: var(--clr-accent);
@@ -101,6 +103,10 @@ nav a {
 
 .home-content, .mybooks-content {
   color: var(--clr-dark);
+}
+
+.dropdown-menu a {
+  color: var(--clr-dark) !important;
 }
 
 .status-item:active {
@@ -120,21 +126,15 @@ nav a {
   background-color: var(--clr-dark);
 }
 
-.dropdown-item.active {
+.profile-dropdown-item.active {
   background-color: var(--clr-accent) !important;
 }
 
-.dropdown-item:hover {
+.profile-dropdown-item:hover {
   background-color: var(--clr-accent) !important;
 }
 
-.dropdown-item:active {
+.profile-dropdown-item:active {
   background-color: var(--clr-button) !important;
   color: var(--clr-accent) !important;
-}
-
-.NotFound {
-  background-color: var(--clr-primary);
-  color: var(--clr-accent);
-  height: 100vh;
 }
