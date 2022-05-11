@@ -31,7 +31,7 @@ function BookResult(bookProps) {
     // Get book result by ISBN
     if(isbn) {
       const fetchResults = async () => {
-        await axios.get(`/api/browse?search=${isbn}`)
+        await axios.get(`/api/private/browse?search=${isbn}`, config)
         .then((res) => {
           setResults(res.data.results);
         })

@@ -17,7 +17,7 @@ function Results(browseProps) {
   useEffect(() => {
     // Get results by query
     const fetchResults = async () => {
-      await axios.get(`/api/browse?search=${query}`)
+      await axios.get(`/api/private/browse?search=${query}`, config) 
       .then((res) => {
         setResults(res.data.results);
         setResultsLoading(false);

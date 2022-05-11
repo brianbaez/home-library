@@ -1,5 +1,5 @@
 const axios = require("axios");
-const ErrorResponse = require("../utils/ErrorResponse");
+const ErrorResponse = require("../../utils/ErrorResponse");
 
 const getSelfLinks = async (search, next) => {
   const selfLinks = [];
