@@ -15,7 +15,7 @@ function CurrentlyReadingBooks(currentlyReadingBooksProps) {
       {currentlyReading.map((book, index) => {
         if(index < 2) {
           return (
-            <BookCard book={book} {...bookCardProps}/>
+            <BookCard key={index} book={book} {...bookCardProps}/>
           );
         }
       })}

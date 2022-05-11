@@ -128,7 +128,7 @@ function StatusDropdown(statusDropdownStats) {
         {statusItems.map((item, index) => {
           if(currentStatus !== item.name) {
             return (
-              <form onSubmit={updateStatusHandler}>
+              <form key={index} onSubmit={updateStatusHandler}>
                 <button type="submit" className="status-item dropdown-item" href="#" onClick={() => setClickedStatus(item.name)}>{item.name}</button>
               </form>
             );

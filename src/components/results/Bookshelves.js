@@ -8,8 +8,8 @@ function Bookshelves(bookshelvesProps) {
   // Props
   const {config, isbn, removeBookStatus, setDeletedBookshelf} = bookshelvesProps;
 
-  const [bookshelves, setBookshelves] = useState();
-  const [bookshelfToAdd, setBookshelfToAdd] = useState();
+  const [bookshelves, setBookshelves] = useState([]);
+  const [bookshelfToAdd, setBookshelfToAdd] = useState("");
 
   const [success, setSuccess] = useState();
   const [error, setError] = useState();

@@ -58,7 +58,7 @@ function Review(reviewProps) {
 
         {review &&
           <div className="ReviewInfo">
-            <p className="mb-3">You rated this book {review.rating.wholeNumber}.{review.rating.decimalNumber} <i class="fa-solid fa-star" style={{color: "#FFD500"}}></i></p>
+            <p className="mb-3">You rated this book {review.rating.wholeNumber}.{review.rating.decimalNumber} <i className="fa-solid fa-star" style={{color: "#FFD500"}}></i></p>
             {review.text &&
               <div>
                 <p className="mb-1">Here's what you had to say about it:</p>

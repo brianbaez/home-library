@@ -13,9 +13,9 @@ function ReadingChallengeCards(readingChallengeCardsProps) {
     <div className="ReadingChallengeCards">
       {challenges &&
         <div>
-          {challenges.map((challenge) => {
+          {challenges.map((challenge, index) => {
             return (
-              <div className={`${challenge.year}Challenge text-center`}>
+              <div key={index} className={`${challenge.year}Challenge text-center`}>
                 <h4>{challenge.year} Reading Challenges</h4>
                 <ChallengeCard challengeCardProps={challengeCardProps} challenge={challenge} />
               </div>

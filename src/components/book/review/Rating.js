@@ -38,9 +38,9 @@ function Rating(ratingProps) {
       <div className="d-flex justify-content-center justify-content-lg-start">
         <select className="WholeNumber form-select text-center w-auto" value={wholeNumber} onChange={(e) => setWholeNumber(e.target.value)}>
           <option hidden selected>{wholeNumber}</option>
-          {whole && whole.map((item) => {
+          {whole && whole.map((item, index) => {
             return (
-              <option value={item}>{item}</option>
+              <option key={index} value={item}>{item}</option>
             );
           })}
         </select>
@@ -49,9 +49,9 @@ function Rating(ratingProps) {
 
         <select className="DecimalNumber form-select text-center w-auto" value={decimalNumber} onChange={(e) => setDecimalNumber(e.target.value)}>
           <option hidden selected>{decimalNumber}</option>
-          {decimals && decimals.map((item) => {
+          {decimals && decimals.map((item, index) => {
             return (
-              <option value={item}>{item}</option>
+              <option key={index} value={item}>{item}</option>
             );
           })}
         </select>

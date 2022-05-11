@@ -44,7 +44,7 @@ function WantToReadBooks({wantToRead}) {
         {wantToRead.map((book, index) => {
           if(index < 8) {
             return (
-              <div className="mb-3">
+              <div key={index} className="mb-3">
                 <BookCover book={book} isbn={getISBN(book.isbn)}/>
               </div>
             );

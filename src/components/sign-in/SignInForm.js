@@ -59,9 +59,7 @@ function SignInForm(signInProps) {
         <button className="w-100 btn btn-lg" type="submit">Sign In</button>
 
         <div className="text-center mt-3">
-          <Link to="/signup">
-            <a>Don't have an account yet? Sign up</a>
-          </Link>
+          <Link to="/signup">Don't have an account yet? Sign up</Link>
         </div>
       </form>
     </div>

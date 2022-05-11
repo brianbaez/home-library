@@ -12,13 +12,13 @@ function AddEntry(addEntryProps) {
 
   const navigate = useNavigate();
 
-  const [month, setMonth] = useState();
-  const [day, setDay] = useState();
-  const [year, setYear] = useState();
-  const [pagesReadSession, setPagesReadSession] = useState();
-  const [pagesReadTotal, setPagesReadTotal] = useState();
-  const [minTotalPages, setMinTotalPages] = useState();
-  const [note, setNote] = useState();
+  const [month, setMonth] = useState("");
+  const [day, setDay] = useState("");
+  const [year, setYear] = useState("");
+  const [pagesReadSession, setPagesReadSession] = useState("");
+  const [pagesReadTotal, setPagesReadTotal] = useState("");
+  const [minTotalPages, setMinTotalPages] = useState("");
+  const [note, setNote] = useState("");
 
   const [success, setSuccess] = useState();
   const [error, setError] = useState();

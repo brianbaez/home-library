@@ -8,8 +8,8 @@ import Username from "./Username";
 function AccountDetails(accountDetailsProps) {
   const {config, email, setEmail, username, setUsername} = accountDetailsProps;
 
-  const [newEmail, setNewEmail] = useState();
-  const [newUsername, setNewUsername] = useState();
+  const [newEmail, setNewEmail] = useState("");
+  const [newUsername, setNewUsername] = useState("");
 
   const [success, setSuccess] = useState();
   const [error, setError] = useState();

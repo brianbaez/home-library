@@ -12,13 +12,13 @@ function EditEntry(editEntryProps) {
 
   const navigate = useNavigate();
 
-  const [month, setMonth] = useState();
-  const [day, setDay] = useState();
-  const [year, setYear] = useState();
-  const [pagesReadSession, setPagesReadSession] = useState();
-  const [pagesReadTotal, setPagesReadTotal] = useState();
-  const [maxTotalPages, setMaxTotalPages] = useState();
-  const [note, setNote] = useState();
+  const [month, setMonth] = useState("");
+  const [day, setDay] = useState("");
+  const [year, setYear] = useState("");
+  const [pagesReadSession, setPagesReadSession] = useState("");
+  const [pagesReadTotal, setPagesReadTotal] = useState("");
+  const [maxTotalPages, setMaxTotalPages] = useState("");
+  const [note, setNote] = useState("");
 
   const [success, setSuccess] = useState();
   const [error, setError] = useState();

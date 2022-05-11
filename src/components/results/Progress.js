@@ -11,9 +11,9 @@ function Progress(progressProps) {
   const [progress, setProgress] = useState(false);
   const [progressPages, setProgressPages] = useState("0");
   const [progressPercentage, setProgressPercentage] = useState("0");
-  const [currentPage, setCurrentPage] = useState();
-  const [note, setNote] = useState();
-  const [pagesRead, setPagesRead] = useState();
+  const [currentPage, setCurrentPage] = useState("");
+  const [note, setNote] = useState("");
+  const [pagesRead, setPagesRead] = useState("");
 
   const [success, setSuccess] = useState();
   const [error, setError] = useState();
@@ -97,8 +97,8 @@ function Progress(progressProps) {
           <hr className="my-3"></hr>
           <h4>Progress</h4>
           <div className="ProgressBar d-flex flex-column flex-lg-row align-items-center justify-content-center justify-content-lg-start">
-            <div class="progress w-25 me-2">
-              <div class="progress-bar" role="progressbar" style={{width: `${progressPercentage}%`}} aria-valuenow={progressPercentage} aria-valuemin="0" aria-valuemax="100"></div>
+            <div className="progress w-25 me-2">
+              <div className="progress-bar" role="progressbar" style={{width: `${progressPercentage}%`}} aria-valuenow={progressPercentage} aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div className="mt-1 mt-lg-0">
               <span>{progressPages}</span>

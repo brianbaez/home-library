@@ -5,8 +5,8 @@ import axios from "axios";
 import SaveButton from "../SaveButton";
 
 function Password({config}) {
-  const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const [success, setSuccess] = useState();
   const [error, setError] = useState();

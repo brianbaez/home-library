@@ -10,9 +10,9 @@ function BookProgress(bookProgressProps) {
 
   const [progressPages, setProgressPages] = useState("0");
   const [progressPercentage, setProgressPercentage] = useState("0");
-  const [currentPage, setCurrentPage] = useState();
-  const [pagesRead, setPagesRead] = useState();
-  const [note, setNote] = useState();
+  const [currentPage, setCurrentPage] = useState("");
+  const [pagesRead, setPagesRead] = useState("");
+  const [note, setNote] = useState("");
 
   useEffect(() => {
     // Get progress for the book
@@ -73,8 +73,8 @@ function BookProgress(bookProgressProps) {
   return (
     <div className="BookProgress">
       <div className="ProgressBar d-flex align-items-center">
-        <div class="progress w-25 me-2">
-          <div class="progress-bar" role="progressbar" style={{width: `${progressPercentage}%`}} aria-valuenow={progressPercentage} aria-valuemin="0" aria-valuemax="100"></div>
+        <div className="progress w-25 me-2">
+          <div className="progress-bar" role="progressbar" style={{width: `${progressPercentage}%`}} aria-valuenow={progressPercentage} aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         <div>
           <span>{progressPages}</span>

@@ -11,7 +11,7 @@ function Month(monthProps) {
       <option disabled selected>{monthNames[month - 1]}</option>
       {monthNames.map((month, index) => {
         return (
-          <option value={index + 1}>{month}</option>
+          <option key={index + 1} value={index + 1}>{month}</option>
         );
       })}
     </select>

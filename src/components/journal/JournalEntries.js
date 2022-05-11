@@ -13,9 +13,9 @@ function JournalEntries(journalEntriesProps) {
   return (
     <div className="JournalEntries mt-3">
       {error && <span>{error}</span>}
-      {journal && journal.map((entry) => {
+      {journal && journal.map((entry, index) => {
         return (
-          <EntryCard  entry={entry} {...entryCardProps}/>
+          <EntryCard key={index} entry={entry} {...entryCardProps}/>
         );
       })}
       <AddEntryButton isbn={isbn}/>

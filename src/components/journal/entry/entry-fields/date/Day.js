@@ -41,7 +41,7 @@ function Day(dayProps) {
       <option disabled selected>{day}</option>
       {Array.from(Array(daysPerMonth), (e, index) => {
         return (
-          <option value={index + 1}>{index + 1}</option>
+          <option key={index + 1} value={index + 1}>{index + 1}</option>
         );
       })}
     </select>
