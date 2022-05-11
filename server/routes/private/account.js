@@ -3,7 +3,7 @@ const router = express.Router();
 const {protect} = require("../../middleware/auth");
 const {getUserData, updateEmail, updateUsername, updatePassword, deleteAccount} = require("../../controllers/private/account");
 
-// Get user's email and username
+// Get user's id, email, and username
 router.route("/account").get(protect, getUserData);
 
 // Update user email
