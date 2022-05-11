@@ -14,6 +14,7 @@ exports.getChallenge = async (req, res, next) => {
     var challenges;
 
     if(!year) {
+      // Get all challenges
       challenges = await User.aggregate([
         {$match: {"_id": userData._id}},
         {$unwind: "$challenges"},
@@ -103,13 +104,12 @@ exports.editChallenge = async (req, res, next) => {
       return next(new ErrorResponse("Failed to edit challenge", 401));
     }
 
-    // Check if the given year exists in the challenges array
     if((await checkChallenge(userData._id, parseInt(year))).length === 0) {
       return next(new ErrorResponse("There is no challenge for this year", 404));
     }
 
-    // Update book goal
     if(bookGoal) {
+      // Update book goal
       await User.updateOne(
         {$and: [
           {"_id": userData._id},
@@ -119,8 +119,8 @@ exports.editChallenge = async (req, res, next) => {
       );
     }
 
-    // Update page goal
     if(pageGoal) {
+      // Update page goal
       await User.updateOne(
         {$and: [
           {"_id": userData._id},
@@ -132,8 +132,8 @@ exports.editChallenge = async (req, res, next) => {
       );
     }
 
-    // Update books completed
     if(booksCompleted) {
+      // Update books completed
       await User.updateOne(
         {$and: [
           {"_id": userData._id},
@@ -145,8 +145,8 @@ exports.editChallenge = async (req, res, next) => {
       );
     }
 
-    // Update pages completed
     if(pagesCompleted) {
+      // Update pages completed
       await User.updateOne(
         {$and: [
           {"_id": userData._id},

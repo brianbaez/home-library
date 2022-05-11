@@ -44,7 +44,6 @@ exports.getBookshelf = async (req, res, next) => {
   }
 }
 
-// Get all bookshelves for a book
 exports.getBookshelvesOfISBN = async (req, res, next) => {
   const userData = req.user;
   const {isbn} = req.params;
@@ -89,7 +88,6 @@ exports.getBookshelvesOfISBN = async (req, res, next) => {
   }
 }
 
-// Get all unique bookshelf names
 exports.getBookshelves = async (req, res, next) => {
   const userData = req.user;
 
@@ -98,6 +96,7 @@ exports.getBookshelves = async (req, res, next) => {
       return next(new ErrorResponse("Failed to get bookshelves", 401));
     }
 
+    // Get all unique bookshelf names
     const bookshelves = await User.aggregate([
       {$match: {"_id": userData._id}},
       {$unwind: "$library.books"},

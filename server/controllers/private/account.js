@@ -38,6 +38,7 @@ exports.updateEmail = async (req, res, next) => {
       return next(new ErrorResponse("Please provide a different email"));
     }
 
+    // Update user email
     await User.updateOne(
       {"_id": userData._id},
       {$set: {"email": newEmail}}
@@ -66,6 +67,7 @@ exports.updateUsername = async (req, res, next) => {
       return next(new ErrorResponse("Please provide a different username"));
     }
 
+    // Update username
     await User.updateOne(
       {"_id": userData._id},
       {$set: {"username": newUsername}}
@@ -92,8 +94,8 @@ exports.updatePassword = async (req, res, next) => {
       return next(new ErrorResponse("Failed to update password", 401));
     }
 
+    // Update password
     user.password = newPassword;
-
     await user.save();
 
     res.status(200).json({
@@ -114,6 +116,7 @@ exports.deleteAccount = async (req, res, next) => {
       return next(new ErrorResponse("Failed to delete account", 401));
     }
 
+    // Delete user account
     await User.findOneAndRemove(
       {"_id": userData._id}
     );

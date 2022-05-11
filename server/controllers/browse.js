@@ -33,6 +33,7 @@ const getBookResults = async (selfLinks, next) => {
   const results = [];
   let promises = selfLinks.map((url) => axios.get(url));
 
+  // Get all book results
   await Promise.allSettled(promises)
   .then((res) => {
     res.forEach((result) => {

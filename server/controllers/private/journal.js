@@ -20,6 +20,7 @@ exports.getJournalEntry = async (req, res, next) => {
       return next(new ErrorResponse("This book is not in your library", 404));
     }
 
+    // Get journal entries
     const journal = await getJournal(userData._id, isbn);
 
     res.status(200).json({

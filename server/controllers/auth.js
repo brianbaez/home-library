@@ -27,7 +27,7 @@ exports.signIn = async (req, res, next) => {
     if(!user) {
       return next(new ErrorResponse("Incorrect username or password", 401));
     }
-
+    
     const isMatch = await user.matchPasswords(password);
 
     if(!isMatch) {
