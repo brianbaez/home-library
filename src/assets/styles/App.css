@@ -119,3 +119,16 @@ nav a {
 .progress-bar {
   background-color: var(--clr-dark);
 }
+
+.dropdown-item.active {
+  background-color: var(--clr-accent) !important;
+}
+
+.dropdown-item:hover {
+  background-color: var(--clr-accent) !important;
+}
+
+.dropdown-item:active {
+  background-color: var(--clr-button) !important;
+  color: var(--clr-accent) !important;
+}
