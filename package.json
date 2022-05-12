@@ -2,7 +2,6 @@
   "homepage": "https://brianbaez.github.io/home-library/",
   "name": "home-library",
   "version": "0.1.0",
-  "proxy": "http://127.0.0.1:5000",
   "private": true,
   "dependencies": {
     "@sendgrid/mail": "^7.6.2",
