@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import {Link} from "react-router-dom";
 
 // Components
 import BookProgress from "./BookProgress";
@@ -47,7 +48,9 @@ function BookCard(bookCardProps) {
         <BookCover {...bookCoverProps}/>
       </div>
       <div className="Info flex-fill">
-        <h4 className="mb-0">{book.title}</h4>
+        <Link to={`/book/${isbn}`}>
+          <h4 className="mb-0">{book.title}</h4>
+        </Link>
         <p className="">by&nbsp;
           {book?.authors?.length > 1 ? book?.authors?.map((item, index) => {
             return (<span key={index}>{(index > 0 ? ", " : "") + item}</span>);
