@@ -1,6 +1,6 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../axios";
 
 function DeleteAccount({config}) {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ function DeleteAccount({config}) {
 
     if(window.confirm("Are you sure you want to delete your account? This action is irreversible.")) {
       // Delete account
-      await axios.delete(`/api/private/account/delete`, config)
+      await axiosInstance.delete(`/api/private/account/delete`, config)
       .then((res) => {
         localStorage.removeItem("authToken");
         navigate("/");

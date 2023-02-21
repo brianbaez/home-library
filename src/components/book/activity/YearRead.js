@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
+import axiosInstance from "../../../axios";
 
 function YearRead(yearReadProps) {
   // Props
@@ -25,17 +25,17 @@ function YearRead(yearReadProps) {
     else {
       // Update year read
       const updateYear = async () => {
-        return await axios.put(`/api/private/books/${isbn}`, {yearRead: updatedYearRead}, config)
+        return await axiosInstance.put(`/api/private/books/${isbn}`, {yearRead: updatedYearRead}, config)
       }
 
       // Decrement books completed for the year
       const decrementChallenge = async () => {
-        return await axios.put(`/api/private/challenges/${yearRead}`, {booksCompleted: -1}, config)
+        return await axiosInstance.put(`/api/private/challenges/${yearRead}`, {booksCompleted: -1}, config)
       }
 
       // Increment books completed for the year
       const incrementChallenge = async () => {
-        return await axios.put(`/api/private/challenges/${updatedYearRead}`, {booksCompleted: 1}, config)
+        return await axiosInstance.put(`/api/private/challenges/${updatedYearRead}`, {booksCompleted: 1}, config)
       }
 
       await updateYear()
@@ -63,7 +63,7 @@ function YearRead(yearReadProps) {
     e.preventDefault();
     if(window.confirm("Are you sure you want to delete the year this book was read?")) {
       // Delete year read
-      await axios.put(`/api/private/books/${isbn}`, {yearRead: -1}, config)
+      await axiosInstance.put(`/api/private/books/${isbn}`, {yearRead: -1}, config)
       .then((res) => {
         setYearRead();
         setSuccess("Year read has been deleted");

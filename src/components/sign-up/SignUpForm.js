@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../axios";
 
 function SignUpForm(signUpProps) {
   // Props
@@ -27,7 +27,7 @@ function SignUpForm(signUpProps) {
     }
 
     try {
-      const {data} = await axios.post("/api/auth/signup", {username, email, password}, config);
+      const {data} = await axiosInstance.post("/api/auth/signup", {username, email, password}, config);
 
       localStorage.setItem("authToken", data.token);
 

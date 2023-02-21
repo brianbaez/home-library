@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
+import axiosInstance from "../../axios";
 
 // Components
 import SaveButton from "../SaveButton";
@@ -23,7 +23,7 @@ function Password({config}) {
     }
     else {
       // Update password
-      await axios.put(`/api/private/account/edit/password`, {newPassword: password}, config)
+      await axiosInstance.put(`/api/private/account/edit/password`, {newPassword: password}, config)
       .then((res) => {
         setSuccess(res.data.message);
 
@@ -34,7 +34,7 @@ function Password({config}) {
         }, 5000);
       })
       .catch((error) => {
-        setError(error.resposne.data.error);
+        setError(error.response.data.error);
       });
     }
   }

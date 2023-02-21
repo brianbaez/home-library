@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
+import axiosInstance from "../../../axios";
 
 // Components
 import AddReview from "./AddReview";
@@ -23,7 +23,7 @@ function Review(reviewProps) {
     // Get review by ISBN
     if(isbn) {
       const fetchReview = async () => {
-        await axios.get(`/api/private/reviews/${isbn}`, config)
+        await axiosInstance.get(`/api/private/reviews/${isbn}`, config)
         .then((res) => {
           if(res.data.review[0].review[0].length != 0) {
             setReview(res.data.review[0].review[0]);

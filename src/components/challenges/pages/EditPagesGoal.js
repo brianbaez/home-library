@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
+import axiosInstance from "../../../axios";
 
 function EditPagesGoal(props) {
   // Props
@@ -17,7 +17,7 @@ function EditPagesGoal(props) {
     e.preventDefault();
 
     // Edit pages goal for the year
-    await axios.put(`/api/private/challenges/${year}`, {pageGoal: pagesToRead}, config)
+    await axiosInstance.put(`/api/private/challenges/${year}`, {pageGoal: pagesToRead}, config)
     .then((res) => {
       setSuccess(res.data.message);
 

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
+import axiosInstance from "../../axios";
 
 // Components
 import SaveButton from "../SaveButton";
@@ -18,7 +18,7 @@ function Bookshelves(bookshelvesProps) {
     // Get all bookshelves for the book (ISBN)
     const fetchBookshelves = async () => {
       if(isbn) {
-        await axios.get(`/api/private/bookshelves/book/${isbn}`, config)
+        await axiosInstance.get(`/api/private/bookshelves/book/${isbn}`, config)
         .then((res) => {
           setBookshelves(res.data.data[0].bookshelves);
           setSuccess(true);
@@ -39,7 +39,7 @@ function Bookshelves(bookshelvesProps) {
     e.preventDefault();
 
     // Add bookshelf to book (ISBN)
-    await axios.post(`/api/private/bookshelves/${bookshelfToAdd}/${isbn}`, {}, config)
+    await axiosInstance.post(`/api/private/bookshelves/${bookshelfToAdd}/${isbn}`, {}, config)
     .then((res) => {
       setBookshelfToAdd("");
     })
@@ -50,7 +50,7 @@ function Bookshelves(bookshelvesProps) {
 
   const deleteBookshelfHandler = async (bookshelfToDelete) => {
     // Delete bookshelf from the book (ISBN)
-    await axios.delete(`/api/private/bookshelves/${bookshelfToDelete}/${isbn}`, config)
+    await axiosInstance.delete(`/api/private/bookshelves/${bookshelfToDelete}/${isbn}`, config)
     .then((res) => {
       setDeletedBookshelf(true);
     })

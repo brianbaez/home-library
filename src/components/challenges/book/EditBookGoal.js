@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
+import axiosInstance from "../../../axios";
 
 function EditBookGoal(props) {
   // Props
@@ -17,7 +17,7 @@ function EditBookGoal(props) {
     e.preventDefault();
 
     // Edit book goal for the year
-    await axios.put(`api/private/challenges/${year}`, {bookGoal: booksToRead}, config)
+    await axiosInstance.put(`api/private/challenges/${year}`, {bookGoal: booksToRead}, config)
     .then((res) => {
       setSuccess(res.data.message);
 

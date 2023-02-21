@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
+import axiosInstance from "../../axios";
 
 // Components
 import AccountDetails from "./AccountDetails";
@@ -17,7 +17,7 @@ function ManageAccount({config}) {
 
   useEffect(() => {
     const getUserData = async () => {
-      await axios.get(`/api/private/account`, config)
+      await axiosInstance.get(`/api/private/account`, config)
       .then((res) => {
         setID(res.data.data.id);
         setEmail(res.data.data.email);

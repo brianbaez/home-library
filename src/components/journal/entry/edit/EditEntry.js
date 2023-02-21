@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../../../axios";
 
 // Components
 import Book from "../../Book";
@@ -56,13 +56,13 @@ function EditEntry(editEntryProps) {
 
     // Update journal entry for the book
     const editEntry = async () => {
-      return await axios.put(`/api/private/journal/${isbn}/${entryID}`, data, config);
+      return await axiosInstance.put(`/api/private/journal/${isbn}/${entryID}`, data, config);
     }
 
     // Update pages completed for the year
     const updateChallenge = async () => {
       const updatedPagesCompleted = Number(pagesReadSession) - Number(entry.pagesReadSession);
-      return await axios.put(`/api/private/challenges/${year}`, {pagesCompleted: updatedPagesCompleted}, config);
+      return await axiosInstance.put(`/api/private/challenges/${year}`, {pagesCompleted: updatedPagesCompleted}, config);
     }
 
     await editEntry()
@@ -89,12 +89,12 @@ function EditEntry(editEntryProps) {
     if(window.confirm("Are you sure you want to delete this journal entry?")) {
       // Delete journal entry for the book
       const deleteEntry = async () => {
-        return await axios.delete(`/api/private/journal/${isbn}/${entryID}`, config);
+        return await axiosInstance.delete(`/api/private/journal/${isbn}/${entryID}`, config);
       }
 
       // Update pages completed for the book
       const updateChallenge = async () => {
-        return await axios.put(`/api/private/challenges/${year}`, {pagesCompleted: -(entry.pagesReadSession)}, config);
+        return await axiosInstance.put(`/api/private/challenges/${year}`, {pagesCompleted: -(entry.pagesReadSession)}, config);
       }
 
       await deleteEntry()

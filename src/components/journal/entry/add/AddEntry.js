@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../../../axios";
 
 // Components
 import Book from "../../Book";
@@ -63,12 +63,12 @@ function AddEntry(addEntryProps) {
 
     // Add journal entry for the book (ISBN)
     const addEntry = async () => {
-      return await axios.post(`/api/private/journal/${isbn}`, data, config);
+      return await axiosInstance.post(`/api/private/journal/${isbn}`, data, config);
     }
 
     // Update pages completed for the year
     const updateChallenge = async () => {
-      return await axios.put(`/api/private/challenges/${year}`, {pagesCompleted: pagesReadSession}, config);
+      return await axiosInstance.put(`/api/private/challenges/${year}`, {pagesCompleted: pagesReadSession}, config);
     }
 
     await addEntry()

@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import axiosInstance from "../../../axios";
 
 function DeleteReview(deleteReviewProps) {
   // Props
@@ -11,12 +11,12 @@ function DeleteReview(deleteReviewProps) {
     if(window.confirm("Are you sure you want to delete this review?")) {
       // Delete review for the book (ISBN)
       const deleteReview = async () => {
-        return await axios.delete(`/api/private/reviews/${isbn}`, config);
+        return await axiosInstance.delete(`/api/private/reviews/${isbn}`, config);
       }
 
       // Delete bookshelf for the book (ISBN)
       const deleteBookshelf = async () => {
-        return await axios.delete(`/api/private/bookshelves/reviewed/${isbn}`, config);
+        return await axiosInstance.delete(`/api/private/bookshelves/reviewed/${isbn}`, config);
       }
 
       // Execute promises

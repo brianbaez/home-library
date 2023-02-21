@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
+import axiosInstance from "../../axios";
 import parse from "html-react-parser";
 
 // Components
@@ -31,7 +31,7 @@ function BookResult(bookProps) {
     // Get book result by ISBN
     if(isbn) {
       const fetchResults = async () => {
-        await axios.get(`/api/private/browse?search=${isbn}`, config)
+        await axiosInstance.get(`/api/private/browse?search=${isbn}`, config)
         .then((res) => {
           setResults(res.data.results);
         })

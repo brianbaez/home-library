@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
+import axiosInstance from "../../axios";
 
 // Components
 import SetReadingChallenges from "./SetReadingChallenges";
@@ -20,7 +20,7 @@ function ReadingChallenges({config}) {
   useEffect(() => {
     // Get all reading challenges for the user
     const getChallenges = async () => {
-      await axios.get(`/api/private/challenges`, config)
+      await axiosInstance.get(`/api/private/challenges`, config)
       .then((res) => {
         const data = res.data.data;
 

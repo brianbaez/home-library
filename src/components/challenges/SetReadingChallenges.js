@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import axios from "axios";
+import axiosInstance from "../../axios";
 
 // Components
 import SetBookGoal from "./book/SetBookGoal";
@@ -26,7 +26,7 @@ function SetReadingChallenges(setReadingChallengesProps) {
     }
 
     // Add challenge for the year
-    await axios.post(`/api/private/challenges/${year}`, data, config)
+    await axiosInstance.post(`/api/private/challenges/${year}`, data, config)
     .then((res) => {
       setSuccess(res.data.message);
 

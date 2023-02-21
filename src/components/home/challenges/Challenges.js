@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../../axios";
 
 // Components
 import BookChallenge from "./book-challenge/BookChallenge";
@@ -22,7 +22,7 @@ function Challenges({config}) {
     const fetchChallenges = async () => {
       const year = new Date().getFullYear();
 
-      await axios.get(`/api/private/challenges/${year}`, config)
+      await axiosInstance.get(`/api/private/challenges/${year}`, config)
       .then((res) => {
         setChallenges(res.data.data[0].challenges);
         setChallengesLoading(false);

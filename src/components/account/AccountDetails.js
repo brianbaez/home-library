@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
+import axiosInstance from "../../axios";
 
 // Components
 import Email from "./Email";
@@ -26,7 +26,7 @@ function AccountDetails(accountDetailsProps) {
     const updateEmail = async () => {
       if(newEmail !== email) {
         setEmail(newEmail);
-        return await axios.put(`/api/private/account/edit/email`, {newEmail: newEmail}, config);
+        return await axiosInstance.put(`/api/private/account/edit/email`, {newEmail: newEmail}, config);
       }
     }
 
@@ -34,7 +34,7 @@ function AccountDetails(accountDetailsProps) {
     const updateUsername = async () => {
       if(newUsername !== username) {
         setUsername(newUsername);
-        return await axios.put(`/api/private/account/edit/username`, {newUsername: newUsername}, config);
+        return await axiosInstance.put(`/api/private/account/edit/username`, {newUsername: newUsername}, config);
       }
     }
 

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
+import axiosInstance from "../../../axios";
 
 // Components
 import Rating from "./Rating";
@@ -25,7 +25,7 @@ function EditReview(editReviewProps) {
     }
 
     // Update review for the book (ISBN)
-    await axios.put(`/api/private/reviews/${isbn}`, data, config)
+    await axiosInstance.put(`/api/private/reviews/${isbn}`, data, config)
     .then((res) => {
       setSuccess(res.data.message);
 

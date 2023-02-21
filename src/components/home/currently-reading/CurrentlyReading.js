@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
+import axiosInstance from "../../../axios";
 
 // Components
 import CurrentlyReadingBooks from "./CurrentlyReadingBooks";
@@ -19,7 +19,7 @@ function CurrentlyReading({config}) {
   useEffect(() => {
     // Get books in the currently-reading bookshelf
     const fetchCurrentlyReading = async () => {
-      await axios.get(`/api/private/bookshelves/books/currently-reading`, config)
+      await axiosInstance.get(`/api/private/bookshelves/books/currently-reading`, config)
       .then((res) => {
         setCurrentlyReading(res.data.data[0].books);
         setCurrentlyReadingLoading(false);

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import axios from "axios";
+import axiosInstance from "../../axios";
 
 function ResetPasswordForm(resetPasswordProps) {
   // Props
@@ -25,7 +25,7 @@ function ResetPasswordForm(resetPasswordProps) {
     }
 
     try {
-      const {data} = await axios.put(`/api/auth/resetpassword/${resetToken}`, {password}, config);
+      const {data} = await axiosInstance.put(`/api/auth/resetpassword/${resetToken}`, {password}, config);
 
       setSuccess(data.data);
 

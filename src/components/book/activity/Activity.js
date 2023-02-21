@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../../axios";
 
 // Components
 import YearRead from "./YearRead";
@@ -20,7 +20,7 @@ function Activity(activityProps) {
     // Get book by ISBN and get its year read
     const fetchBook = async () => {
       if(isbn) {
-        await axios.get(`/api/private/books/${isbn}`, config)
+        await axiosInstance.get(`/api/private/books/${isbn}`, config)
         .then((res) => {
           const yearRead = res.data.data[0].books[0].yearRead;
           if(yearRead !== undefined && yearRead != -1) {

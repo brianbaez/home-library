@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../axios";
 
 function ForgotPasswordForm({config}) {
   const [email, setEmail] = useState("");
@@ -11,7 +11,7 @@ function ForgotPasswordForm({config}) {
     e.preventDefault();
 
     try {
-      const {data} = await axios.post("/api/auth/forgotpassword", {email}, config);
+      const {data} = await axiosInstance.post("/api/auth/forgotpassword", {email}, config);
       setSuccess(data.data);
     }
     catch(error) {

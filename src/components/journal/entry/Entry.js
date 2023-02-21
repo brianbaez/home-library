@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
+import axiosInstance from "../../../axios";
 
 // Components
 import AddEntry from "./add/AddEntry";
@@ -20,7 +20,7 @@ function Entry(entryProps) {
   useEffect(() => {
     if(isbn) {
       const fetchBook = async () => {
-        await axios.get(`/api/private/books/${isbn}`, config)
+        await axiosInstance.get(`/api/private/books/${isbn}`, config)
         .then((res) => {
           setBook(res.data.data[0].books[0]);
         })

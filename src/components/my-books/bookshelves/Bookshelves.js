@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../../axios";
 
 // Components
 import DefaultBookshelves from "./DefaultBookshelves";
@@ -24,7 +24,7 @@ function Bookshelves(bookshelvesProps) {
     const fetchResults = async () => {
       if(bookshelf === "") {
         // Get all books
-        await axios.get(`/api/private/books`, config)
+        await axiosInstance.get(`/api/private/books`, config)
         .then((res) => {
           if(res.data.data.length !== 0) {
             setBooks(res.data.data[0].books);
@@ -45,7 +45,7 @@ function Bookshelves(bookshelvesProps) {
       }
       else {
         // Get books in the bookshelf
-        await axios.get(`/api/private/bookshelves/books/${bookshelf}`, config)
+        await axiosInstance.get(`/api/private/bookshelves/books/${bookshelf}`, config)
         .then((res) => {
           setBooks(res.data.data[0].books);
           setDeletedBook(false);

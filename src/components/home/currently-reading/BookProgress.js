@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
+import axiosInstance from "../../../axios";
 
 // Components
 import SaveButton from "../../SaveButton";
@@ -40,12 +40,12 @@ function BookProgress(bookProgressProps) {
 
     // Add journal entry for the book (ISBN)
     const addEntry = async () => {
-      return await axios.post(`/api/private/journal/${isbn}`, data, config);
+      return await axiosInstance.post(`/api/private/journal/${isbn}`, data, config);
     }
 
     // Update pages completed for the year
     const updateChallenge = async () => {
-      return await axios.put(`/api/private/challenges/${date.getFullYear()}`, {pagesCompleted: pagesRead}, config);
+      return await axiosInstance.put(`/api/private/challenges/${date.getFullYear()}`, {pagesCompleted: pagesRead}, config);
     }
 
     await addEntry()

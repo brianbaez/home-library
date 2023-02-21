@@ -1,5 +1,4 @@
 import React from "react";
-import useAuth from "../components/hooks/useAuth";
 
 function NotFound() {
   return (

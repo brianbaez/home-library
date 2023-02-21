@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../axios";
 
 function SignInForm(signInProps) {
   // Props
@@ -14,7 +14,7 @@ function SignInForm(signInProps) {
     e.preventDefault();
 
     try {
-      const {data} = await axios.post("/api/auth/signin", {email, password}, config);
+      const {data} = await axiosInstance.post("/api/auth/signin", {email, password}, config);
 
       localStorage.setItem("authToken", data.token);
 

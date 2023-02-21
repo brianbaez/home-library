@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
+import axiosInstance from "../../axios";
 
 function StatusDropdown(statusDropdownStats) {
   // Props
@@ -30,7 +30,7 @@ function StatusDropdown(statusDropdownStats) {
     // Get book by ISBN and get its status
     const fetchBook = async () => {
       if(isbn) {
-        await axios.get(`/api/private/books/${isbn}`, config)
+        await axiosInstance.get(`/api/private/books/${isbn}`, config)
         .then((res) => {
           setCurrentStatus(res.data.data[0].books[0].status);
           setRemoveBookStatus(true);
@@ -71,31 +71,31 @@ function StatusDropdown(statusDropdownStats) {
 
     // Add book to library
     const addBook = async () => {
-      return await axios.post(`/api/private/books/${isbn}`, data, config);
+      return await axiosInstance.post(`/api/private/books/${isbn}`, data, config);
     }
 
     // Update book's status
     const updateStatus = async () => {
       setCurrentStatus(clickedStatus);
       setRemoveBookStatus(true);
-      return await axios.put(`/api/private/books/${isbn}`, {status: clickedStatus}, config);
+      return await axiosInstance.put(`/api/private/books/${isbn}`, {status: clickedStatus}, config);
     }
 
     // Add bookshelf to book (ISBN)
     const addBookshelf = async (bookshelfToAdd) => {
-      return await axios.post(`/api/private/bookshelves/${bookshelfToAdd}/${isbn}`, {}, config);
+      return await axiosInstance.post(`/api/private/bookshelves/${bookshelfToAdd}/${isbn}`, {}, config);
     }
 
     // Delete bookshelf from book (ISBN)
     const deleteBookshelf = async (bookshelfToDelete) => {
-      return await axios.delete(`/api/private/bookshelves/${bookshelfToDelete}/${isbn}`, config);
+      return await axiosInstance.delete(`/api/private/bookshelves/${bookshelfToDelete}/${isbn}`, config);
     }
 
     if(clickedStatus !== currentStatus) {
       if(clickedStatus === "Remove Book") {
         if(window.confirm("Are you sure you want to remove this book from your library? All your journal entries and review will be deleted.")) {
           // Delete book from library
-          await axios.delete(`/api/private/books/${isbn}`, config)
+          await axiosInstance.delete(`/api/private/books/${isbn}`, config)
           .then((res) => {
             setRemoveBookStatus(false);
             setCurrentStatus("Want to Read");

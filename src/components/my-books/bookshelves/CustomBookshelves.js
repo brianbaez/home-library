@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../../axios";
 
 // Components
 import {defaultBookshelvesItems} from "./DefaultBookshelvesItems";
@@ -15,7 +15,7 @@ function CustomBookshelves(customBookshelvesProps) {
 
   useEffect(() => {
     const fetchCustomBookshelves = async () => {
-      await axios.get(`/api/private/bookshelves`, config)
+      await axiosInstance.get(`/api/private/bookshelves`, config)
       .then((res) => {
         const shelvesData = res.data.data[0]?.shelves;
 

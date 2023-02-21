@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../axios";
 
 // Components
 import Book from "./Book";
@@ -23,7 +23,7 @@ function Journal(journalProps) {
   useEffect(() => {
     if(isbn) {
       const fetchBook = async () => {
-        await axios.get(`/api/private/books/${isbn}`, config)
+        await axiosInstance.get(`/api/private/books/${isbn}`, config)
         .then((res) => {
           setBook(res.data.data[0].books[0]);
         })
@@ -39,7 +39,7 @@ function Journal(journalProps) {
   useEffect(() => {
     // Get journal for the book
     const fetchJournal = async () => {
-      await axios.get(`/api/private/journal/${isbn}`, config)
+      await axiosInstance.get(`/api/private/journal/${isbn}`, config)
       .then((res) => {
         if(res.data.journal.length !== 0) {
           setJournal(res.data.journal[0].entries);

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import axios from "axios";
+import axiosInstance from "../../../axios";
 
 // Components
 import Rating from "./Rating.js"
@@ -27,12 +27,12 @@ function AddReview(addReviewProps) {
 
     // Add review for the book (ISBN)
     const addReview = async () => {
-      return await axios.post(`/api/private/reviews/${isbn}`, data, config);
+      return await axiosInstance.post(`/api/private/reviews/${isbn}`, data, config);
     }
 
     // Add bookshelf for the book (ISBN)
     const addBookshelf = async () => {
-      return await axios.post(`/api/private/bookshelves/reviewed/${isbn}`, {}, config);
+      return await axiosInstance.post(`/api/private/bookshelves/reviewed/${isbn}`, {}, config);
     }
 
     // Execute promises

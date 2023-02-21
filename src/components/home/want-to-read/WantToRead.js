@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
+import axiosInstance from "../../../axios";
 
 // Components
 import WantToReadBooks from "./WantToReadBooks";
@@ -14,7 +14,7 @@ function WantToRead({config}) {
   useEffect(() => {
     // Get books in the want-to-read bookshelf
     const fetchWantToRead = async () => {
-      await axios.get(`/api/private/bookshelves/books/want-to-read`, config)
+      await axiosInstance.get(`/api/private/bookshelves/books/want-to-read`, config)
       .then((res) => {
         setWantToRead(res.data.data[0].books);
         setWantToReadLoading(false);

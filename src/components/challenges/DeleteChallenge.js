@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import axiosInstance from "../../axios";
 
 function DeleteChallenge(deleteChallengeProps) {
   // Props
@@ -10,7 +10,7 @@ function DeleteChallenge(deleteChallengeProps) {
 
     if(window.confirm("Are you sure you want to delete this challenge? All records will be deleted.")) {
       // Delete challenge for the year
-      await axios.delete(`/api/private/challenges/${year}`, config)
+      await axiosInstance.delete(`/api/private/challenges/${year}`, config)
       .then((res) => {
         setSuccess(res.data.message);
 
