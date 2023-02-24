@@ -12,7 +12,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://stunning-gecko-4a513a.netlify.app"
+    origin: "http://stunning-gecko-4a513a.netlify.app"
   })
 )
 
