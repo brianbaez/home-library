@@ -10,7 +10,7 @@ Organize your books with custom tags of your choice.
 
 You will also be able to set up reading goals for the year.
 
-HomeLibrary can be viewed [here](https://yourhomelibrary.herokuapp.com/home).
+HomeLibrary can be viewed [here](https://stunning-gecko-4a513a.netlify.app/).
 
 ## Project Details
 HomeLibrary was built using React and Bootstrap for the front-end, and MongoDB, ExpressJS, and NodeJS for the back-end.
