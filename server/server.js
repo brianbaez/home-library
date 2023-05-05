@@ -12,9 +12,12 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3000"
+    origin: "https://stunning-gecko-4a513a.netlify.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    optionsSuccessStatus: 200
   })
-)
+);
 
 app.use(express.json());
 
