@@ -12,7 +12,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://fluffy-strudel-b186b0.netlify.app",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     optionsSuccessStatus: 200
@@ -51,7 +51,7 @@ app.get("*", function (request, response) {
   response.sendFile(path.resolve(__dirname, "../build", "index.html"));
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 const server = app.listen(PORT, () => {
   console.log("Server is running on port " + PORT + "...");
